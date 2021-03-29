@@ -9,17 +9,23 @@
         <h1 class="title"> Profile Settings </h1>
 
         <div id="profile">
-            <div class="column" id="left-column">
+
+            <div id="left-column">
+
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
+
             </div>
 
-            <div class="column" id="right-column">
+            <div id="right-column">
+
                 <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
                 <info-bar title="Course of Study" content="Business Analytics"></info-bar>
                 <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
+
             </div>
+
         </div>
         </body>
     </div>
@@ -47,7 +53,7 @@ export default {
 <style>
 
 .title {
-    position: absolute;
+    position: relative;
 
     left: 50px;
     top: 20px;
@@ -63,11 +69,11 @@ export default {
 }
 
 #profile {
-    position: absolute;
+    position: relative;
     width: 92%;
-    height: 600px;
+    height: 800px;
     left: 50px;
-    top: 120px;
+    top: 50px;
 
     display: flex;
     flex-direction: row;
@@ -77,27 +83,21 @@ export default {
     border-radius: 23px;
 }
 
-.column {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+#left-column  {
+    float: left;
+    width: 30%;
+    border-color: aqua;
+    border-style: dotted;
+    border-width: 3px;
 }
 
-#left-column {
-    /*
-    background-color: burlywood;
-    flex: 1;
-    */
-    float:
+#right-column  {
+    float: left;
+    width: 69%;
+    border-color: aquamarine;
+    border-style: dotted;
+    border-width: 3px;
 }
-
-#right-column {
-    /*
-    background-color: chocolate;
-    flex: 2.5;
-    */
-    float:70;
-}
-
 
 .nav {
     position: absolute;
@@ -122,9 +122,11 @@ export default {
 }
 
 img {
+    top:50pxå;
     width: 150px;
     height: 150px;
-
+    margin-left: auto;
+    margin-right: auto;
     display: block;
 }
 

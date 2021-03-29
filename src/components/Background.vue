@@ -3,10 +3,10 @@
     <h1 id="app-heading"> NUStainable </h1>
     <nav class="navigation">
         <ul>
-            <li><router-link to="/" exact>Home</router-link> </li>
-            <li><router-link to="/exchange" exact>Items For Exchange</router-link> </li>
-            <li><router-link to="/events" exact>Events</router-link> </li>
-            <li><router-link to="/settings" exact>Settings</router-link> </li>
+            <li><router-link class="router" to="/" exact>Home</router-link> </li>
+            <li><router-link class="router" to="/exchange" exact>Items For Exchange</router-link> </li>
+            <li><router-link class="router" to="/events" exact>Events</router-link> </li>
+            <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
     </nav>
     <router-view class="page-view"></router-view>
@@ -50,7 +50,6 @@ name: "Background"
     top: 100px;
     color: white;
     font-size: 24px;
-    background-color: aqua;
 }
 
 a:link {
@@ -67,5 +66,9 @@ a:link {
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
+}
+.router {
+    color: white;
+    font-size: 20px;
 }
 </style>
