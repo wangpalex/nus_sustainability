@@ -15,7 +15,7 @@
   width: 320px;
   height: 463px;
   left: 64px;
-  top: 301px;
+  top: 350px;
 }
 
 .section {
@@ -31,4 +31,5 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 60px;
 }
+
 </style>
