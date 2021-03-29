@@ -100,11 +100,13 @@ export default {
 }
 
 .nav {
-    position: absolute;
-    width: 320px;
-    height: 463px;
-    left: 64px;
-    top: 301px;
+
+  position: absolute;
+  width: 320px;
+  height: 463px;
+  left: 64px;
+  top: 350px;
+
 }
 
 .section {

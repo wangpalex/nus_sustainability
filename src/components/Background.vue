@@ -47,7 +47,7 @@ name: "Background"
     width: 320px;
     height: 463px;
     left: 20px;
-    top: 100px;
+    top: 120px;
     color: white;
     font-size: 24px;
 }
@@ -63,12 +63,15 @@ a:link {
     left: 250px;
     top: 25px;
 
-    background: #FFFFFF;
+    background: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
 }
+
 .router {
-    color: white;
-    font-size: 20px;
+  color: white;
+  font-size: 20px;
+  font-family: "Anaheim"
+
 }
 </style>
