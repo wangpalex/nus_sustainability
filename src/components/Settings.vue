@@ -23,8 +23,10 @@
                 <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
                 <info-bar title="Course of Study" content="Business Analytics"></info-bar>
                 <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
-
+                <LineChart></LineChart>
             </div>
+
+
 
         </div>
         </body>
@@ -34,6 +36,7 @@
 <script>
 import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
+import LineChart from "@/components/Settings-charts/LineChart";
 //import db from "firebase";
 
 export default {
@@ -50,6 +53,7 @@ export default {
     components: {
         UserStats: UserStats,
         InfoBar: InfoBar,
+        LineChart: LineChart,
     }
 
 }
