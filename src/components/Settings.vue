@@ -23,8 +23,10 @@
                 <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
                 <info-bar title="Course of Study" content="Business Analytics"></info-bar>
                 <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
-
+                <LineChart></LineChart>
             </div>
+
+
 
         </div>
         </body>
@@ -32,8 +34,10 @@
 </template>
 
 <script>
-import UserStats from "@/components/Settings-components/UserStats.vue"
+import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
+import LineChart from "@/components/Settings-charts/LineChart";
+//import db from "firebase";
 
 export default {
     data() {
@@ -42,9 +46,14 @@ export default {
         }
     },
 
+    methods: {
+
+    },
+
     components: {
         UserStats: UserStats,
         InfoBar: InfoBar,
+        LineChart: LineChart,
     }
 
 }
@@ -65,15 +74,14 @@ export default {
     line-height: 58px;
 
     color: #42427D;
-    background-color: aqua;
 }
 
 #profile {
     position: relative;
     width: 92%;
-    height: 800px;
+    height: 850px;
     left: 50px;
-    top: 50px;
+    top: 20px;
 
     display: flex;
     flex-direction: row;
