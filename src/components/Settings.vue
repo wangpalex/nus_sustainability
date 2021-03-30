@@ -32,14 +32,19 @@
 </template>
 
 <script>
-import UserStats from "@/components/Settings-components/UserStats.vue"
+import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
+//import db from "firebase";
 
 export default {
     data() {
         return {
 
         }
+    },
+
+    methods: {
+
     },
 
     components: {
@@ -65,15 +70,14 @@ export default {
     line-height: 58px;
 
     color: #42427D;
-    background-color: aqua;
 }
 
 #profile {
     position: relative;
     width: 92%;
-    height: 800px;
+    height: 850px;
     left: 50px;
-    top: 50px;
+    top: 20px;
 
     display: flex;
     flex-direction: row;
