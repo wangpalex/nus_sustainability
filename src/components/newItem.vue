@@ -29,7 +29,9 @@ import database from '../firebase.js'
                item:{
                     name:"",
                     description:"",
-                    imageURL:""
+                    imageURL:"",
+                    likeCount: 0,
+                    dislikeCount: 0,
                 }
             }
         },
@@ -49,6 +51,8 @@ import database from '../firebase.js'
                 this.item.name="";
                 this.item.description="";
                 this.item.imageURL= "";
+                this.item.likeCount=0;
+                this.item.dislikeCount=0;
             }
         }
      }  // missing closure added
