@@ -2,7 +2,8 @@ import Home from './components/Home.vue'
 import Exchange from './components/Exchange.vue'
 import Events from './components/Events.vue'
 import Settings from './components/Settings.vue'
-import Login from "@/components/Login";
+import Login from './components/Login.vue'
+
 import newItem from './components/newItem.vue'
 import DetailsPage from './components/DetailsPage.vue'
 

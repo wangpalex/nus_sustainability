@@ -9,7 +9,6 @@
         <h1 class="title"> Profile Settings </h1>
 
         <div id="profile">
-
             <div id="left-column">
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
