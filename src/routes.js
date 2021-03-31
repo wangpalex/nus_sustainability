@@ -5,11 +5,13 @@ import Settings from './components/Settings.vue'
 import Login from './components/Login.vue'
 import newItem from './components/newItem.vue'
 import DetailsPage from './components/DetailsPage.vue'
+import EventDetails from './components/EventDetails.vue'
 
 export default[
     {path: '/', component: Home},
     {path: '/exchange', component: Exchange},
     {path: '/events', component: Events},
+    {path: '/eventDetails', component: EventDetails, name : 'eventDetails', props:true},
     {path: '/settings', component: Settings},
     {path: '/settings/login', component: Login},
     {path: '/newItem', name: 'newItem', component: newItem},
