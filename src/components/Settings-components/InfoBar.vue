@@ -39,7 +39,7 @@ p{
     position: relative;
     width: 650px;
     height: 36px;
-    top:-36px;
+    top:-15px;
     left:10px;
 
     background: #FFFFFF;
@@ -49,7 +49,7 @@ p{
 
 .content {
     position:absolute;
-    top: -26px;
+    top: 0px;
     font-family: Anaheim;
     font-style: normal;
     font-weight: normal;
