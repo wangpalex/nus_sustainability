@@ -11,22 +11,18 @@
         <div id="profile">
 
             <div id="left-column">
-
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-
+                <button type="button"> Login </button>
             </div>
 
             <div id="right-column">
-
                 <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
                 <info-bar title="Course of Study" content="Business Analytics"></info-bar>
                 <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
                 <LineChart></LineChart>
             </div>
-
-
 
         </div>
         </body>
@@ -47,7 +43,9 @@ export default {
     },
 
     methods: {
-
+        pushToLogin() {
+          this.$router.push({path:""})
+        },
     },
 
     components: {
@@ -92,16 +90,31 @@ export default {
 }
 
 #left-column  {
+    position: relative;
+    top:30px;
     float: left;
     width: 30%;
+    height: 80%;
+
+
     border-color: aqua;
     border-style: dotted;
     border-width: 3px;
 }
 
+#left-column button {
+    position: relative;
+    left: 140px;
+    background-color: deepskyblue;
+}
+
 #right-column  {
+    position: relative;
+    top:30px;
     float: left;
-    width: 69%;
+    width: 50%;
+    height: 90%;
+
     border-color: aquamarine;
     border-style: dotted;
     border-width: 3px;

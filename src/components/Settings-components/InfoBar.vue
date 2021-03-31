@@ -1,7 +1,9 @@
 <template>
     <div>
         <p>{{title}}</p>
-        <p id="content-bar">{{content}}</p>
+        <div class="content-bar">
+            <p class="content">{{content}}</p>
+        </div>
     </div>
 </template>
 
@@ -33,7 +35,7 @@ p{
     color: #000000;
 }
 
-#content-bar {
+.content-bar {
     position: relative;
     width: 650px;
     height: 36px;
@@ -43,6 +45,11 @@ p{
     background: #FFFFFF;
     border-radius: 13px;
 
+}
+
+.content {
+    position:absolute;
+    top: -26px;
     font-family: Anaheim;
     font-style: normal;
     font-weight: normal;
