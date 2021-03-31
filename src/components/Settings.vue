@@ -14,7 +14,7 @@
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-                <button type="button"> Login </button>
+                <button type="button" @click="routeLogin()"> Login </button>
             </div>
 
             <div id="right-column">
@@ -43,8 +43,8 @@ export default {
     },
 
     methods: {
-        pushToLogin() {
-          this.$router.push({path:""})
+        routeLogin() {
+          this.$router.push({path:"settings/login"});
         },
     },
 
