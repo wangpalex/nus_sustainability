@@ -3,26 +3,50 @@
     <h1 class="title"> Login </h1>
     <form id="login-form">
         <label> Email </label><br>
-        <i-input type="email" for="email"
+        <Input type="email" for="email"
                  v-model="emailValue" placeholder="Please enter your email"
-                 clearable style="width: 500px"></i-input><br>
+                 clearable style="width: 500px"></Input><br>
 
         <label> Password </label><br>
-        <i-input type="password" for="password"
-                 v-model="emailValue" placeholder="Please enter your password"
-                 clearable style="width: 500px"></i-input><br>
+        <Input type="password" for="password"
+                 v-model="passwordValue" placeholder="Please enter your password"
+                 clearable style="width: 500px"></Input><br>
 
-        <i-button type="success" long id="login-button"> Login </i-button>
+        <Button type="success" long id="login-button"> Login </Button>
+
     </form>
+    <prog :percent=percent id="progress"></prog>
 </div>
 </template>
 
 <script>
+import LoginProgress from "@/components/Login-components/LoginProgress";
+
 export default {
 name: "Login",
-    components:{
+    data() {
+        return {
+            emailValue:"",
+            passwordValue:"",
+            //percent: 0,
+        }
+    },
 
-    }
+    components:{
+        prog: LoginProgress,
+    },
+
+    computed: {
+        percent() {
+            if(this.emailValue === '' && this.passwordValue === '') {
+                return 0;
+            } else if(this.emailValue === '' || this.passwordValue === '') {
+                return 50;
+            } else {
+                return 100;
+            }
+        },
+    },
 }
 </script>
 
@@ -63,5 +87,11 @@ label {
     position: relative;
     left: 0px;
     width: 500px;
+}
+
+#progress {
+    position: relative;
+    top: 200px;
+    left:50px;
 }
 </style>

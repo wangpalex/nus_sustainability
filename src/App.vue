@@ -9,14 +9,24 @@ import Background from "@/components/Background";
 
 export default {
 
-  data(){
-      return{
-    }
-  },
-  components: {
+    data(){
+        return{
+
+        }
+    },
+
+    components: {
       // eslint-disable-next-line vue/no-unused-components
       bkgrd:Background
-  }
+    },
+
+    mounted() {
+        /*
+        let ionicons_script = document.createElement('script')
+        ionicons_script.setAttribute('src', "https://unpkg.com/ionicons@5.4.0/dist/ionicons.js")
+        document.head.appendChild(ionicons_script)
+        */
+    },
 }
 
 </script>
