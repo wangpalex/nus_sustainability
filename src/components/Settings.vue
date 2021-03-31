@@ -13,7 +13,7 @@
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-                <button type="button" @click="routeLogin()"> Login </button>
+                <Button type="button" @click="routeLogin()"> Login </Button>
             </div>
 
             <div id="right-column">
@@ -105,7 +105,6 @@ export default {
 #left-column button {
     position: relative;
     left: 140px;
-    background-color: deepskyblue;
 }
 
 #right-column  {
