@@ -2,18 +2,27 @@
 <div>
     <h1 class="title"> Login </h1>
     <form id="login-form">
-        <label for="email"> Email </label><br>
-        <input type="email" for="email" id="email"><br>
-        <label for="password"> Password </label><br>
-        <input type="password" for="password" id="password"><br>
-        <botton id="login-button"> Login </botton>
+        <label> Email </label><br>
+        <i-input type="email" for="email"
+                 v-model="emailValue" placeholder="Please enter your email"
+                 clearable style="width: 500px"></i-input><br>
+
+        <label> Password </label><br>
+        <i-input type="password" for="password"
+                 v-model="emailValue" placeholder="Please enter your password"
+                 clearable style="width: 500px"></i-input><br>
+
+        <i-button type="success" long id="login-button"> Login </i-button>
     </form>
 </div>
 </template>
 
 <script>
 export default {
-name: "Login"
+name: "Login",
+    components:{
+
+    }
 }
 </script>
 
@@ -35,11 +44,9 @@ name: "Login"
 
 #login-form {
     position: relative;
+    left:50px;
+    top: 100px;
     width: 1000px;
-
-    border-color: aqua;
-    border-style: dotted;
-    border-width: 3px;
 }
 
 label {
@@ -52,21 +59,9 @@ label {
     color: dimgrey;
 }
 
-input {
-    width: 300px;
-    height: 30px;
-}
-
 #login-button {
     position: relative;
-    width: 3000px;
-    font-family: Anaheim;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 58px;
-
-    background-color: aquamarine;
-    color: dimgrey;
+    left: 0px;
+    width: 500px;
 }
 </style>

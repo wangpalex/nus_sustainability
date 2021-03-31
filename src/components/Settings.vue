@@ -33,6 +33,7 @@
 import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
 import LineChart from "@/components/Settings-charts/LineChart";
+
 //import db from "firebase";
 
 export default {
