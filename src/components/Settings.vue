@@ -13,7 +13,7 @@
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-                <i-button type="button" @click="routeLogin()"> Login </i-button>
+                <Button type="button" @click="routeLogin()"> Login </Button>
             </div>
 
             <div id="right-column">
