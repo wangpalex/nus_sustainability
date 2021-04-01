@@ -12,8 +12,8 @@
                  v-model="passwordValue" placeholder="Please enter your password"
                  clearable style="width: 500px"></Input><br>
 
-        <Button type="success" long id="login-button"> Login </Button>
-
+        <Button v-if="percent===100" type="success" long class="login-button"> Login </Button>
+        <Button v-else type='error' long class="login-button"> Login </Button>
     </form>
     <prog :percent=percent id="progress"></prog>
 </div>
@@ -83,7 +83,7 @@ label {
     color: dimgrey;
 }
 
-#login-button {
+.login-button {
     position: relative;
     left: 0px;
     width: 500px;
