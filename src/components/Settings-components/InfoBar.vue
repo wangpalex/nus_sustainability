@@ -27,7 +27,6 @@ p{
     left:20px;
     top:-15px;
 
-    font-family: Anaheim;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -50,7 +49,7 @@ p{
 .content {
     position:absolute;
     top: 0px;
-    font-family: Anaheim;
+
     font-style: normal;
     font-weight: normal;
     font-size: 24px;

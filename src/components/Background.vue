@@ -59,6 +59,11 @@ name: "Background"
 }
 
 #background {
+    font-family: "Helvetica Neue",Helvetica,
+    "PingFang SC","Hiragino Sans GB",
+    "Microsoft YaHei","微软雅黑",
+    Arial,sans-serif;
+
     position: relative;
     width: 1920px;
     height: 1080px;

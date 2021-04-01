@@ -65,7 +65,6 @@ export default {
     left: 50px;
     top: 20px;
 
-    font-family: Anaheim;
     font-style: normal;
     font-weight: normal;
     font-size: 36px;
