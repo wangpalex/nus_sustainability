@@ -10,11 +10,14 @@
         {{this.event.description}} <br><br>
 
         <button> Attend </button>
+        <p v-on:click="backToEvents">Back to Events</p>
+
         </div>
 </template>
 
 <script>
 import database from '../firebase.js'
+
 export default {
     props: ['event_id'],
     data(){
@@ -34,14 +37,17 @@ export default {
                 this.event = temp
                 console.log(temp)
             })
+        }, 
+        backToEvents: function() {
+            this.$router.push({path: '/events', name: 'events'})
         }
     },
     created(){
         this.fetchItems()
-    }
+    },
 }
 </script>
 
-<style>
+<style> 
 
 </style>
