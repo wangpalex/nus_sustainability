@@ -11,24 +11,32 @@
     </nav>
 
     <Menu :theme="theme3" active-name="1" style="position: relative;top:300px;">
-        <MenuGroup title="内容管理">
+        <MenuGroup title="Menu Section 1">
             <MenuItem name="1">
                 <Icon type="document-text"></Icon>
-                文章管理
+                <router-link class="router" to="/" exact>
+                    Home
+                </router-link>
             </MenuItem>
             <MenuItem name="2">
                 <Icon type="chatbubbles"></Icon>
-                评论管理
+                <router-link class="router" to="/exchange" exact>
+                    Items For Exchange
+                </router-link>
             </MenuItem>
         </MenuGroup>
-        <MenuGroup title="统计分析">
+        <MenuGroup title="Menu Section 2">
             <MenuItem name="3">
                 <Icon type="heart"></Icon>
-                用户留存
+                <router-link class="router" to="/events" exact>
+                    Events
+                </router-link>
             </MenuItem>
             <MenuItem name="4">
                 <Icon type="heart-broken"></Icon>
-                流失用户
+                <router-link class="router" to="/settings" exact>
+                    Settings
+                </router-link>
             </MenuItem>
         </MenuGroup>
     </Menu>
@@ -99,9 +107,6 @@ a:link {
 }
 
 .router {
-  color: white;
-  font-size: 20px;
-  font-family: "Anaheim"
-
+    font-size: 20px;
 }
 </style>
