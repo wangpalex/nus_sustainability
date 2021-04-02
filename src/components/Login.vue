@@ -15,11 +15,14 @@
         <Button v-if="percent===100" type="success"
                 long class="login-button"
                 @click="signin"> Login </Button>
-        <Button v-else type='error' long class="login-button"> Login </Button>
+        <Button v-else type='error'
+                long class="login-button"
+                @click="promptFillIn"> Login </Button>
         <br>
-        <Button v-if="percent===100" type="primary" @click="signup" class="signup-button">
-            Sign up</Button>
-        <Button v-else type="error" class="signup-button"> Sign up</Button>
+        <Button v-if="percent===100" type="primary" class="signup-button"
+                @click="signup"> Sign up </Button>
+        <Button v-else type="error" class="signup-button"
+                @click="promptFillIn"> Sign up</Button>
         <br>
         <Button type="primary" @click="googleSignin"
                 icon="social-google" class="google-signin-button">
@@ -61,39 +64,59 @@ name: "Login",
 
     methods: {
         signup() {
-            /*
+
             let email="e0376916@u.nus.edu"  // this.emailValue
             let password = "0123456789Ab"// this.passwordValue
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Signed in
+                    this.$Message.success("Successfully signed up")
                     var user = userCredential.user;
+                    console.log("Signed up user:")
+                    console.log(user)
                     // ...
-                });
-                /*
+                })
                 .catch((error) => {
+
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    if(errorCode=='auth/email-already-in-use') {
+                        this.$Message.error(errorMessage)
+                    } else {
+                        this.$Message.error("Failed to sign up")
+                    }
+                    console.log("errorCode")
+                    console.log(errorCode)
+                    console.log("errorMessage")
+                    console.log(errorMessage)
                     // ..
                 });
-                */
+
         },
 
         signin() {
-            /*
+
             let email="e0376916@u.nus.edu"  // this.emailValue
             let password = "0123456789Ab"// this.passwordValue
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Signed in
+                    this.$Message.success("Signed in")
                     var user = userCredential.user;
+                    console.log("Signed in user:")
+                    console.log(user)
                     // ...
                 })
                 .catch((error) => {
+                    this.$Message.error("Failed to sign in")
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    console.print("errorCode")
+                    console.log(errorCode)
+                    console.log("errorMessage")
+                    console.log(errorMessage)
                 });
-                */
+
         },
 
         googleSignin() {
@@ -101,9 +124,9 @@ name: "Login",
             firebase.auth().useDeviceLanguage();
             firebase.auth()
                 .signInWithPopup(provider)
-
                 .then((result) => {
                     /** @type {firebase.auth.OAuthCredential} */
+                    this.$Message.success("Signed in")
                     var credential = result.credential;
 
                     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -130,6 +153,14 @@ name: "Login",
                     var credential = error.credential;
                     // ...
                 }); */
+        },
+
+        //validateEmail(email) {
+
+        //},
+
+        promptFillIn() {
+          this.$Message.error("Please fill in account infomation!")
         },
 
         testAuth() {
