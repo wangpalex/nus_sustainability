@@ -14,6 +14,7 @@
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
                 <Button type="primary" @click="routeLogin()"> Login </Button>
+                <!--Button type="primary" @click="routeSignup()"> Sign up </Button-->
             </div>
 
             <div id="right-column">
