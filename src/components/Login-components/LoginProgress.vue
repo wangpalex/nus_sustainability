@@ -1,9 +1,10 @@
 <template>
 <div>
-    <i-circle :percent="percent" :stroke-color="color">
+    <Circle :percent="percent" :stroke-color="color">
         <Icon v-if="percent == 100" type="checkmark" size="60" style="color:#5cb85c"></Icon>
         <span v-else style="font-size:24px">{{ percent }}%</span>
-    </i-circle>
+        <Icon type="ios-checkmark-empty" style="position: relative"></Icon>
+    </Circle>
 </div>
 </template>
 
