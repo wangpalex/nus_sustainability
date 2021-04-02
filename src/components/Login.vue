@@ -12,8 +12,18 @@
                  v-model="passwordValue" placeholder="Please enter your password"
                  clearable style="width: 500px"></Input><br>
 
-        <Button v-if="percent===100" type="success" long class="login-button"> Login </Button>
+        <Button v-if="percent===100" type="success"
+                long class="login-button"
+                @click="signin"> Login </Button>
         <Button v-else type='error' long class="login-button"> Login </Button>
+        <br>
+        <Button v-if="percent===100" type="primary" @click="signup" class="signup-button">
+            Sign up</Button>
+        <Button v-else type="error" class="signup-button"> Sign up</Button>
+        <br>
+        <Button type="primary" @click="googleSignin"
+                icon="social-google" class="google-signin-button">
+            Sign in with Google </Button>
     </form>
     <prog :percent=percent id="progress"></prog>
 </div>
@@ -21,6 +31,7 @@
 
 <script>
 import LoginProgress from "@/components/Login-components/LoginProgress";
+import firebase from 'firebase';
 
 export default {
 name: "Login",
@@ -47,6 +58,85 @@ name: "Login",
             }
         },
     },
+
+    methods: {
+        signup() {
+            /*
+            let email="e0376916@u.nus.edu"  // this.emailValue
+            let password = "0123456789Ab"// this.passwordValue
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+                    // ...
+                });
+                /*
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ..
+                });
+                */
+        },
+
+        signin() {
+            /*
+            let email="e0376916@u.nus.edu"  // this.emailValue
+            let password = "0123456789Ab"// this.passwordValue
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+                    // ...
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
+                */
+        },
+
+        googleSignin() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().useDeviceLanguage();
+            firebase.auth()
+                .signInWithPopup(provider)
+
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    var credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+
+                    console.log("credential")
+                    console.log(credential)
+                    console.log("token")
+                    console.log(token)
+                    console.log("user")
+                    console.log(user)
+                    this.testAuth()
+                })
+                /*
+                .catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                }); */
+        },
+
+        testAuth() {
+            console.log("Testing Auth")
+            console.log(firebase.auth().currentUser)
+        }
+    }
 }
 </script>
 
@@ -85,6 +175,20 @@ label {
 
 .login-button {
     position: relative;
+    left: 0px;
+    width: 500px;
+}
+
+.google-signin-button {
+    position: relative;
+    margin-top: 15px;
+    left: 0px;
+    width: 500px;
+}
+
+.signup-button {
+    position: relative;
+    margin-top: 15px;
     left: 0px;
     width: 500px;
 }
