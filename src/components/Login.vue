@@ -19,25 +19,24 @@
                 long class="login-button"
                 @click="promptFillIn"> Login </Button>
         <br>
-        <Button v-if="percent===100" type="primary" class="signup-button"
-                @click="signup"> Sign up </Button>
-        <Button v-else type="error" class="signup-button"
-                @click="promptFillIn"> Sign up</Button>
+        <Button type="info" class="signup-button"
+                @click="routeSignup"> Sign up </Button>
         <br>
         <Button type="primary" @click="googleSignin"
                 icon="social-google" class="google-signin-button">
             Sign in with Google </Button>
+        <br>
+        <Button type="warning" class="signout-button"
+                @click="signOut"> Sign out </Button>
     </form>
-    <prog :percent=percent id="progress"></prog>
 </div>
 </template>
 
 <script>
-import LoginProgress from "@/components/Login-components/LoginProgress";
 import firebase from 'firebase';
 
 export default {
-name: "Login",
+    name: "Login",
     data() {
         return {
             emailValue:"",
@@ -47,7 +46,7 @@ name: "Login",
     },
 
     components:{
-        prog: LoginProgress,
+
     },
 
     computed: {
@@ -63,60 +62,43 @@ name: "Login",
     },
 
     methods: {
-        signup() {
-
-            let email="e0376916@u.nus.edu"  // this.emailValue
-            let password = "0123456789Ab"// this.passwordValue
-            firebase.auth().createUserWithEmailAndPassword(email, password)
+        signin() {
+            let email = this.emailValue
+            let password = this.passwordValue
+            firebase.auth().signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // Signed in
-                    this.$Message.success("Successfully signed up")
                     var user = userCredential.user;
-                    console.log("Signed up user:")
+                    console.log("Signed in user:")
                     console.log(user)
-                    // ...
+                    if(user.emailVerified) {
+                        this.$Message.success("Signed in")
+                        this.$router.push({path:"/settings"})
+                    } else {
+                        this.$Message.error("This email is not verified")
+                        // Sign out
+                        firebase.auth().signOut().then(() => {
+                            //...
+                        }).catch((error) => {
+                            this.$Message.error(error.message)
+                        });
+                    }
+
                 })
                 .catch((error) => {
-
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    if(errorCode=='auth/email-already-in-use') {
-                        this.$Message.error(errorMessage)
-                    } else {
-                        this.$Message.error("Failed to sign up")
-                    }
                     console.log("errorCode")
                     console.log(errorCode)
                     console.log("errorMessage")
                     console.log(errorMessage)
-                    // ..
+                    if(errorCode=="auth/user-not-found") {
+                        this.$Message.error("The email is not registered, please sign up")
+                        this.$router.push({name:"signup", params:{filledEmail:this.emailValue}})
+                    } else {
+                        this.$Message.error(errorMessage)
+                    }
+
                 });
-
-        },
-
-        signin() {
-
-            let email="e0376916@u.nus.edu"  // this.emailValue
-            let password = "0123456789Ab"// this.passwordValue
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    this.$Message.success("Signed in")
-                    var user = userCredential.user;
-                    console.log("Signed in user:")
-                    console.log(user)
-                    // ...
-                })
-                .catch((error) => {
-                    this.$Message.error("Failed to sign in")
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.print("errorCode")
-                    console.log(errorCode)
-                    console.log("errorMessage")
-                    console.log(errorMessage)
-                });
-
         },
 
         googleSignin() {
@@ -127,8 +109,9 @@ name: "Login",
                 .then((result) => {
                     /** @type {firebase.auth.OAuthCredential} */
                     this.$Message.success("Signed in")
-                    var credential = result.credential;
+                    this.$router.push({path:"/settings"})
 
+                    var credential = result.credential;
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     var token = credential.accessToken;
                     // The signed-in user info.
@@ -140,7 +123,6 @@ name: "Login",
                     console.log(token)
                     console.log("user")
                     console.log(user)
-                    this.testAuth()
                 })
                 /*
                 .catch((error) => {
@@ -155,18 +137,26 @@ name: "Login",
                 }); */
         },
 
-        //validateEmail(email) {
+        signOut() {
+            if(firebase.auth().currentUser) {
+                firebase.auth().signOut().then(() => {
+                    this.$Message.success("Signed out")
+                }).catch((error) => {
+                    this.$Message.error(error.message)
+                });
+            } else {
+                this.$Message.error("Not signed in")
+            }
 
-        //},
+        },
 
         promptFillIn() {
           this.$Message.error("Please fill in account infomation!")
         },
 
-        testAuth() {
-            console.log("Testing Auth")
-            console.log(firebase.auth().currentUser)
-        }
+        routeSignup() {
+          this.$router.push({path:"signup"})
+        },
     }
 }
 </script>
@@ -220,6 +210,13 @@ label {
 .signup-button {
     position: relative;
     margin-top: 15px;
+    left: 0px;
+    width: 500px;
+}
+
+.signout-button {
+    position: relative;
+    margin-top: 85px;
     left: 0px;
     width: 500px;
 }

@@ -10,7 +10,7 @@
         </ul>
     </nav>
 
-    <Menu :theme="theme3" active-name="1"
+    <Menu active-name="1"
           style="position: relative;top:300px;">
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
