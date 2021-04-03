@@ -47,8 +47,8 @@ p{
 }
 
 .content {
-    position:absolute;
-    top: 0px;
+    position:relative;
+    top: -3px;
 
     font-style: normal;
     font-weight: normal;
