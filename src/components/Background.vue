@@ -1,17 +1,17 @@
 <template>
 <div id="background">
     <h1 id="app-heading"> NUStainable </h1>
-    <nav class="navigation">
+    <!--nav class="navigation">
         <ul>
             <li><router-link class="router" to="/" exact>Home</router-link> </li>
             <li><router-link class="router" to="/exchange" exact>Items For Exchange</router-link> </li>
             <li><router-link class="router" to="/events" exact>Events</router-link> </li>
             <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
-    </nav>
+    </nav-->
 
-    <Menu active-name="1"
-          style="position: relative;top:300px;">
+    <Menu active-name="home"
+          style="position: relative; top:200px; left:5px; border-radius: 5px">
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
             <router-link class="router" to="/" exact>
