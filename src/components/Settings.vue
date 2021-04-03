@@ -11,16 +11,16 @@
         <div id="profile">
             <div id="left-column">
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
-                <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
-                <user-stats stats_name="Events Attended" stats_number=666></user-stats>
+                <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
+                <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
                 <Button type="primary" @click="routeLogin()"> Login </Button>
                 <!--Button type="primary" @click="routeSignup()"> Sign up </Button-->
             </div>
 
             <div id="right-column">
-                <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
-                <info-bar title="Course of Study" content="Business Analytics"></info-bar>
-                <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
+                <info-bar title="Name" :content="userData.name"></info-bar>
+                <info-bar title="Course of Study" :content="userData.course"></info-bar>
+                <info-bar title="NUS Residence Affliation" :content="userData.residence"></info-bar>
                 <LineChart></LineChart>
             </div>
 
@@ -33,13 +33,15 @@
 import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
 import LineChart from "@/components/Settings-charts/LineChart";
+import firebase from "firebase";
+import db from "../firebase";
 
 //import db from "firebase";
 
 export default {
     data() {
         return {
-
+            userData:{},
         }
     },
 
@@ -53,7 +55,19 @@ export default {
         UserStats: UserStats,
         InfoBar: InfoBar,
         LineChart: LineChart,
-    }
+    },
+
+    created() {
+        if(!firebase.auth().currentUser) {
+            this.$Message.error("Please sign in");
+            this.$router.push({path: "/settings/login"})
+        } else {
+            let docRef = db.collection('users').doc(firebase.auth().currentUser.uid)
+            docRef.get().then(doc => {
+                this.userData = doc.data();
+            })
+        }
+    },
 
 }
 </script>

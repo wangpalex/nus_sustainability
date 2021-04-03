@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .ol {
     max-width:60%
 }
