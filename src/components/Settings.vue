@@ -10,7 +10,7 @@
 
         <div id="profile">
             <div id="left-column">
-                <img v-if="userData.image" class="user-image" :src="userData.image" alt="User Image">
+                <img v-if="userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
                 <img v-else class="user-image" src="../assets/logo.png" alt="User Image">
 
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
@@ -65,6 +65,14 @@ export default {
             }
 
         },
+
+        fetchUserImage() {
+            const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
+            imgRef.getDownloadURL().then(url => {
+                var img = document.getElementById('user-image');
+                img.setAttribute('src', url);
+            })
+        },
     },
 
     components: {
@@ -81,6 +89,9 @@ export default {
             let docRef = db.collection('users').doc(firebase.auth().currentUser.uid)
             docRef.get().then(doc => {
                 this.userData = doc.data();
+                if(this.userData.imagePath) {
+                    this.fetchUserImage()
+                }
             })
         }
     },

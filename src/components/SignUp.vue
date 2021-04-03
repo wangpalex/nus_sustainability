@@ -259,14 +259,14 @@ export default {
                             displayName: this.username,
                         });
                         let userRef = db.collection('users').doc(user.uid);
-                        let imgRef = this.uploadImg();
+                        let imgPath = this.uploadImg();
                         userRef.set({
                             name:this.username,
                             course:this.course,
                             residence:this.residence,
                             itemsExchanged:0,
                             eventsAttended:0,
-                            image:imgRef,
+                            imagePath:imgPath,
                         });
 
                         this.$router.go(-1);
@@ -310,14 +310,14 @@ export default {
                         displayName: this.username,
                     })
                     let userRef = db.collection('users').doc(user.uid)
-                    let imgRefStr = this.uploadImg();
+                    let imgPath = this.uploadImg();
                     userRef.set({
                         name:this.username,
                         course:this.course,
                         residence:this.residence,
                         itemsExchanged:0,
                         eventsAttended:0,
-                        imageRefStr:imgRefStr,  // reference string for downloading from storage
+                        imagePath:imgPath,  // reference string for downloading from storage
                     })
                     console.log("user")
                     console.log(user)
@@ -375,8 +375,8 @@ export default {
                 return null
             }
 
-            let refStr = "user_images/" + this.imageFile.name
-            let storageRef = firebase.storage().ref().child(refStr);
+            let path = "user_images/" + this.imageFile.name
+            let storageRef = firebase.storage().ref().child(path);
             let task = storageRef.put(this.imageFile)
             task.on("state_changed",
                 function progress(snapshot) {
@@ -389,7 +389,7 @@ export default {
                     this.$Message.success("Upload completed")
                 }
             )
-            return refStr
+            return path
         },
     },
 
