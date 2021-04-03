@@ -13,7 +13,8 @@
                 <img id="user-image" src="../assets/logo.png" alt="User Image">
                 <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
                 <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-                <Button type="button" @click="routeLogin()"> Login </Button>
+                <Button type="primary" @click="routeLogin()"> Login </Button>
+                <!--Button type="primary" @click="routeSignup()"> Sign up </Button-->
             </div>
 
             <div id="right-column">
@@ -65,7 +66,6 @@ export default {
     left: 50px;
     top: 20px;
 
-    font-family: Anaheim;
     font-style: normal;
     font-weight: normal;
     font-size: 36px;
@@ -96,10 +96,11 @@ export default {
     width: 30%;
     height: 80%;
 
-
+    /*
     border-color: aqua;
     border-style: dotted;
     border-width: 3px;
+    */
 }
 
 #left-column button {
@@ -114,9 +115,11 @@ export default {
     width: 50%;
     height: 90%;
 
+    /*
     border-color: aquamarine;
     border-style: dotted;
     border-width: 3px;
+    */
 }
 
 .nav {

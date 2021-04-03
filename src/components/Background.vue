@@ -9,13 +9,63 @@
             <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
     </nav>
+
+    <Menu active-name="1"
+          style="position: relative;top:300px;">
+        <MenuItem name="home">
+            <Icon type="document-text"></Icon>
+            <router-link class="router" to="/" exact>
+                Home
+            </router-link>
+        </MenuItem>
+
+        <MenuItem name="exchange">
+            <Icon type="chatbubbles"></Icon>
+            <router-link class="router" to="/exchange" exact>
+                Items For Exchange
+            </router-link>
+        </MenuItem>
+
+        <MenuItem name="events">
+            <Icon type="heart"></Icon>
+            <router-link class="router" to="/events" exact>
+                Events
+            </router-link>
+        </MenuItem>
+
+        <MenuItem name="settings">
+            <Icon type="heart-broken"></Icon>
+            <router-link class="router" to="/settings" exact>
+                Settings
+            </router-link>
+        </MenuItem>
+    </Menu>
+
+
     <router-view class="page-view"></router-view>
 </div>
 </template>
 
 <script>
 export default {
-name: "Background"
+    name: "Background",
+
+    methods: {
+        routePages(name) {
+            console.log("routePages called")
+            console.log(name)
+            //let name = event.target.getAttribute()
+            if(name==="home") {
+                this.$router.push({path:'/'})
+            } else if(name==='exchange') {
+                this.$router.push({path:'/exchange'})
+            } else if(name==='events') {
+                this.$router.push({path: '/events'})
+            } else {
+                this.$router.push({path: '/settings'})
+            }
+        },
+    }
 }
 </script>
 
@@ -34,12 +84,19 @@ name: "Background"
 }
 
 #background {
+    font-family: "Helvetica Neue",Helvetica,
+    "PingFang SC","Hiragino Sans GB",
+    "Microsoft YaHei","微软雅黑",
+    Arial,sans-serif;
+
     position: relative;
     width: 1920px;
     height: 1080px;
 
-    background: #003882;
+    background-color: #0D47A1;
+    /*
     border-radius: 70px;
+     */
 }
 
 .navigation {
@@ -69,9 +126,6 @@ a:link {
 }
 
 .router {
-  color: white;
-  font-size: 20px;
-  font-family: "Anaheim"
-
+    font-size: 20px;
 }
 </style>

@@ -22,7 +22,8 @@ export default {
             options: {
                 title: {
                     display: true,
-                    text: 'User Activities'
+                    text: 'User Activities',
+                    fontSize: 30,
                 },
                 responsive: true,
                 maintainAspectRatio: false,
