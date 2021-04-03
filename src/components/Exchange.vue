@@ -95,7 +95,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 #head {
     position: relative;
     left: 50px;

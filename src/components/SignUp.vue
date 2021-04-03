@@ -49,9 +49,12 @@
                     <Option value="Others">
                         Others
                     </Option>
-                </OptionGroup>
-
+                </OptionGroup><br>
             </Select><br>
+
+            <label> User Image (Optional) </label><br>
+            <img-upload @input="handleFile"></img-upload>
+            <br>
 
             <Button v-if="userInfoReady" type="primary" @click="googleSignin"
                     icon="social-google" class="google-signin-button">
@@ -84,6 +87,7 @@
 </template>
 
 <script>
+import ImageUpload from "@/components/ImageUpload";
 import firebase from "firebase";
 import db from "../firebase"
 
@@ -96,6 +100,8 @@ export default {
             username:"",
             course:"",
             residence:"",
+            imageFile:null,
+            percent:0,
 
             computingCourses: [
                 {
@@ -215,7 +221,7 @@ export default {
     },
 
     components:{
-
+        imgUpload: ImageUpload,
     },
 
     computed: {
@@ -253,12 +259,14 @@ export default {
                             displayName: this.username,
                         });
                         let userRef = db.collection('users').doc(user.uid);
+                        let imgPath = this.uploadImg();
                         userRef.set({
                             name:this.username,
                             course:this.course,
                             residence:this.residence,
                             itemsExchanged:0,
                             eventsAttended:0,
+                            imagePath:imgPath,
                         });
 
                         this.$router.go(-1);
@@ -302,12 +310,14 @@ export default {
                         displayName: this.username,
                     })
                     let userRef = db.collection('users').doc(user.uid)
+                    let imgPath = this.uploadImg();
                     userRef.set({
                         name:this.username,
                         course:this.course,
                         residence:this.residence,
                         itemsExchanged:0,
                         eventsAttended:0,
+                        imagePath:imgPath,  // reference string for downloading from storage
                     })
                     console.log("user")
                     console.log(user)
@@ -327,7 +337,6 @@ export default {
             }); */
         },
 
-
         verifyEmail(user) {
 
             var actionCodeSettings = {
@@ -344,7 +353,6 @@ export default {
                 });
         },
 
-
         validateEmail(email) {
             const regex1 = /^[eE]\d\d\d\d\d\d\d@u\.nus\.edu$/g;  // e.g. e0376916@u.nus.edu
             const regex2 = /^[a-zA-Z\d]*@nus\.edu\.sg$/g;  // e.g. disrt@nus.edu.sg
@@ -355,12 +363,44 @@ export default {
         promptFillIn() {
             this.$Message.error("Please fill in account information")
         },
+
+        handleFile(file) {
+            this.imageFile = file
+            console.log("Handle input:")
+            console.log(this.imageFile)
+        },
+
+        uploadImg() {
+            if(!this.imageFile) {
+                return null
+            }
+
+            let path = "user_images/" + this.imageFile.name
+            let storageRef = firebase.storage().ref().child(path);
+            let task = storageRef.put(this.imageFile)
+            task.on("state_changed",
+                function progress(snapshot) {
+                    this.percent = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
+                },
+                function error(err) {
+                    this.$Message.error(err.message)
+                },
+                function complete() {
+                    this.$Message.success("Upload completed")
+                }
+            )
+            return path
+        },
     },
 
     created() {
         if(this.$route.params.filledEmail != '') {
             this.emailValue = this.$route.params.filledEmail
         }
+    },
+
+    mounted() {
+
     }
 }
 </script>
@@ -402,11 +442,12 @@ label {
     position: relative;
     left: 0px;
     width: 500px;
+    margin-top: 50px;
 }
 
 .google-signin-button {
     position: relative;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     left: 0px;
     width: 500px;
 }

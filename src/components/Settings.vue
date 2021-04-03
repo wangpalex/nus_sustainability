@@ -10,11 +10,15 @@
 
         <div id="profile">
             <div id="left-column">
-                <img id="user-image" src="../assets/logo.png" alt="User Image">
+                <img v-if="userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
+                <img v-else class="user-image" src="../assets/logo.png" alt="User Image">
+
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
                 <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
-                <Button type="primary" @click="routeLogin()"> Login </Button>
-                <!--Button type="primary" @click="routeSignup()"> Sign up </Button-->
+
+                <Button type="primary" @click="routeLogin()"> Sign in </Button>
+                <br><br>
+                <Button type="error" @click="signOut"> Sign out </Button>
             </div>
 
             <div id="right-column">
@@ -36,8 +40,6 @@ import LineChart from "@/components/Settings-charts/LineChart";
 import firebase from "firebase";
 import db from "../firebase";
 
-//import db from "firebase";
-
 export default {
     data() {
         return {
@@ -48,6 +50,28 @@ export default {
     methods: {
         routeLogin() {
           this.$router.push({path:"settings/login"});
+        },
+
+        signOut() {
+            if(firebase.auth().currentUser) {
+                firebase.auth().signOut().then(() => {
+                    this.$Message.success("Signed out")
+                    this.$router.push({path:"settings/login"})
+                }).catch((error) => {
+                    this.$Message.error(error.message)
+                });
+            } else {
+                this.$Message.error("Not signed in")
+            }
+
+        },
+
+        fetchUserImage() {
+            const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
+            imgRef.getDownloadURL().then(url => {
+                var img = document.getElementById('user-image');
+                img.setAttribute('src', url);
+            })
         },
     },
 
@@ -65,6 +89,9 @@ export default {
             let docRef = db.collection('users').doc(firebase.auth().currentUser.uid)
             docRef.get().then(doc => {
                 this.userData = doc.data();
+                if(this.userData.imagePath) {
+                    this.fetchUserImage()
+                }
             })
         }
     },
@@ -160,7 +187,7 @@ export default {
     border-radius: 60px;
 }
 
-img {
+.user-image {
     top:50px;
     width: 150px;
     height: 150px;
