@@ -3,7 +3,7 @@
         <h1> {{this.event.title}} </h1> <br>
         <h2>Date: {{this.event.date}}  Time: {{this.event.time}} <br> </h2>
         <h3> Location: {{this.event.location}} <br> <br></h3>
-
+        
         PLACEHOLDER FOR MAP <br> <br>
 
         <h2> Description: </h2><br>

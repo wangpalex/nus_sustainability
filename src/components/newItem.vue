@@ -1,6 +1,7 @@
 <template>
    <div>
     <h1 id="head">Items for exchange</h1>
+        
         <div id="newItem">
             <div id="chooseImage">
                 <img v-bind:src=item.imageURL class="uploading-image" required/>
@@ -14,8 +15,63 @@
                 <label for="itemDes" id="desLabel">Item description:</label>
                 <textarea id="itemDescription" name="itemDes" cols="40" rows="5" v-model="item.description" required></textarea>
             </div>
-            <button v-on:click.prevent="addItem">Add Item</button>
+            
+        <button v-on:click.prevent="addItem">Add Item</button>
         </div>
+        <Dropdown id="Dropdown" @on-click="captureLocation">
+            <a href="javascript:void(0)" style="color:white"> 
+                Your location
+                <Icon type="ios-arrow-down"></Icon>
+            </a>
+            <DropdownMenu slot="list" id="DropdownMenu">
+                <Dropdown placement="right-start" @on-click="captureLocation">
+                    <DropdownItem>
+                        NUS Halls
+                        <Icon type="ios-arrow-forward"></Icon>
+                    </DropdownItem>
+                    <DropdownMenu slot="list" id="hallMenu">
+                        <DropdownItem>Sheares hall</DropdownItem>
+                        <DropdownItem>Temasek hall</DropdownItem>
+                        <DropdownItem>King Edward VII hall</DropdownItem>
+                        <DropdownItem>Raffles hall</DropdownItem>
+                        <DropdownItem>Eusoff hall</DropdownItem>)
+                        <DropdownItem>Kent Ridge hall</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                
+                <Dropdown placement="right-start">
+                    <DropdownItem>
+                        Utown
+                        <Icon type="ios-arrow-forward"></Icon>
+                    </DropdownItem>
+                    <DropdownMenu slot="list" id="utMenu">
+                        <DropdownItem>Tembusu College</DropdownItem>
+                        <DropdownItem>Cinnamon College</DropdownItem>
+                        <DropdownItem>Residential College 4</DropdownItem>
+                        <DropdownItem>NUS ERC</DropdownItem>
+                        <DropdownItem>Stephen Riady Center</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+
+                <Dropdown placement="right-start">
+                    <DropdownItem>
+                        Faculty
+                        <Icon type="ios-arrow-forward"></Icon>
+                    </DropdownItem>
+                    <DropdownMenu slot="list" id="facultyMenu">
+                        <DropdownItem>NUS SoC</DropdownItem>
+                        <DropdownItem>NUS Faculty of Science</DropdownItem>
+                        <DropdownItem>NUS FASS</DropdownItem>
+                        <DropdownItem>NUS Business</DropdownItem>
+                        <DropdownItem>NUS Engineering</DropdownItem>
+                        <DropdownItem>NUS Medicine</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <DropdownItem>PGPR and PGP house</DropdownItem>
+                <DropdownItem>Ridge View Residential College</DropdownItem>
+                <DropdownItem>Yale-NUS</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
    </div>
 </template>
 
@@ -32,17 +88,22 @@ import database from '../firebase.js'
                     imageURL:"",
                     likeCount: 0,
                     dislikeCount: 0,
-                }
+                    location:"",
+                },
             }
         },
         methods:{
+            captureLocation(value) {
+                this.item.location = value;
+                console.log(1);
+                console.log(value);
+            },
             uploadImage(e){
                 const image = e.target.files[0];
                 const reader = new FileReader();
                 reader.readAsDataURL(image);
                 reader.onload = e =>{
                     this.item.imageURL = e.target.result;
-                    console.log(this.item.imageURL);
                 };
             },
             addItem:function(){
@@ -53,6 +114,7 @@ import database from '../firebase.js'
                 this.item.imageURL= "";
                 this.item.likeCount=0;
                 this.item.dislikeCount=0;
+                this.item.location="";
             }
         }
      }  // missing closure added
@@ -84,7 +146,7 @@ left: 140px;
     position: relative;
     left: 80px;
     width: 1000px;
-    height: 580px;
+    height: 880px;
     background: orange;
     border-style: solid;
     border-color: black;
@@ -99,7 +161,7 @@ left: 140px;
     width: 400px;
     height: 340px;
     background: orange;
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
     border-radius: 70px;
@@ -112,7 +174,7 @@ left: 140px;
     width: 400px;
     height: 100px;
     background: orange;
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
     border-radius: 70px;
@@ -125,7 +187,7 @@ left: 140px;
     width: 400px;
     height: 200px;
     background: orange;
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
     border-radius: 70px;
@@ -155,17 +217,61 @@ textarea {
 }
 
 button {
-  position: relative;
-  left:400px;
-  top:-180px;
-  text-align: center;
-  background-color: orange;
-  color: white;
-  height: 40px;
-  width: 150px;
-  border-radius: 60px;
-  border-width: 1px;
-  font-size: 15px;
+    position: relative;
+    left:400px;
+    top:180px;
+    text-align: center;
+    background-color: orange;
+    color: white;
+    height: 40px;
+    width: 150px;
+    border-radius: 60px;
+    border-width: 1px;
+    font-size: 15px;
+    border-style: solid;
+    border-color: black;
 }
 
+#Dropdown {
+    position: relative;
+    left: 400px;
+    top:-400px;
+    border-radius: 90px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color:orange;
+    font-size: 15px;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    line-height: 35px;
+}
+
+#DropdownMenu {
+    background-color:orange;
+    text-align: center;
+    height: 180px;
+    width: 200px;
+}
+#hallMenu {
+    background-color:orange;
+    text-align: center;
+    height: 240px;
+    width: 200px;  
+}
+
+#utMenu {
+    background-color:orange;
+    text-align: center;
+    height: 160px;
+    width: 200px;
+}
+
+#facultyMenu {
+    background-color:orange;
+    text-align: center;
+    height: 180px;
+    width: 200px;
+}
  </style>

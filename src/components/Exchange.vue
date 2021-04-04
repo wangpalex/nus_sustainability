@@ -143,7 +143,7 @@ button {
 #itemImage {
     position: relative;
     top: 20px;
-    left: 30px;
+    left: -200px;
     border-radius: 30px;
     width: 110px;
     height: 110px;
@@ -152,22 +152,22 @@ button {
 
 #itemName {
     position: relative;
-    left: 170px;
+    left: -60px;
     top: -100px;
     
 }
 
 .detailPage {
     position: relative;
-    left: 480px;
-    top: -120px;
-    font-size: 20px; 
+    left: 240px;
+    top: -80px;
+    font-size: 18px; 
 }
 
 #likeButton {
     position: absolute;
     left: 500px;
-    top: 100px;
+    top: 105px;
     font-size: 20px; 
     color: grey;
 }
@@ -200,8 +200,8 @@ button {
 
 #likedItemImage {
     position: relative;
-    top: 20px;
-    left: 30px;
+    top: 10px;
+    left: -40px;
     border-radius: 20px;
     width: 70px;
     height: 70px;
@@ -209,7 +209,7 @@ button {
 
 #likedItemName {
     position: relative;
-    left: 110px;
+    left: 50px;
     top: -40px;
     font-size: 15px;
 }
