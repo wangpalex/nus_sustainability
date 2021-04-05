@@ -14,20 +14,36 @@
                 <p id="SelectedDes"> {{itemSelected.description}} </p>
             </div>
         </div>
+        <GmapMap id="GmapMap"
+            :center="{lat:itemSelected.lat, lng:itemSelected.long}"
+            :zoom="7"
+            map-type-id="terrain"
+            style="width: 350px; height: 250px; border-radius:15px"
+            >
+            <GmapMarker ref="myMarker"
+                :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
+        </GmapMap>
+    <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
    </div>
 </template>
 
 <script>
 import database from '../firebase.js'
+import {gmapApi} from 'vue2-google-maps'
 
     export default {
+        computed: {
+            google: gmapApi
+        },
         props: ["detail_id"],
         data(){
             return{
                item:{
                     name:"",
                     description:"",
-                    imageURL:""
+                    imageURL:"",
+                    lat: "",
+                    long: "",
                 },
                 itemSelected: {}
             }
@@ -55,8 +71,8 @@ img{
 position: relative;
 top: 70px;
 left: 120px;
-height: 300px; 
-width: 280px;
+height: 200px; 
+width: 200px;
 border-radius: 40px;
 }
 
@@ -85,7 +101,7 @@ left: 140px;
 
 #name {
     position: relative;
-    top: -260px;
+    top: -150px;
     left: 450px;
     width: 500px;
     height: 100px;
@@ -98,7 +114,7 @@ left: 140px;
 
 #description {
     position: relative;
-    top: -240px;
+    top: -120px;
     left: 450px;
     width: 500px;
     height: 300px;
@@ -118,7 +134,7 @@ left: 140px;
 
 #SelectedName {
     position: relative; 
-    top: -42px; 
+    top: -22px; 
     left: 180px;
     font-size: 25px;
 }
@@ -139,4 +155,15 @@ left: 140px;
     white-space: pre-line;
 }
 
+#goBackButton {
+    position: relative;
+    left:120px;
+    top:-800px;
+}
+
+#GmapMap {
+    position: relative;
+    left: 150px;
+    top:-300px;
+}
  </style>
