@@ -10,8 +10,9 @@
         </ul>
     </nav-->
 
-    <Menu active-name="home"
+    <Menu active-name="home" v-on:on-select="routePages"
           style="position: relative; top:200px; left:5px; border-radius: 5px">
+        <!--suppress HtmlDeprecatedTag -->
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
             <router-link class="router" to="/" exact>
@@ -52,7 +53,6 @@ export default {
 
     methods: {
         routePages(name) {
-            console.log("routePages called")
             console.log(name)
             //let name = event.target.getAttribute()
             if(name==="home") {
