@@ -340,7 +340,7 @@ export default {
         verifyEmail(user) {
 
             var actionCodeSettings = {
-                url: 'http://localhost:8080/settings/login',
+                url: "https://nusustainability.web.app/settings/login",
                 handleCodeInApp: true
             };
 
