@@ -1,62 +1,61 @@
 <template>
     <div>
-        <h1>Events Bulletin</h1>
-        <div>
+        <h1 id="title">Events Bulletin</h1>
+        <div id = "main">
             <ol class = "ol">
-                <li v-for ="i in eventsList" :key="i.id">
-                    <ul><li>{{i.title}}</li></ul>
+                <li v-for ="i in eventsList" :key="i.id" id="events">
+                    <ul><li id = "eventName"><h3>{{i.title}}</h3></li></ul>
+                    <div id ="details">
                     Location: {{i.location}} <br>
                     Date: {{i.date}} <br>
                     Time: {{i.time}} <br>
-                    <p v-on:click="moreDetails($event)" v-bind:id=i.id>More Details ></p>
+                    </div>
+                    <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">More Details ></h1>
                 </li>
                     
             </ol>
-
-
-
-            <div id="form">
-                <h2 id="head"> Submit your own event </h2>
-                <div id="newEvent">
-                    <div id="name">
-                        <label for="eventName" id="nameLabel">Event Name:</label>
-                        <input type="text" id="eventName" name="eventName" v-model.lazy="event.title" required>
-                    </div> <br>
-                    <div id="date">
-                        <label for="eventDate" id="dateLabel">Date:</label>
-                        <input type="date" id="eventDate" name="eventDate" v-model.lazy="event.date" required>
-                    </div> <br>
-                    <div id="time">
-                        <label for="eventTime" id="timeLabel">Time:</label>
-                        <input type="time" id="eventTime" name="eventTime" v-model.lazy="event.time" required>
-                    </div> <br>
-                    <div> Location:
-                    <Select v-model="event.location" style="width:200px" id='SelectList' placeholder="Please Select your location" @on-change="fetchData">
-                        <OptionGroup label="NUS Halls">
-                            <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                        </OptionGroup>
-                        <OptionGroup label="Residential Colleges">
-                            <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                        </OptionGroup>
-                        <OptionGroup label="Faculty">
-                            <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                        </OptionGroup>
-                    </Select>
-                    <GmapMap id="GmapMap"
-                        :center="{lat:event.lat, lng:event.long}"
-                        :zoom="16"
-                        map-type-id="terrain"
-                        style="width: 500px; height: 300px; border-radius:20px"
-                        >
-                        <GmapMarker ref="myMarker"
-                            :position="google && new google.maps.LatLng(event.lat, event.long)" />
-                    </GmapMap> </div> <br>
-                    <div id="description">
-                        <label for="eventDescription" id="descriptionLabel">Description:</label>
-                        <textarea id="eventDate" name="eventDate" rows="5" cols="40" v-model.lazy="event.description" required></textarea>
-                    </div>
-                    <button v-on:click="sendEvent">Submit</button>
+        </div>
+        <div id="form">
+            <h2 id="head"> Submit your own event </h2>
+            <div id="newEvent">
+                <div id="name">
+                    <label for="eventName" id="nameLabel">Event Name:</label>
+                    <input type="text" id="eventName" name="eventName" v-model.lazy="event.title" required>
+                </div> <br>
+                <div id="date">
+                    <label for="eventDate" id="dateLabel">Date:</label>
+                    <input type="date" id="eventDate" name="eventDate" v-model.lazy="event.date" required>
+                </div> <br>
+                <div id="time">
+                    <label for="eventTime" id="timeLabel">Time:</label>
+                    <input type="time" id="eventTime" name="eventTime" v-model.lazy="event.time" required>
+                </div> <br>
+                <div> Location:
+                <Select v-model="event.location" style="width:200px" id='SelectList' placeholder="Please Select your location" @on-change="fetchData">
+                    <OptionGroup label="NUS Halls">
+                        <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                    <OptionGroup label="Residential Colleges">
+                        <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                    <OptionGroup label="Faculty">
+                        <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                </Select>
+                <GmapMap id="GmapMap"
+                    :center="{lat:event.lat, lng:event.long}"
+                    :zoom="16"
+                    map-type-id="terrain"
+                    style="width: 500px; height: 300px; border-radius:20px"
+                    >
+                    <GmapMarker ref="myMarker"
+                        :position="google && new google.maps.LatLng(event.lat, event.long)" />
+                </GmapMap> </div> <br>
+                <div id="description">
+                    <label for="eventDescription" id="descriptionLabel">Description:</label>
+                    <textarea id="eventDate" name="eventDate" rows="5" cols="40" v-model.lazy="event.description" required></textarea>
                 </div>
+                <button v-on:click="sendEvent">Submit</button>
             </div>
         </div>
     </div>
@@ -217,8 +216,24 @@ export default {
 </script>
 
 <style scoped>
+#title {
+    position: relative;
+    left: 50px;
+    font-size: 40px;
+}
+
 .ol {
-    max-width:60%
+    max-width:60%;
+    position: relative;
+    left: 50px;
+    height: 675px;
+    background: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 70px;
+    list-style-type: none;
+
 }
 
 .form{
@@ -230,24 +245,48 @@ export default {
 ul {
 display: flex;
 flex-wrap: wrap;
-list-style-type: none;
-padding: 0;
-width: 70%
+width: 60%;
 }
 
-li {
-flex-grow: 1;
-flex-basis: 300px;
-text-align: center;
-padding: 10px;
-border: 1px solid #222;
-margin: 10px;
+#events {
+    position: relative;
+    top: 30px;
+    left: 15px;
+    width: 885px;
+    height: 150px;
+    background: #FBBC46;
+    border-style: dotted;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 70px;
+    margin:5px;
 }
 
+#eventName {
+    position: relative;
+    left: 65px;
+    top: 15px;
+    font-size: 22px;
+    list-style-type: disc;
+}
+
+#details{
+    position: relative;
+    left: 65px;
+    top: 15px;
+    font-size: 16px;
+}
+
+.moreDetails{
+    position: relative;
+    left: 700px;
+    top:-45px;
+    font-Size: 20px;
+}
 
 #form {
     position: absolute;
-    top: 5%;
+    top: 5.5%;
     left: 65%;
     background: orange;
     border-style: dotted;

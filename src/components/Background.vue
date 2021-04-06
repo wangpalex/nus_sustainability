@@ -9,36 +9,37 @@
             <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
     </nav-->
-
+    
     <Menu active-name="home"
           style="position: relative; top:200px; left:5px; border-radius: 5px">
+        <router-link class="router" to="/" exact>
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
-            <router-link class="router" to="/" exact>
                 Home
-            </router-link>
         </MenuItem>
+        </router-link>
 
+        <router-link class="router" to="/exchange" exact>
         <MenuItem name="exchange">
             <Icon type="chatbubbles"></Icon>
-            <router-link class="router" to="/exchange" exact>
                 Items For Exchange
-            </router-link>
         </MenuItem>
+        </router-link>
 
+        <router-link class="router" to="/events" exact>
         <MenuItem name="events">
             <Icon type="heart"></Icon>
-            <router-link class="router" to="/events" exact>
+            
                 Events
-            </router-link>
         </MenuItem>
+        </router-link>
 
+        <router-link class="router" to="/settings" exact>
         <MenuItem name="settings">
             <Icon type="heart-broken"></Icon>
-            <router-link class="router" to="/settings" exact>
                 Settings
-            </router-link>
         </MenuItem>
+        </router-link>
     </Menu>
 
 
