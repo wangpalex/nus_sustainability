@@ -16,7 +16,7 @@
         </div>
         <GmapMap id="GmapMap"
             :center="{lat:itemSelected.lat, lng:itemSelected.long}"
-            :zoom="7"
+            :zoom="16"
             map-type-id="terrain"
             style="width: 350px; height: 250px; border-radius:15px"
             >
