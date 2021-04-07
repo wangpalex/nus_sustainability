@@ -93,6 +93,8 @@ export default {
                         this.fetchUserImage()
                     }
                 })
+            } else {
+                this.$router.push({path: "/settings/login"});
             }
         });
 
