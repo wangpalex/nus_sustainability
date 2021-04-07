@@ -3,9 +3,17 @@
         <h1> {{this.event.title}} </h1> <br>
         <h2>Date: {{this.event.date}}  Time: {{this.event.time}} <br> </h2>
         <h3> Location: {{this.event.location}} <br> <br></h3>
-        
-        PLACEHOLDER FOR MAP <br> <br>
 
+        <GmapMap id="GmapMap"
+            :center="{lat:event.lat, lng:event.long}"
+            :zoom="17"
+            map-type-id="terrain"
+            style="width: 800px; height: 500px; border-radius:20px"
+            >
+            <GmapMarker ref="myMarker"
+                :position="google && new google.maps.LatLng(event.lat, event.long)" />
+        </GmapMap> <br>
+        
         <h2> Description: </h2><br>
         {{this.event.description}} <br><br>
 
@@ -17,6 +25,7 @@
 
 <script>
 import database from '../firebase.js'
+import {gmapApi} from 'vue2-google-maps'
 
 export default {
     props: ['event_id'],
@@ -28,23 +37,28 @@ export default {
     methods : {
         fetchItems: function(){
             database.collection('events').doc(this.event_id).get().then(snapshot =>{
+                console.log("more details page EVENTS")
                 var temp = {}
                 console.log(this.event_id)
-                console.log(temp)
                 temp = snapshot.data()
+                console.log("temp = ")
                 console.log(temp)
                 temp.id = snapshot.id
                 this.event = temp
-                console.log(temp)
+                console.log("this.event = ")
+                console.log(this.event)
             })
         }, 
         backToEvents: function() {
-            this.$router.push({path: '/events', name: 'events'})
+            this.$router.go(-1)
         }
     },
     created(){
         this.fetchItems()
     },
+    computed: {
+        google: gmapApi
+    }
 }
 </script>
 
