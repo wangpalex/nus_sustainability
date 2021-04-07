@@ -82,6 +82,21 @@ export default {
     },
 
     created() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log("State change user log")
+                console.log(user)
+                let docRef = db.collection('users').doc(user.uid)
+                docRef.get().then(doc => {
+                    this.userData = doc.data();
+                    if(this.userData.imagePath) {
+                        this.fetchUserImage()
+                    }
+                })
+            }
+        });
+
+        /*
         if(!firebase.auth().currentUser) {
             this.$Message.error("Please sign in");
             this.$router.push({path: "/settings/login"})
@@ -94,6 +109,8 @@ export default {
                 }
             })
         }
+
+         */
     },
 
 }
