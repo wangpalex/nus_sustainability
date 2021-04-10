@@ -93,6 +93,8 @@ export default {
                         this.fetchUserImage()
                     }
                 })
+            } else {
+                this.$router.push({path: "/settings/login"});
             }
         });
 
@@ -116,7 +118,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .title {
     position: relative;

@@ -66,6 +66,8 @@
 import database from '../firebase.js' 
 import axios from 'axios'
 import {gmapApi} from 'vue2-google-maps'
+import firebase from "firebase";
+import db from "@/firebase";
 
 export default {
     data(){
@@ -110,7 +112,7 @@ export default {
                         label: 'PGP House'
                     }
                 ],
-                rcs: [
+            rcs: [
                     {
                         value: 'Tembusu College',
                         label: 'Tembusu College'
@@ -132,7 +134,7 @@ export default {
                         label: 'Prince Georges Park Residence'
                     }
                 ],
-                faculty: [
+            faculty: [
                     {
                         value: 'NUS SoC',
                         label: 'NUS SoC'
@@ -207,8 +209,24 @@ export default {
             }
     },
     created(){
-      this.fetchItems()    
-  },
+      this.fetchItems();
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log("State change user log")
+                console.log(user)
+                let docRef = db.collection('users').doc(user.uid)
+                docRef.get().then(doc => {
+                    this.userData = doc.data();
+                    if(this.userData.imagePath) {
+                        this.fetchUserImage()
+                    }
+                })
+            } else {
+                this.$router.push({path: "/settings/login"});
+            }
+        });
+    },
+
   computed: {
       google: gmapApi
   }

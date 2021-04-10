@@ -141,6 +141,9 @@ export default {
         routeSignup() {
           this.$router.push({path:"signup"})
         },
+    },
+    created() {
+        this.$Message.info("Please sign in")
     }
 }
 </script>
