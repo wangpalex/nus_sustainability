@@ -32,7 +32,7 @@
         </Select>
         <GmapMap id="GmapMap"
             :center="{lat:item.lat, lng:item.long}"
-            :zoom="7"
+            :zoom="16"
             map-type-id="terrain"
             style="width: 500px; height: 300px; border-radius:20px"
             >
