@@ -17,29 +17,22 @@
             <Icon type="document-text"></Icon>
                 Home
         </MenuItem>
-        </router-link>
-
-        <router-link class="router" to="/exchange" exact>
+        
         <MenuItem name="exchange">
             <Icon type="chatbubbles"></Icon>
                 Items For Exchange
         </MenuItem>
-        </router-link>
 
-        <router-link class="router" to="/events" exact>
         <MenuItem name="events">
             <Icon type="heart"></Icon>
             
                 Events
         </MenuItem>
-        </router-link>
 
-        <router-link class="router" to="/settings" exact>
         <MenuItem name="settings">
             <Icon type="heart-broken"></Icon>
                 Settings
         </MenuItem>
-        </router-link>
     </Menu>
 
 
