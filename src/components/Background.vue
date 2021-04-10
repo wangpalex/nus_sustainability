@@ -17,7 +17,7 @@
             <Icon type="document-text"></Icon>
                 Home
         </MenuItem>
-        
+
         <MenuItem name="exchange">
             <Icon type="chatbubbles"></Icon>
                 Items For Exchange
@@ -25,7 +25,6 @@
 
         <MenuItem name="events">
             <Icon type="heart"></Icon>
-            
                 Events
         </MenuItem>
 
