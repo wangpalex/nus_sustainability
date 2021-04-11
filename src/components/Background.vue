@@ -13,6 +13,7 @@
     <Menu active-name="home" v-on:on-select="routePages"
           style="position: relative; top:200px; left:5px; border-radius: 5px">
         <!--suppress HtmlDeprecatedTag -->
+        <router-link class="router" to="/" exact/>
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
                 Home
