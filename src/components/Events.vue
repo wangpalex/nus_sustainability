@@ -316,8 +316,5 @@ width: 60%;
     height: 600px;
 }
 
-#description {
-    
-}
 
 </style>
