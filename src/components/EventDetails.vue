@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1> {{this.event.title}} </h1> <br>
-        <h2>Date: {{this.event.date}}  Time: {{this.event.time}} <br> </h2>
+    <div id='main-body'>
+        <h1 id='title'> {{this.event.title}} </h1> <br>
+        <h2 id='timing'>Date: {{this.event.date}}  Time: {{this.event.time}} <br> </h2>
         <h3> Location: {{this.event.location}} <br> <br></h3>
 
         <GmapMap id="GmapMap"
@@ -63,5 +63,51 @@ export default {
 </script>
 
 <style> 
+
+#title {
+    position: relative;
+    left: 50px;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+#events {
+    position: relative;
+    top: 30px;
+    left: 15px;
+    width: 885px;
+    height: 150px;
+    background: #FBBC46;
+    border-style: dotted;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 70px;
+    margin:5px;
+}
+
+#timing {
+    position: relative;
+    left: 65px;
+    top: 15px;
+    font-size: 22px;
+    list-style-type: disc;
+}
+
+
+
+#eventName {
+    position: relative;
+    left: 65px;
+    top: 15px;
+    font-size: 22px;
+    list-style-type: disc;
+}
+
+#details{
+    position: relative;
+    left: 65px;
+    top: 15px;
+    font-size: 16px;
+}
 
 </style>

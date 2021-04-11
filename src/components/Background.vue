@@ -1,6 +1,6 @@
 <template>
 <div id="background">
-    <h1 id="app-heading"> NUStainable </h1>
+    <h1 id="app-heading"> NUSustainable </h1>
     <!--nav class="navigation">
         <ul>
             <li><router-link class="router" to="/" exact>Home</router-link> </li>
