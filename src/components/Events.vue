@@ -46,7 +46,7 @@
                     :center="{lat:event.lat, lng:event.long}"
                     :zoom="16"
                     map-type-id="terrain"
-                    style="width: 500px; height: 300px; border-radius:20px"
+                    style="width: 300px; height: 200px; top: 10px; left:100px; border-radius:20px"
                     >
                     <GmapMarker ref="myMarker"
                         :position="google && new google.maps.LatLng(event.lat, event.long)" />
@@ -55,7 +55,7 @@
                     <label for="eventDescription" id="descriptionLabel">Description:</label>
                     <textarea id="eventDate" name="eventDate" rows="5" cols="40" v-model.lazy="event.description" required></textarea>
                 </div>
-                <button v-on:click="sendEvent">Submit</button>
+                <button style="position:relative; left:200px; top:30px" v-on:click="sendEvent">Submit</button>
             </div>
         </div>
     </div>
@@ -66,6 +66,8 @@
 import database from '../firebase.js' 
 import axios from 'axios'
 import {gmapApi} from 'vue2-google-maps'
+import firebase from "firebase";
+import db from "@/firebase";
 
 export default {
     data(){
@@ -77,8 +79,8 @@ export default {
                 time:"",
                 location:"",
                 description:"",
-                lat:"",
-                long:""
+                lat:1.296643,
+                long:103.776394
             },
             nusHalls: [
                     {
@@ -110,7 +112,7 @@ export default {
                         label: 'PGP House'
                     }
                 ],
-                rcs: [
+            rcs: [
                     {
                         value: 'Tembusu College',
                         label: 'Tembusu College'
@@ -132,7 +134,7 @@ export default {
                         label: 'Prince Georges Park Residence'
                     }
                 ],
-                faculty: [
+            faculty: [
                     {
                         value: 'NUS SoC',
                         label: 'NUS SoC'
@@ -207,8 +209,24 @@ export default {
             }
     },
     created(){
-      this.fetchItems()    
-  },
+      this.fetchItems();
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log("State change user log")
+                console.log(user)
+                let docRef = db.collection('users').doc(user.uid)
+                docRef.get().then(doc => {
+                    this.userData = doc.data();
+                    if(this.userData.imagePath) {
+                        this.fetchUserImage()
+                    }
+                })
+            } else {
+                this.$router.push({path: "/settings/login"});
+            }
+        });
+    },
+
   computed: {
       google: gmapApi
   }
@@ -264,8 +282,8 @@ width: 60%;
 
 #eventName {
     position: relative;
-    left: 65px;
-    top: 15px;
+    left: 10px;
+    top: 10px;
     font-size: 22px;
     list-style-type: disc;
 }
@@ -294,5 +312,12 @@ width: 60%;
     border-width: 1px;
     border-radius: 70px;
     padding: 20px;
+    width: 500px;
+    height: 600px;
 }
+
+#description {
+    
+}
+
 </style>

@@ -32,9 +32,9 @@
         </Select>
         <GmapMap id="GmapMap"
             :center="{lat:item.lat, lng:item.long}"
-            :zoom="7"
+            :zoom="16"
             map-type-id="terrain"
-            style="width: 500px; height: 300px; border-radius:20px"
+            style="width: 400px; height: 300px; border-radius:20px"
             >
             <GmapMarker ref="myMarker"
                 :position="google && new google.maps.LatLng(item.lat, item.long)" />
@@ -61,8 +61,8 @@ import {gmapApi} from 'vue2-google-maps'
                     likeCount: 0,
                     dislikeCount: 0,
                     location:"",
-                    lat: "",
-                    long: "",
+                    lat: 1.296643,
+                    long: 103.776394,
                 },
                 nusHalls: [
                     {

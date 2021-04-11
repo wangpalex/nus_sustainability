@@ -105,12 +105,12 @@ export default {
 
             computingCourses: [
                 {
-                    label:"Computer Science",
-                    value:"Computer Science"
-                },
-                {
                     label:"Business Analytics",
                     value:"Business Analytics"
+                },
+                {
+                    label:"Computer Science",
+                    value:"Computer Science"
                 },
                 {
                     label:"Information Systems",
@@ -339,15 +339,20 @@ export default {
 
         verifyEmail(user) {
 
-            var actionCodeSettings = {
+            const actionCodeSettings = {
                 url: "https://nusustainability.web.app/settings/login",
                 handleCodeInApp: true
             };
 
             user.sendEmailVerification(actionCodeSettings)
-                .then(function() {
-                  // Verification email sent.
-                })
+                .then(
+                    // Verification email sent.
+                    this.$Notice.warning({
+                        title:"Verify your email",
+                        desc:"Please check your inbox (also spam) for verification link sent.",
+                        duration: 10
+                    })
+                )
                 .catch((error) => {
                   this.$Message.error(error)
                 });

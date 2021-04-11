@@ -10,7 +10,7 @@
         <label> Password </label><br>
         <Input type="password" for="password"
                  v-model="passwordValue" placeholder="Please enter your password"
-                 clearable style="width: 500px"></Input><br>
+                 clearable style="width: 500px"></Input><br><br>
 
         <Button v-if="percent===100" type="success"
                 long class="login-button"
@@ -24,7 +24,7 @@
         <br>
         <Button type="primary" @click="googleSignin"
                 icon="social-google" class="google-signin-button">
-            Sign in with Google </Button>
+            Login with Google </Button>
     </form>
 </div>
 </template>
@@ -141,6 +141,9 @@ export default {
         routeSignup() {
           this.$router.push({path:"signup"})
         },
+    },
+    created() {
+        this.$Message.info("Please sign in")
     }
 }
 </script>

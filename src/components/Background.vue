@@ -9,37 +9,30 @@
             <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
     </nav-->
-    
-    <Menu active-name="home"
+
+    <Menu active-name="home" v-on:on-select="routePages"
           style="position: relative; top:200px; left:5px; border-radius: 5px">
-        <router-link class="router" to="/" exact>
+        <!--suppress HtmlDeprecatedTag -->
+        <router-link class="router" to="/" exact/>
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
                 Home
         </MenuItem>
-        </router-link>
 
-        <router-link class="router" to="/exchange" exact>
         <MenuItem name="exchange">
             <Icon type="chatbubbles"></Icon>
                 Items For Exchange
         </MenuItem>
-        </router-link>
 
-        <router-link class="router" to="/events" exact>
         <MenuItem name="events">
             <Icon type="heart"></Icon>
-            
                 Events
         </MenuItem>
-        </router-link>
 
-        <router-link class="router" to="/settings" exact>
         <MenuItem name="settings">
             <Icon type="heart-broken"></Icon>
                 Settings
         </MenuItem>
-        </router-link>
     </Menu>
 
 
@@ -53,7 +46,6 @@ export default {
 
     methods: {
         routePages(name) {
-            console.log("routePages called")
             console.log(name)
             //let name = event.target.getAttribute()
             if(name==="home") {
