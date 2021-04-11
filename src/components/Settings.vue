@@ -10,17 +10,21 @@
 
         <div id="profile">
             <div id="left-column">
-                <img id="user-image" src="../assets/logo.png" alt="User Image">
-                <user-stats stats_name="Items Exchanged" stats_number=233></user-stats>
-                <user-stats stats_name="Events Attended" stats_number=666></user-stats>
-                <Button type="primary" @click="routeLogin()"> Login </Button>
-                <!--Button type="primary" @click="routeSignup()"> Sign up </Button-->
+                <img v-if="userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
+                <img v-else class="user-image" src="../assets/logo.png" alt="User Image">
+
+                <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
+                <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
+
+                <Button type="primary" @click="routeLogin()"> Sign in </Button>
+                <br><br>
+                <Button type="error" @click="signOut"> Sign out </Button>
             </div>
 
             <div id="right-column">
-                <info-bar title="Name" content="Wong Yong De Victor"></info-bar>
-                <info-bar title="Course of Study" content="Business Analytics"></info-bar>
-                <info-bar title="NUS Residence Affliation" content="Raffles Hall"></info-bar>
+                <info-bar title="Name" :content="userData.name"></info-bar>
+                <info-bar title="Course of Study" :content="userData.course"></info-bar>
+                <info-bar title="NUS Residence Affliation" :content="userData.residence"></info-bar>
                 <LineChart></LineChart>
             </div>
 
@@ -33,13 +37,13 @@
 import UserStats from "@/components/Settings-components/UserStats.vue";
 import InfoBar from "@/components/Settings-components/InfoBar";
 import LineChart from "@/components/Settings-charts/LineChart";
-
-//import db from "firebase";
+import firebase from "firebase";
+import db from "../firebase";
 
 export default {
     data() {
         return {
-
+            userData:{},
         }
     },
 
@@ -47,18 +51,74 @@ export default {
         routeLogin() {
           this.$router.push({path:"settings/login"});
         },
+
+        signOut() {
+            if(firebase.auth().currentUser) {
+                firebase.auth().signOut().then(() => {
+                    this.$Message.success("Signed out")
+                    this.$router.push({path:"settings/login"})
+                }).catch((error) => {
+                    this.$Message.error(error.message)
+                });
+            } else {
+                this.$Message.error("Not signed in")
+            }
+
+        },
+
+        fetchUserImage() {
+            const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
+            imgRef.getDownloadURL().then(url => {
+                var img = document.getElementById('user-image');
+                img.setAttribute('src', url);
+            })
+        },
     },
 
     components: {
         UserStats: UserStats,
         InfoBar: InfoBar,
         LineChart: LineChart,
-    }
+    },
+
+    created() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log("State change user log")
+                console.log(user)
+                let docRef = db.collection('users').doc(user.uid)
+                docRef.get().then(doc => {
+                    this.userData = doc.data();
+                    if(this.userData.imagePath) {
+                        this.fetchUserImage()
+                    }
+                })
+            } else {
+                this.$router.push({path: "/settings/login"});
+            }
+        });
+
+        /*
+        if(!firebase.auth().currentUser) {
+            this.$Message.error("Please sign in");
+            this.$router.push({path: "/settings/login"})
+        } else {
+            let docRef = db.collection('users').doc(firebase.auth().currentUser.uid)
+            docRef.get().then(doc => {
+                this.userData = doc.data();
+                if(this.userData.imagePath) {
+                    this.fetchUserImage()
+                }
+            })
+        }
+
+         */
+    },
 
 }
 </script>
 
-<style>
+<style scoped>
 
 .title {
     position: relative;
@@ -146,7 +206,7 @@ export default {
     border-radius: 60px;
 }
 
-img {
+.user-image {
     top:50px;
     width: 150px;
     height: 150px;

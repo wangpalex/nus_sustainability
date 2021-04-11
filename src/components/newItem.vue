@@ -16,69 +16,41 @@
                 <textarea id="itemDescription" name="itemDes" cols="40" rows="5" v-model="item.description" required></textarea>
             </div>
             
-        <button v-on:click.prevent="addItem">Add Item</button>
+        <button id="addItem" v-on:click.prevent="addItem">Add Item</button>
+        <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
         </div>
-        <Dropdown id="Dropdown" @on-click="captureLocation">
-            <a href="javascript:void(0)" style="color:white"> 
-                Your location
-                <Icon type="ios-arrow-down"></Icon>
-            </a>
-            <DropdownMenu slot="list" id="DropdownMenu">
-                <Dropdown placement="right-start" @on-click="captureLocation">
-                    <DropdownItem>
-                        NUS Halls
-                        <Icon type="ios-arrow-forward"></Icon>
-                    </DropdownItem>
-                    <DropdownMenu slot="list" id="hallMenu">
-                        <DropdownItem>Sheares hall</DropdownItem>
-                        <DropdownItem>Temasek hall</DropdownItem>
-                        <DropdownItem>King Edward VII hall</DropdownItem>
-                        <DropdownItem>Raffles hall</DropdownItem>
-                        <DropdownItem>Eusoff hall</DropdownItem>)
-                        <DropdownItem>Kent Ridge hall</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-                
-                <Dropdown placement="right-start">
-                    <DropdownItem>
-                        Utown
-                        <Icon type="ios-arrow-forward"></Icon>
-                    </DropdownItem>
-                    <DropdownMenu slot="list" id="utMenu">
-                        <DropdownItem>Tembusu College</DropdownItem>
-                        <DropdownItem>Cinnamon College</DropdownItem>
-                        <DropdownItem>Residential College 4</DropdownItem>
-                        <DropdownItem>NUS ERC</DropdownItem>
-                        <DropdownItem>Stephen Riady Center</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-
-                <Dropdown placement="right-start">
-                    <DropdownItem>
-                        Faculty
-                        <Icon type="ios-arrow-forward"></Icon>
-                    </DropdownItem>
-                    <DropdownMenu slot="list" id="facultyMenu">
-                        <DropdownItem>NUS SoC</DropdownItem>
-                        <DropdownItem>NUS Faculty of Science</DropdownItem>
-                        <DropdownItem>NUS FASS</DropdownItem>
-                        <DropdownItem>NUS Business</DropdownItem>
-                        <DropdownItem>NUS Engineering</DropdownItem>
-                        <DropdownItem>NUS Medicine</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-                <DropdownItem>PGPR and PGP house</DropdownItem>
-                <DropdownItem>Ridge View Residential College</DropdownItem>
-                <DropdownItem>Yale-NUS</DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
+        <Select v-model="item.location" style="width:200px" id='SelectList' placeholder="Please Select your location" @on-change="fetchData">
+            <OptionGroup label="NUS Halls">
+                <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </OptionGroup>
+            <OptionGroup label="Residential Colleges">
+                <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </OptionGroup>
+            <OptionGroup label="Faculty">
+                <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            </OptionGroup>
+        </Select>
+        <GmapMap id="GmapMap"
+            :center="{lat:item.lat, lng:item.long}"
+            :zoom="16"
+            map-type-id="terrain"
+            style="width: 500px; height: 300px; border-radius:20px"
+            >
+            <GmapMarker ref="myMarker"
+                :position="google && new google.maps.LatLng(item.lat, item.long)" />
+        </GmapMap>
    </div>
 </template>
 
 <script>
 import database from '../firebase.js'
+import axios from 'axios'
+import {gmapApi} from 'vue2-google-maps'
 
     export default {
+        computed: {
+            google: gmapApi
+        },
         name:'imageUpload',
         data(){
             return{
@@ -89,10 +61,105 @@ import database from '../firebase.js'
                     likeCount: 0,
                     dislikeCount: 0,
                     location:"",
+                    lat: "",
+                    long: "",
                 },
+                nusHalls: [
+                    {
+                        value: 'Sheares hall',
+                        label: 'Sheares hall'
+                    },
+                    {
+                        value: 'Temasek hall',
+                        label: 'Temasek hall'
+                    },
+                    {
+                        value: 'King Edward VII hall',
+                        label: 'King Edward VII hall'
+                    },
+                    {
+                        value: 'Raffles hall',
+                        label: 'Raffles hall'
+                    },
+                    {
+                        value: 'Eusoff hall',
+                        label: 'Eusoff hall'
+                    },
+                    {
+                        value: 'Kent Ridge hall',
+                        label: 'Kent Ridge hall'
+                    },
+                    {
+                        value: 'PGP House',
+                        label: 'PGP House'
+                    }
+                ],
+                rcs: [
+                    {
+                        value: 'Tembusu College',
+                        label: 'Tembusu College'
+                    },
+                    {
+                        value: 'Cinnamon College',
+                        label: 'Cinnamon College'
+                    },
+                    {
+                        value: 'Residential College 4',
+                        label: 'Residential College 4'
+                    },
+                    {
+                        value: 'Ridge View Residential College',
+                        label: 'Ridge View Residential College'
+                    },
+                    {
+                        value: 'Prince Georges Park Residence',
+                        label: 'Prince Georges Park Residence'
+                    }
+                ],
+                faculty: [
+                    {
+                        value: 'NUS SoC',
+                        label: 'NUS SoC'
+                    },
+                    {
+                        value: 'NUS Faculty of Science',
+                        label: 'NUS Faculty of Science'
+                    },
+                    {
+                        value: 'NUS FASS',
+                        label: 'NUS FASS'
+                    },
+                    {
+                        value: 'NUS Business',
+                        label: 'NUS Business'
+                    },
+                    {
+                        value: 'NUS Engineering',
+                        label: 'NUS Engineering'
+                    },
+                    {
+                        value: 'NUS Medicine',
+                        label: 'NUS Medicine'
+                    }
+                ],
             }
         },
         methods:{
+            fetchData:function(e) {
+                const linkName = e.replace(/\s/g, '+');
+                console.log(linkName);
+                const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
+                console.log(link);
+                axios.get(link).then(response=>{
+                    console.log(response.data);
+                    var dataArray = response.data; 
+                    var dataList = dataArray["results"][0];
+                    this.item.lat = dataList['geometry']['location']['lat'];
+                    this.item.long = dataList['geometry']['location']['lng'];
+                    console.log(this.item.lat);
+                    console.log(this.item.long);
+                })
+            },
             captureLocation(value) {
                 this.item.location = value;
                 console.log(1);
@@ -216,7 +283,7 @@ textarea {
     left: 30px;
 }
 
-button {
+#addItem {
     position: relative;
     left:400px;
     top:180px;
@@ -232,46 +299,25 @@ button {
     border-color: black;
 }
 
-#Dropdown {
+#goBackButton {
     position: relative;
-    left: 400px;
+    left:-100px;
+    top:-630px;
+}
+
+#SelectList {
+    position: relative;
+    left: 200px;
     top:-400px;
-    border-radius: 90px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    background-color:orange;
     font-size: 15px;
     height: 40px;
     width: 200px;
     text-align: center;
     line-height: 35px;
 }
-
-#DropdownMenu {
-    background-color:orange;
-    text-align: center;
-    height: 180px;
-    width: 200px;
-}
-#hallMenu {
-    background-color:orange;
-    text-align: center;
-    height: 240px;
-    width: 200px;  
-}
-
-#utMenu {
-    background-color:orange;
-    text-align: center;
-    height: 160px;
-    width: 200px;
-}
-
-#facultyMenu {
-    background-color:orange;
-    text-align: center;
-    height: 180px;
-    width: 200px;
+#GmapMap {
+    position: relative;
+    left: 500px;
+    top:-450px;
 }
  </style>

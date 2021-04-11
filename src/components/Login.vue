@@ -25,9 +25,6 @@
         <Button type="primary" @click="googleSignin"
                 icon="social-google" class="google-signin-button">
             Sign in with Google </Button>
-        <br>
-        <Button type="warning" class="signout-button"
-                @click="signOut"> Sign out </Button>
     </form>
 </div>
 </template>
@@ -39,8 +36,8 @@ export default {
     name: "Login",
     data() {
         return {
-            emailValue:"",
-            passwordValue:"",
+            emailValue:"E0376916@u.nus.edu",
+            passwordValue:"123456",
             //percent: 0,
         }
     },
@@ -137,19 +134,6 @@ export default {
                 }); */
         },
 
-        signOut() {
-            if(firebase.auth().currentUser) {
-                firebase.auth().signOut().then(() => {
-                    this.$Message.success("Signed out")
-                }).catch((error) => {
-                    this.$Message.error(error.message)
-                });
-            } else {
-                this.$Message.error("Not signed in")
-            }
-
-        },
-
         promptFillIn() {
           this.$Message.error("Please fill in account infomation!")
         },
@@ -157,6 +141,9 @@ export default {
         routeSignup() {
           this.$router.push({path:"signup"})
         },
+    },
+    created() {
+        this.$Message.info("Please sign in")
     }
 }
 </script>
@@ -180,7 +167,7 @@ export default {
 #login-form {
     position: relative;
     left:50px;
-    top: 100px;
+    margin-top: 30px;
     width: 1000px;
 }
 

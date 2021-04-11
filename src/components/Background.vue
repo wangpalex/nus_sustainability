@@ -1,43 +1,37 @@
 <template>
 <div id="background">
     <h1 id="app-heading"> NUStainable </h1>
-    <nav class="navigation">
+    <!--nav class="navigation">
         <ul>
             <li><router-link class="router" to="/" exact>Home</router-link> </li>
             <li><router-link class="router" to="/exchange" exact>Items For Exchange</router-link> </li>
             <li><router-link class="router" to="/events" exact>Events</router-link> </li>
             <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
         </ul>
-    </nav>
+    </nav-->
 
-    <Menu active-name="1"
-          style="position: relative;top:300px;">
+    <Menu active-name="home" v-on:on-select="routePages"
+          style="position: relative; top:200px; left:5px; border-radius: 5px">
+        <!--suppress HtmlDeprecatedTag -->
+        <router-link class="router" to="/" exact>
         <MenuItem name="home">
             <Icon type="document-text"></Icon>
-            <router-link class="router" to="/" exact>
                 Home
-            </router-link>
         </MenuItem>
 
         <MenuItem name="exchange">
             <Icon type="chatbubbles"></Icon>
-            <router-link class="router" to="/exchange" exact>
                 Items For Exchange
-            </router-link>
         </MenuItem>
 
         <MenuItem name="events">
             <Icon type="heart"></Icon>
-            <router-link class="router" to="/events" exact>
                 Events
-            </router-link>
         </MenuItem>
 
         <MenuItem name="settings">
             <Icon type="heart-broken"></Icon>
-            <router-link class="router" to="/settings" exact>
                 Settings
-            </router-link>
         </MenuItem>
     </Menu>
 
@@ -52,7 +46,6 @@ export default {
 
     methods: {
         routePages(name) {
-            console.log("routePages called")
             console.log(name)
             //let name = event.target.getAttribute()
             if(name==="home") {
