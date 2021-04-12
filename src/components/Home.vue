@@ -19,9 +19,17 @@
                     Events Hosted
                 </p>
             </div>
+        </div>
 
-            <!-- Google Map here -->
-
+        <div id="middleBottom">
+            <GmapMap id="GmapMap"
+                :center="{lat:1.2985489, lng:103.77496}"
+                :zoom="16"
+                map-type-id="terrain"
+                style="width: 800px; height: 500px; border-radius:20px; margin:0px auto"
+                >
+                <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
+            </GmapMap>
         </div>
 
         <div id="right-column">
@@ -161,6 +169,12 @@ export default {
 
 }
 
+#middleBottom{
+    position:fixed;
+    top: 350px;
+    left: 300px;
+    float:left;
+}
 #right-column  {
     position: relative;
     top:30px;
