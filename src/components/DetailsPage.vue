@@ -1,29 +1,33 @@
 <template>
    <div>
-    <h1 id="head">Items for Exchange</h1>
+    <h1 class="title">Items For Exchange</h1>
+
         <div id="newItem">
-            <div>
-                <img v-bind:src=itemSelected.imageURL class="uploading-image" required/>
+            <div class="leftColumn">
+                <Button type="dashed" id="goBackButton" @click="$router.go(-1)"> Go Back</Button>
+                <div>
+                    <img v-bind:src=itemSelected.imageURL class="uploading-image" required/>
+                </div>
+                <GmapMap id="GmapMap"
+                         :center="{lat:itemSelected.lat, lng:itemSelected.long}"
+                         :zoom="16"
+                         map-type-id="terrain"
+                >
+                    <GmapMarker ref="myMarker"
+                                :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
+                </GmapMap>
             </div>
-            <div id="name">
-                <p id="nameLabel"> Item name: </p>
-                <p id="SelectedName"> {{itemSelected.name}} </p>
+
+            <div class="rightColumn">
+                <div id="name">
+                    <p id="SelectedName"> {{itemSelected.name}} </p>
+                </div>
+                <div id="description">
+                    <p id="SelectedDes"> {{itemSelected.description}} </p>
+                </div>
             </div>
-            <div id="description">
-                <p id="desLabel"> Item description: </p>
-                <p id="SelectedDes"> {{itemSelected.description}} </p>
-            </div>
+
         </div>
-        <GmapMap id="GmapMap"
-            :center="{lat:itemSelected.lat, lng:itemSelected.long}"
-            :zoom="16"
-            map-type-id="terrain"
-            style="width: 350px; height: 250px; border-radius:15px"
-            >
-            <GmapMarker ref="myMarker"
-                :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
-        </GmapMap>
-    <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
    </div>
 </template>
 
@@ -67,19 +71,46 @@ import {gmapApi} from 'vue2-google-maps'
 
 
 <style scoped>
+.title {
+    position: relative;
+
+    left: 50px;
+    top: 20px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 58px;
+
+    color: #42427D;
+}
+
+.leftColumn {
+    float:left;
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+.rightColumn {
+    float:left;
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+
 img{
-position: relative;
-top: 70px;
-left: 120px;
-height: 200px; 
-width: 200px;
-border-radius: 40px;
+    position: relative;
+    top: 0px;
+    left: 120px;
+    height: 250px;
+    width: 250px;
+    border-radius: 20px;
 }
 
 input {
-position: relative;
-top: 40px;
-left: 140px;
+    position: relative;
+    top: 40px;
+    left: 140px;
 }
 
 .uploading-image{
@@ -88,41 +119,58 @@ left: 140px;
 
 #newItem {
     position: relative;
-    left: 80px;
+    margin-top: 30px;
+    left: 50px;
     width: 1000px;
-    height: 580px;
-    background: orange;
+    height: 56%;
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 15px;
 }
-
 
 #name {
     position: relative;
-    top: -150px;
-    left: 450px;
-    width: 500px;
-    height: 100px;
-    background: orange;
+    margin-top: 30px;
+    margin-left: 5px;
+    width: 95%;
+    height: 10%;
+    /*
     border-style: dotted;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 15px;
+     */
+
+}
+
+#SelectedName {
+    position: relative;
+    top: 0px;
+    left: 150px;
+    font-size: 36px;
 }
 
 #description {
     position: relative;
-    top: -120px;
-    left: 450px;
-    width: 500px;
-    height: 300px;
-    background: orange;
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 95%;
+    height: 80%;
     border-style: dotted;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 15px;
+    background: #FFBB80;
+}
+
+#SelectedDes {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    width: 90%;
+    font-size: 18px;
+    white-space: pre-line;
 }
 
 #nameLabel {
@@ -132,38 +180,28 @@ left: 140px;
     font-size: 25px;
 }
 
-#SelectedName {
-    position: relative; 
-    top: -22px; 
-    left: 180px;
-    font-size: 25px;
-}
+
 
 #desLabel {
     position: relative; 
     top: 10px; 
     left: 30px;
-    font-size: 25px;
-}
-
-#SelectedDes {
-    position: relative; 
-    top: 10px; 
-    left: 30px;
-    width: 450px;
-    font-size: 25px;
-    white-space: pre-line;
+    font-size: 12px;
 }
 
 #goBackButton {
     position: relative;
-    left:120px;
-    top:-800px;
+    left:10px;
+    top:10px;
 }
 
 #GmapMap {
     position: relative;
-    left: 150px;
-    top:-300px;
+    width: 420px;
+    height:250px;
+    left: 8%;
+    top:3%;
+    border-width: 1px;
+    border-style: groove;
 }
  </style>
