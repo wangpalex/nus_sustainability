@@ -108,17 +108,6 @@ import {gmapApi} from 'vue2-google-maps'
         created(){
             this.updateUserID()    
         },
-        computed: {
-            google: gmapApi,
-
-            eventInfoReady() {
-                return ((this.item.name !== '') &&
-                    (this.item.description !== '') &&
-                    (this.item.imageURL !== '') &&
-                    (this.item.location !== ''))
-            },
-        },
-        name:'imageUpload',
 
         data(){
             return{
@@ -255,15 +244,10 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.dislikeCount=0;
                 this.item.location="";
                 this.item.userID="";
-            }
-        }
-
-
-                this.$route.push({path:"/exchange"})
             },
 
-            promptFillIn() {
-              this.$Message.error("Please fill in item information")
+            route() {
+                this.$route.push({path:"/exchange"})
             },
         },
 
@@ -271,10 +255,10 @@ import {gmapApi} from 'vue2-google-maps'
             google: gmapApi,
 
             itemInfoReady() {
-                return (this.item.name !== "") &&
+                return ((this.item.name !== "") &&
                     (this.item.description !== "")&&
                     (this.item.imageURL !== "")&&
-                    (this.item.location !== "");
+                    (this.item.location !== ""));
             },
         },
      }  // missing closure added

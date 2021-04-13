@@ -203,8 +203,6 @@ input {
     font-size: 25px;
 }
 
-#desLabel {
-
 #SelectedName {
     position: relative; 
     top: -22px; 
