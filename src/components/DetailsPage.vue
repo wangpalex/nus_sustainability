@@ -91,17 +91,14 @@ height: 200px;
 width: 200px;
 border-radius: 40px;
 }
-
 input {
 position: relative;
 top: 40px;
 left: 140px;
 }
-
 .uploading-image{
     display:flex;
 }
-
 #newItem {
     position: relative;
     left: 80px;
@@ -113,8 +110,6 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
-
 #name {
     position: relative;
     top: -150px;
@@ -127,7 +122,6 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
 #description {
     position: relative;
     top: -120px;
@@ -140,28 +134,24 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
 #nameLabel {
     position: relative; 
     top: 10px; 
     left: 30px;
     font-size: 25px;
 }
-
 #SelectedName {
     position: relative; 
     top: -22px; 
     left: 180px;
     font-size: 25px;
 }
-
 #desLabel {
     position: relative; 
     top: 10px; 
     left: 30px;
     font-size: 25px;
 }
-
 #SelectedDes {
     position: relative; 
     top: 10px; 
@@ -170,13 +160,11 @@ left: 140px;
     font-size: 25px;
     white-space: pre-line;
 }
-
 #goBackButton {
     position: relative;
     left:120px;
     top:-800px;
 }
-
 #GmapMap {
     position: relative;
     left: 150px;
