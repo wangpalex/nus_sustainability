@@ -2,7 +2,7 @@
     <div>
         <h1 class="title">Items for exchange</h1>
         <div id="itemsList">
-            <button v-on:click="route()">Post a new item</button>
+            <Button type="primary" v-on:click="route()">Post a new item</Button>
 
             <div id="items" v-for="item in itemsList" v-bind:key="item.name">
                 <img class="itemImage" v-bind:src=item.imageURL>
@@ -118,19 +118,27 @@ export default {
     color: #42427D;
 }
 
+/*
 button {
   position: relative;
   left:450px;
   margin-top: 20px;
   text-align: center;
-  background-color: #FFBB80;
-  color: black;
   height: 5%;
   width: 150px;
   border-radius: 5px;
   font-size: 15px;
     border-width: 0px;
     font-weight: bold;
+}
+*/
+button {
+    position: relative;
+    left:450px;
+    margin-top: 20px;
+    text-align: center;
+    width: 150px;
+    font-size: 15px;
 }
 
 #itemsList {

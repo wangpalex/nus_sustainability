@@ -63,6 +63,7 @@
                 </GmapMap>
 
 
+
                 <Button v-if="eventInfoReady" class="submitButton"
                     type="primary" long
                     @click="sendEvent"
@@ -301,7 +302,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="css">
 
 .title {
     position: relative;
@@ -407,18 +408,17 @@ ul {
 
 }
 
+
 #GmapMap {
-    position: relative;
+    position:relative;
+    top:10px;
+    left:8px;
+
+    border-width: 1px;
+    border-style: groove;
+
     width: 330px;
     height: 200px;
-    margin-top: 10px;
-    margin-left:8px;
-
-    /*
-    border-radius:15px;
-     */
-    border-width: 1px;
-    border-style: solid;
 }
 
 .submitButton {

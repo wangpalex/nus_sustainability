@@ -1,12 +1,61 @@
 <template>
-   <div>
-    <h1 id="head">Items for exchange</h1>
-        
-        <div id="newItem" >
+    <div>
+        <h1 class="title"> Post a new item </h1>
+        <form id="form">
+            <label> Item Name </label><br>
+            <Input for="itemName"
+                   type="text"
+                   v-model="item.name" placeholder="Please enter item name"
+                   clearable style="width: 500px"></Input><br>
+
+            <label> Item Description </label><br>
+            <Input for="itemDescription"
+                   v-model="item.description" placeholder="Please enter item description"
+                   type="textarea"
+                   :autosize="{minRows: 3,maxRows: 8}"></Input><br>
+
+            <label> Location </label><br>
+            <Select v-model="item.location" placeholder="Please select location" @on-change="fetchData">
+                <OptionGroup label="NUS Halls">
+                    <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </OptionGroup>
+                <OptionGroup label="Residential Colleges">
+                    <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </OptionGroup>
+                <OptionGroup label="Faculty">
+                    <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </OptionGroup>
+            </Select><br>
+
+            <GmapMap id="GmapMap"
+                     :center="{lat:item.lat, lng:item.long}"
+                     :zoom="16"
+                     map-type-id="terrain"
+            >
+                <GmapMarker ref="myMarker"
+                            :position="google && new google.maps.LatLng(item.lat, item.long)" />
+            </GmapMap><br>
+
+            <Button v-if="itemInfoReady" type="success"
+                    long
+                    @click="addItem"> Post new item </Button>
+            <Button v-else type='error'
+                    long
+                    @click="promptFillIn"> Post new item </Button>
+        </form>
+
+        <div id="chooseImage">
+            <label> Item Image </label>
+            <img v-bind:src=item.imageURL class="uploading-image" alt="Please upload image" required/>
+            <input type="file" accept="image/jpeg" @change=uploadImage style="position:relative;left:70px;">
+        </div>
+
+    <!--div>
             <div id="chooseImage">
                 <img v-bind:src=item.imageURL class="uploading-image" required/>
-                <input type="file" accept="image/jpeg" @change=uploadImage required/>
-            </div>
+                <input type="file" accept="image/jpeg" @change=uploadImage>
+            </--div>
+
             <div id="name">
                 <label for="itemName" id="nameLabel">Item name:</label>
                 <input type="text" id="itemName" name="itemName" size=30 v-model.lazy="item.name" required/>
@@ -23,7 +72,8 @@
                         @click="promptFillIn"
                 > Submit </Button>
         <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
-        </div>
+    </div>
+
         <Select v-model="item.location" style="width:200px" id='SelectList' placeholder="Please Select your location" @on-change="fetchData">
             <OptionGroup label="NUS Halls">
                 <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -43,7 +93,8 @@
             >
             <GmapMarker ref="myMarker"
                 :position="google && new google.maps.LatLng(item.lat, item.long)" />
-        </GmapMap>
+        </GmapMap-->
+
    </div>
 </template>
 
@@ -68,6 +119,7 @@ import {gmapApi} from 'vue2-google-maps'
             },
         },
         name:'imageUpload',
+
         data(){
             return{
                item:{
@@ -179,9 +231,11 @@ import {gmapApi} from 'vue2-google-maps'
                     this.item.long = dataList['geometry']['location']['lng'];
                 })
             },
+
             captureLocation(value) {
                 this.item.location = value;
             },
+
             uploadImage(e){
                 const image = e.target.files[0];
                 const reader = new FileReader();
@@ -190,9 +244,10 @@ import {gmapApi} from 'vue2-google-maps'
                     this.item.imageURL = e.target.result;
                 };
             },
+
             addItem:function(){
                 database.collection('items').add(this.item)
-                this.$Message.success(this.item.name + "is added! Looking forward to your participation! :)");
+                this.$Message.success(this.item.name + " is posted")
                 this.item.name="";
                 this.item.description="";
                 this.item.imageURL= "";
@@ -202,54 +257,108 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.userID="";
             }
         }
+
+
+                this.$route.push({path:"/exchange"})
+            },
+
+            promptFillIn() {
+              this.$Message.error("Please fill in item information")
+            },
+        },
+
+        computed: {
+            google: gmapApi,
+
+            itemInfoReady() {
+                return (this.item.name !== "") &&
+                    (this.item.description !== "")&&
+                    (this.item.imageURL !== "")&&
+                    (this.item.location !== "");
+            },
+        },
      }  // missing closure added
 </script>
 
 
 
 <style scoped>
+
+.title {
+    position: relative;
+
+    left: 50px;
+    top: 20px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 58px;
+
+    color: #42427D;
+}
+
+label {
+    font-family: Anaheim;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 58px;
+
+    color: dimgrey;
+}
+
 img{
-position: relative;
-top: 20px;
-left: 60px;
-height: 260px; 
-width: 280px;
-border-radius: 40px;
+    position: relative;
+    top: 20px;
+    left: 10px;
+    height: 270px;
+    width: 270px;
+    border-radius: 15px;
+    border-style: dashed;
+    border-width: 1px;
 }
 
 input {
-position: relative;
-top: 40px;
-left: 140px;
+    position: relative;
+    top: 40px;
+    left: 140px;
 }
 
 .uploading-image{
     display:flex;
 }
 
-#newItem {
+#form {
+    float: left;
     position: relative;
-    left: 80px;
-    width: 1000px;
+    margin-top: 30px;
+    left: 50px;
+    width: 500px;
     height: 880px;
-    background: orange;
+    background: white;
+    /*
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 30px;
+
+     */
 }
 
 #chooseImage {
+    float: left;
     position: relative;
-    top: 60px;
-    left: 80px;
-    width: 400px;
+    top: 30px;
+    left: 8%;
+    width: 30%;
     height: 340px;
-    background: orange;
+    /*
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+
+     */
 }
 
 #name {
@@ -333,9 +442,23 @@ textarea {
     text-align: center;
     line-height: 35px;
 }
+
 #GmapMap {
-    position: relative;
-    left: 500px;
-    top:-450px;
+    position:relative;
+    top:20px;
+    left:20px;
+
+    border-width: 1px;
+    border-style: groove;
+
+    width: 460px;
+    height: 250px;
 }
+
+Button {
+    position: relative;
+    margin-top: 30px;
+    width: 500px;
+}
+
  </style>
