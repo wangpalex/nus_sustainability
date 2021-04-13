@@ -121,8 +121,9 @@ button {
   height: 5%;
   width: 150px;
   border-radius: 5px;
-  border-width: 1px;
   font-size: 15px;
+    border-width: 0px;
+    font-weight: bold;
 }
 
 #itemsList {
@@ -148,7 +149,7 @@ button {
     background: #FFBB80;
     border-style: dotted;
     border-color: black;
-    border-width: 1px;
+    border-width: 0px;
     border-radius: 25px;
 }
 
@@ -196,7 +197,7 @@ button {
     margin-top: 30px;
     width: 20%;
     height: 56%;
-    background: #FFBB80;
+    background: white;
     border-style: solid;
     border-color: black;
     border-width: 1px;
@@ -217,7 +218,7 @@ button {
     background: #FFBB80;
     border-style: dotted;
     border-color: black;
-    border-width: 1px;
+    border-width: 0px;
     border-radius: 15px;
 }
 
@@ -234,6 +235,6 @@ button {
     position: relative;
     left: 100px;
     top: -40px;
-    font-size: 15px;
+    font-size: 20px;
 }
  </style>

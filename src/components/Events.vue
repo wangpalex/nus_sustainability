@@ -1,21 +1,82 @@
 <template>
     <div>
         <h1 class="title">Events Bulletin</h1>
+
         <div id = "main">
-            <ol class = "ol">
-                <li v-for ="i in eventsList" :key="i.id" id="events">
-                    <ul><li id = "eventName"><h3>{{i.title}}</h3></li></ul>
-                    <div id ="details">
+            <div v-for ="i in eventsList" :key="i.id" id="events">
+                <div id = "eventName"><h3>{{i.title}}</h3></div>
+                <div id ="details">
                     Location: {{i.location}} <br>
                     Date: {{i.date}} <br>
                     Time: {{i.time}} <br>
-                    </div>
-                    <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">More Details ></h1>
-                </li>
-                    
-            </ol>
+                </div>
+                <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
+                    More Details >
+                </h1>
+            </div>
         </div>
+
         <div id="form">
+            <h2 id="head"> Submit your own event </h2>
+            <Form :model="event" :label-width="80">
+                <FormItem label="Event Name">
+                    <Input v-model.lazy="event.title" placeholder="Enter event name"></Input>
+                </FormItem>
+
+                <FormItem label="Date & Time">
+                    <Row>
+                        <Col span="11">
+                            <DatePicker type="date" placeholder="Select date" v-model.lazy="event.date"></DatePicker>
+                        </Col>
+                        <Col span="2" style="text-align: center">-</Col>
+                        <Col span="11">
+                            <TimePicker type="time" placeholder="Select time" v-model.lazy="event.time"></TimePicker>
+                        </Col>
+                    </Row>
+                </FormItem>
+
+                <FormItem label="Description">
+                    <Input v-model="event.description" type="textarea" :autosize="{minRows: 2,maxRows: 10}" placeholder="Enter something..."></Input>
+                </FormItem>
+
+                <FormItem label="Location">
+                    <Select v-model="event.location" style="" id='SelectList' placeholder="Select event location" @on-change="fetchData">
+                        <OptionGroup label="NUS Halls">
+                            <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        </OptionGroup>
+                        <OptionGroup label="Residential Colleges">
+                            <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        </OptionGroup>
+                        <OptionGroup label="Faculty">
+                            <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        </OptionGroup>
+                    </Select>
+                </FormItem>
+
+
+                <GmapMap id="GmapMap"
+                         :center="{lat:event.lat, lng:event.long}"
+                         :zoom="16"
+                         map-type-id="terrain"
+                >
+                    <GmapMarker ref="myMarker"
+                                :position="google && new google.maps.LatLng(event.lat, event.long)" />
+                </GmapMap>
+
+
+                <Button v-if="eventInfoReady" class="submitButton"
+                    type="primary" long
+                    @click="sendEvent"
+                > Submit </Button>
+                <Button v-else class="submitButton"
+                        type="error" long
+                        @click="promptFillIn"
+                > Submit </Button>
+
+            </Form>
+        </div>
+
+        <!--div id="form">
             <h2 id="head"> Submit your own event </h2>
             <div id="newEvent">
                 <div id="name">
@@ -57,7 +118,8 @@
                 </div>
                 <button style="position:relative; left:200px; top:30px" v-on:click="sendEvent">Submit</button>
             </div>
-        </div>
+        </div-->
+
     </div>
 </template>
 
@@ -183,31 +245,33 @@ export default {
         },
         
         sendEvent: function() {
-            if ((this.event.title !== '') && (this.event.date !== '') && (this.event.time !== '') && (this.event.description !== '')) {
-                database.collection('events').add(this.event);
-                alert(this.event.title + " updated! Looking forward to your event! :)");
-                this.event.title="";
-                this.event.date="";
-                this.event.time="";
-                this.event.location="";
-                this.event.description="";
-            } else {
-                alert("Entry not filled!");
-            }
+            database.collection('events').add(this.event);
+            this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
+            this.event.title="";
+            this.event.date="";
+            this.event.time="";
+            this.event.location="";
+            this.event.description="";
         },
-            fetchData:function(e) {
-                const linkName = e.replace(/\s/g, '+');
-                console.log(linkName);
-                const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
-                console.log(link);
-                axios.get(link).then(response=>{
-                    var dataArray = response.data; 
-                    var dataList = dataArray["results"][0];
-                    this.event.lat = dataList['geometry']['location']['lat'];
-                    this.event.long = dataList['geometry']['location']['lng'];
-                })
-            }
+
+        promptFillIn() {
+            this.$Message.error("Please fill in event information")
+        },
+
+        fetchData:function(e) {
+            const linkName = e.replace(/\s/g, '+');
+            console.log(linkName);
+            const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
+            console.log(link);
+            axios.get(link).then(response=>{
+                var dataArray = response.data;
+                var dataList = dataArray["results"][0];
+                this.event.lat = dataList['geometry']['location']['lat'];
+                this.event.long = dataList['geometry']['location']['lng'];
+            })
+        }
     },
+
     created(){
       this.fetchItems();
         firebase.auth().onAuthStateChanged(user => {
@@ -217,9 +281,6 @@ export default {
                 let docRef = db.collection('users').doc(user.uid)
                 docRef.get().then(doc => {
                     this.userData = doc.data();
-                    if(this.userData.imagePath) {
-                        this.fetchUserImage()
-                    }
                 })
             } else {
                 this.$router.push({path: "/settings/login"});
@@ -228,7 +289,15 @@ export default {
     },
 
   computed: {
-      google: gmapApi
+      google: gmapApi,
+
+      eventInfoReady() {
+          return ((this.event.title !== '') &&
+              (this.event.date !== '') &&
+              (this.event.time !== '') &&
+              (this.event.description !== '') &&
+              (this.event.location !== ''))
+      }
   }
 }
 </script>
@@ -249,6 +318,20 @@ export default {
     color: #42427D;
 }
 
+#main {
+    float: left;
+    position: relative;
+    margin-top: 30px;
+    left: 50px;
+    width: 42%;
+    height: 56%;
+    background: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 20px;
+}
+
 .ol {
     max-width:60%;
     position: relative;
@@ -263,66 +346,87 @@ export default {
 
 }
 
-.form{
-  position: absolute;
-  top: 5%;
-  left: 60%;
-}
-
 ul {
-display: flex;
-flex-wrap: wrap;
-width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
 }
 
 #events {
     position: relative;
-    top: 30px;
-    left: 15px;
-    width: 885px;
-    height: 150px;
-    background: #FBBC46;
+    margin-top: 3%;
+    margin-left: 5%;
+    width: 86%;
+    height: 20%;
+
+    background: #FFBB80;
     border-style: dotted;
     border-color: black;
-    border-width: 1px;
-    border-radius: 70px;
-    margin:5px;
+    border-width: 0px;
+    border-radius: 15px;
 }
 
 #eventName {
     position: relative;
-    left: 10px;
-    top: 10px;
-    font-size: 22px;
+    left: 20px;
+    top: 5px;
+    font-size: 20px;
     list-style-type: disc;
 }
 
 #details{
     position: relative;
-    left: 65px;
-    top: 15px;
+    left: 40px;
+    top: 5px;
     font-size: 16px;
 }
 
 .moreDetails{
     position: relative;
-    left: 700px;
-    top:-45px;
-    font-Size: 20px;
+    left: 75%;
+    top:-55%;
+    font-Size: 18px;
 }
 
 #form {
+    float: left;
     position: absolute;
+    margin-left: 48%;
+    margin-top: 30px;
+    width: 25%;
+    height: 56%;
+    /*
     top: 5.5%;
     left: 65%;
-    background: orange;
-    border-style: dotted;
+     */
+    background: white;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 15px;
     padding: 20px;
-    width: 500px;
-    height: 600px;
+
+}
+
+#GmapMap {
+    position: relative;
+    width: 330px;
+    height: 200px;
+    margin-top: 10px;
+    margin-left:8px;
+
+    /*
+    border-radius:15px;
+     */
+    border-width: 1px;
+    border-style: solid;
+}
+
+.submitButton {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 8px;
+    width: 330px;
 }
 
 
