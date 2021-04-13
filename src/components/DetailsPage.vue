@@ -24,20 +24,24 @@
                 :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
         </GmapMap>
     <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
+    <p id="deleteLine" v-show="owner">"As you are the owner of this item, you can delete the item here if you decide to delete it"</p>
+    <button id="deleteButton" v-show="owner" @click="deleteItem">Delete Item</button>
    </div>
 </template>
 
 <script>
-import database from '../firebase.js'
+import db from '../firebase.js'
+import firebase from "firebase";
 import {gmapApi} from 'vue2-google-maps'
 
     export default {
         computed: {
-            google: gmapApi
+            google: gmapApi,
         },
         props: ["detail_id"],
         data(){
             return{
+               currentUserID: "",
                item:{
                     name:"",
                     description:"",
@@ -49,13 +53,25 @@ import {gmapApi} from 'vue2-google-maps'
             }
         },
         methods:{
+            owner() {
+                this.currentUserID = firebase.auth().currentUser.uid;
+                return (this.currentUserID == this.itemSelected.userID)
+            },
+            deleteItem:function() {
+                db.collection("items").doc(this.detail_id).delete().then(() => {
+                    console.log("Document successfully deleted!");
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+                this.$Message.success(this.itemSelected.name + "is deleted!");
+            },
             fetchItems:function(){
-        database.collection('items').doc(this.detail_id).get().then(snapshot=>{
-            let item={}
-                item=snapshot.data()
-                item.id=snapshot.id
-                this.itemSelected = item 
-            })    
+                db.collection('items').doc(this.detail_id).get().then(snapshot=>{
+                    let item={}
+                    item=snapshot.data()
+                    item.id=snapshot.id
+                    this.itemSelected = item 
+                })    
             },
         },
         created(){
@@ -166,4 +182,19 @@ left: 140px;
     left: 150px;
     top:-300px;
 }
+
+#deleteLine {
+    position: relative; 
+    left: 550px;
+    top: -350px;
+    color: black;
+}
+
+#deleteButton {
+    position: relative; 
+    left: 750px;
+    top: -350px;
+}
+ 
+ 
  </style>

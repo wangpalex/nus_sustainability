@@ -57,8 +57,7 @@
                 <GmapMap id="GmapMap"
                          :center="{lat:event.lat, lng:event.long}"
                          :zoom="16"
-                         map-type-id="terrain"
-                >
+                         map-type-id="terrain">
                     <GmapMarker ref="myMarker"
                                 :position="google && new google.maps.LatLng(event.lat, event.long)" />
                 </GmapMap>
@@ -273,7 +272,7 @@ export default {
     },
 
     created(){
-      this.fetchItems();
+        this.fetchItems();
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 console.log("State change user log")

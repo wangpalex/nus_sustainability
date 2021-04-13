@@ -2,10 +2,10 @@
    <div>
     <h1 id="head">Items for exchange</h1>
         
-        <div id="newItem">
+        <div id="newItem" >
             <div id="chooseImage">
                 <img v-bind:src=item.imageURL class="uploading-image" required/>
-                <input type="file" accept="image/jpeg" @change=uploadImage>
+                <input type="file" accept="image/jpeg" @change=uploadImage required/>
             </div>
             <div id="name">
                 <label for="itemName" id="nameLabel">Item name:</label>
@@ -16,7 +16,12 @@
                 <textarea id="itemDescription" name="itemDes" cols="40" rows="5" v-model="item.description" required></textarea>
             </div>
             
-        <button id="addItem" v-on:click.prevent="addItem">Add Item</button>
+        <Button v-if="eventInfoReady" class="submitButton" type="primary" 
+                    @click="addItem"
+                > Submit </Button>
+        <Button v-else class="submitButton" type="primary"
+                        @click="promptFillIn"
+                > Submit </Button>
         <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
         </div>
         <Select v-model="item.location" style="width:200px" id='SelectList' placeholder="Please Select your location" @on-change="fetchData">
@@ -45,11 +50,22 @@
 <script>
 import database from '../firebase.js'
 import axios from 'axios'
+import firebase from "firebase";
 import {gmapApi} from 'vue2-google-maps'
 
     export default {
+        created(){
+            this.updateUserID()    
+        },
         computed: {
-            google: gmapApi
+            google: gmapApi,
+
+            eventInfoReady() {
+                return ((this.item.name !== '') &&
+                    (this.item.description !== '') &&
+                    (this.item.imageURL !== '') &&
+                    (this.item.location !== ''))
+            },
         },
         name:'imageUpload',
         data(){
@@ -63,6 +79,7 @@ import {gmapApi} from 'vue2-google-maps'
                     location:"",
                     lat: 1.296643,
                     long: 103.776394,
+                    userID: "",
                 },
                 nusHalls: [
                     {
@@ -145,25 +162,25 @@ import {gmapApi} from 'vue2-google-maps'
             }
         },
         methods:{
+            updateUserID() {
+                this.item.userID = firebase.auth().currentUser.uid
+                console.log(this.item.userID)
+            },
+            promptFillIn() {
+                this.$Message.error("Please fill in event information")
+            },
             fetchData:function(e) {
                 const linkName = e.replace(/\s/g, '+');
-                console.log(linkName);
                 const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
-                console.log(link);
                 axios.get(link).then(response=>{
-                    console.log(response.data);
                     var dataArray = response.data; 
                     var dataList = dataArray["results"][0];
                     this.item.lat = dataList['geometry']['location']['lat'];
                     this.item.long = dataList['geometry']['location']['lng'];
-                    console.log(this.item.lat);
-                    console.log(this.item.long);
                 })
             },
             captureLocation(value) {
                 this.item.location = value;
-                console.log(1);
-                console.log(value);
             },
             uploadImage(e){
                 const image = e.target.files[0];
@@ -175,13 +192,14 @@ import {gmapApi} from 'vue2-google-maps'
             },
             addItem:function(){
                 database.collection('items').add(this.item)
-                alert(this.item.name + " saved to database");
+                this.$Message.success(this.item.name + "is added! Looking forward to your participation! :)");
                 this.item.name="";
                 this.item.description="";
                 this.item.imageURL= "";
                 this.item.likeCount=0;
                 this.item.dislikeCount=0;
                 this.item.location="";
+                this.item.userID="";
             }
         }
      }  // missing closure added
@@ -283,7 +301,7 @@ textarea {
     left: 30px;
 }
 
-#addItem {
+.submitButton {
     position: relative;
     left:400px;
     top:180px;
