@@ -55,6 +55,7 @@
                 <img v-bind:src=item.imageURL class="uploading-image" required/>
                 <input type="file" accept="image/jpeg" @change=uploadImage>
             </--div>
+
             <div id="name">
                 <label for="itemName" id="nameLabel">Item name:</label>
                 <input type="text" id="itemName" name="itemName" size=30 v-model.lazy="item.name" required/>
@@ -64,7 +65,12 @@
                 <textarea id="itemDescription" name="itemDes" cols="40" rows="5" v-model="item.description" required></textarea>
             </div>
             
-        <button id="addItem" v-on:click.prevent="addItem">Add Item</button>
+        <Button v-if="eventInfoReady" class="submitButton" type="primary" 
+                    @click="addItem"
+                > Submit </Button>
+        <Button v-else class="submitButton" type="primary"
+                        @click="promptFillIn"
+                > Submit </Button>
         <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
     </div>
 
@@ -95,9 +101,25 @@
 <script>
 import database from '../firebase.js'
 import axios from 'axios'
+import firebase from "firebase";
 import {gmapApi} from 'vue2-google-maps'
 
     export default {
+        created(){
+            this.updateUserID()    
+        },
+        computed: {
+            google: gmapApi,
+
+            eventInfoReady() {
+                return ((this.item.name !== '') &&
+                    (this.item.description !== '') &&
+                    (this.item.imageURL !== '') &&
+                    (this.item.location !== ''))
+            },
+        },
+        name:'imageUpload',
+
         data(){
             return{
                item:{
@@ -109,6 +131,7 @@ import {gmapApi} from 'vue2-google-maps'
                     location:"",
                     lat: 1.296643,
                     long: 103.776394,
+                    userID: "",
                 },
                 nusHalls: [
                     {
@@ -191,26 +214,26 @@ import {gmapApi} from 'vue2-google-maps'
             }
         },
         methods:{
+            updateUserID() {
+                this.item.userID = firebase.auth().currentUser.uid
+                console.log(this.item.userID)
+            },
+            promptFillIn() {
+                this.$Message.error("Please fill in event information")
+            },
             fetchData:function(e) {
                 const linkName = e.replace(/\s/g, '+');
-                console.log(linkName);
                 const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
-                console.log(link);
                 axios.get(link).then(response=>{
-                    console.log(response.data);
                     var dataArray = response.data; 
                     var dataList = dataArray["results"][0];
                     this.item.lat = dataList['geometry']['location']['lat'];
                     this.item.long = dataList['geometry']['location']['lng'];
-                    console.log(this.item.lat);
-                    console.log(this.item.long);
                 })
             },
 
             captureLocation(value) {
                 this.item.location = value;
-                console.log(1);
-                console.log(value);
             },
 
             uploadImage(e){
@@ -231,6 +254,10 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.likeCount=0;
                 this.item.dislikeCount=0;
                 this.item.location="";
+                this.item.userID="";
+            }
+        }
+
 
                 this.$route.push({path:"/exchange"})
             },
@@ -383,7 +410,7 @@ textarea {
     left: 30px;
 }
 
-#addItem {
+.submitButton {
     position: relative;
     left:400px;
     top:180px;

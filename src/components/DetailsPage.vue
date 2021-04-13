@@ -24,20 +24,24 @@
                 :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
         </GmapMap>
     <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
+    <p id="deleteLine" v-show="owner">"As you are the owner of this item, you can delete the item here if you decide to delete it"</p>
+    <button id="deleteButton" v-show="owner" @click="deleteItem">Delete Item</button>
    </div>
 </template>
 
 <script>
-import database from '../firebase.js'
+import db from '../firebase.js'
+import firebase from "firebase";
 import {gmapApi} from 'vue2-google-maps'
 
     export default {
         computed: {
-            google: gmapApi
+            google: gmapApi,
         },
         props: ["detail_id"],
         data(){
             return{
+               currentUserID: "",
                item:{
                     name:"",
                     description:"",
@@ -49,13 +53,25 @@ import {gmapApi} from 'vue2-google-maps'
             }
         },
         methods:{
+            owner() {
+                this.currentUserID = firebase.auth().currentUser.uid;
+                return (this.currentUserID == this.itemSelected.userID)
+            },
+            deleteItem:function() {
+                db.collection("items").doc(this.detail_id).delete().then(() => {
+                    console.log("Document successfully deleted!");
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+                this.$Message.success(this.itemSelected.name + "is deleted!");
+            },
             fetchItems:function(){
-        database.collection('items').doc(this.detail_id).get().then(snapshot=>{
-            let item={}
-                item=snapshot.data()
-                item.id=snapshot.id
-                this.itemSelected = item 
-            })    
+                db.collection('items').doc(this.detail_id).get().then(snapshot=>{
+                    let item={}
+                    item=snapshot.data()
+                    item.id=snapshot.id
+                    this.itemSelected = item 
+                })    
             },
         },
         created(){
@@ -75,17 +91,14 @@ height: 200px;
 width: 200px;
 border-radius: 40px;
 }
-
 input {
 position: relative;
 top: 40px;
 left: 140px;
 }
-
 .uploading-image{
     display:flex;
 }
-
 #newItem {
     position: relative;
     left: 80px;
@@ -97,8 +110,6 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
-
 #name {
     position: relative;
     top: -150px;
@@ -111,7 +122,6 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
 #description {
     position: relative;
     top: -120px;
@@ -124,28 +134,24 @@ left: 140px;
     border-width: 1px;
     border-radius: 70px;
 }
-
 #nameLabel {
     position: relative; 
     top: 10px; 
     left: 30px;
     font-size: 25px;
 }
-
 #SelectedName {
     position: relative; 
     top: -22px; 
     left: 180px;
     font-size: 25px;
 }
-
 #desLabel {
     position: relative; 
     top: 10px; 
     left: 30px;
     font-size: 25px;
 }
-
 #SelectedDes {
     position: relative; 
     top: 10px; 
@@ -154,16 +160,29 @@ left: 140px;
     font-size: 25px;
     white-space: pre-line;
 }
-
 #goBackButton {
     position: relative;
     left:120px;
     top:-800px;
 }
-
 #GmapMap {
     position: relative;
     left: 150px;
     top:-300px;
 }
+
+#deleteLine {
+    position: relative; 
+    left: 550px;
+    top: -350px;
+    color: black;
+}
+
+#deleteButton {
+    position: relative; 
+    left: 750px;
+    top: -350px;
+}
+ 
+ 
  </style>
