@@ -68,7 +68,7 @@ export default {
     position: absolute;
     width: 296px;
     height: 57px;
-    left: 40px;
+    left: 30px;
     top: 77px;
     font-size: 30px;
     color: #FFA14F;

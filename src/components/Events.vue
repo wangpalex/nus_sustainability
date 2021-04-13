@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 id="title">Events Bulletin</h1>
+        <h1 class="title">Events Bulletin</h1>
         <div id = "main">
             <ol class = "ol">
                 <li v-for ="i in eventsList" :key="i.id" id="events">
@@ -234,10 +234,19 @@ export default {
 </script>
 
 <style scoped>
-#title {
+
+.title {
     position: relative;
+
     left: 50px;
-    font-size: 40px;
+    top: 20px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 58px;
+
+    color: #42427D;
 }
 
 .ol {

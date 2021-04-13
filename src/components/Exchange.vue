@@ -1,32 +1,32 @@
 <template>
     <div>
-        <h1 id="head">Items for exchange</h1>
+        <h1 class="title">Items for exchange</h1>
         <div id="itemsList">
             <button v-on:click="route()">Post a new item</button>
-            <ol>
-                <li id="items" v-for="item in itemsList" v-bind:key="item.name">
-                    <img id="itemImage" v-bind:src=item.imageURL>
-                    <h2 id="itemName">{{item.name}}</h2>
-                    <p class="detailPage" v-on:click="routeDetails($event)" v-bind:id=item.id>More Details ></p>
-                    <vue-like-dislike-buttons id="likeButton"   :likes=item.likeCount
-                                                                :dislikes=item.dislikeCount
-                                                                :likeChecked="likeChecked"
-                                                                :dislikeChecked="dislikeChecked"
-                                                                @like="like(item.id)"
-                                                                @dislike="dislike(item.id)" />
-                                                        
-                </li>
-            </ol>
+
+            <div id="items" v-for="item in itemsList" v-bind:key="item.name">
+                <img class="itemImage" v-bind:src=item.imageURL>
+                <div class="itemName">{{item.name}}</div>
+                <p class="detailPage" v-on:click="routeDetails($event)" v-bind:id=item.id>More Details ></p>
+                <vue-like-dislike-buttons id="likeButton"   :likes=item.likeCount
+                                                            :dislikes=item.dislikeCount
+                                                            :likeChecked="likeChecked"
+                                                            :dislikeChecked="dislikeChecked"
+                                                            @like="like(item.id)"
+                                                            @dislike="dislike(item.id)" />
+
+            </div>
+
         </div>
         <div id="likedList">
             <br>
-            <h2 style="position:relative;left:60px"> Your Liked Item </h2>
-            <ol> 
-                <li id="likedItem" v-for="item in itemsLiked" v-bind:key="item.name">
+            <h2 style="position:relative;left:20px"> Your Liked Items </h2>
+
+                <div id="likedItem" v-for="item in itemsLiked" v-bind:key="item.name">
                     <img id="likedItemImage" v-bind:src=item.imageURL>
                     <h2 id="likedItemName">{{item.name}}</h2>
-                </li>
-            </ol>
+                </div>
+
         </div>
    </div>
 </template>
@@ -96,106 +96,129 @@ export default {
 
 
 <style scoped>
-#head {
+
+.title {
     position: relative;
+
     left: 50px;
+    top: 20px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 58px;
+
+    color: #42427D;
 }
 
 button {
   position: relative;
-  left:500px;
-  top: 50px;
+  left:450px;
+  margin-top: 20px;
   text-align: center;
-  background-color: #FBBC46;
-  color: white;
-  height: 40px;
+  background-color: #FFBB80;
+  color: black;
+  height: 5%;
   width: 150px;
-  border-radius: 60px;
+  border-radius: 5px;
   border-width: 1px;
   font-size: 15px;
 }
 
 #itemsList {
+    float: left;
     position: relative;
+    margin-top: 30px;
     left: 50px;
-    width: 720px;
-    height: 580px;
+    width: 42%;
+    height: 56%;
     background: white;
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 20px;
 }
 
 #items {
     position: relative;
-    top: 60px;
+    margin-top: 2%;
     left: 15px;
-    width: 620px;
-    height: 150px;
-    background: #FBBC46;
+    width: 600px;
+    height: 20%;
+    background: #FFBB80;
     border-style: dotted;
     border-color: black;
     border-width: 1px;
-    border-radius: 60px;
+    border-radius: 25px;
 }
 
-#itemImage {
+.itemImage {
+    float: left;
     position: relative;
-    top: 20px;
-    left: 30px;
-    border-radius: 30px;
-    width: 110px;
-    height: 110px;
+    margin-top:1.5%;
+    margin-left: 2%;
+    border-radius: 20px;
+    width: 17%;
+    height: 86%;
 
 }
 
-#itemName {
+.itemName {
+    float: left;
     position: relative;
-    left: 180px;
-    top: -50px;
+    margin-top: 6%;
+    margin-left: 6%;
+    font-size: 30px;
     
 }
 
 .detailPage {
+    float:left;
     position: relative;
-    left: 480px;
-    top: -80px;
-    font-size: 18px; 
+    margin-left: 50%;
+    margin-top:-7%;
+    font-size: 20px;
 }
 
 #likeButton {
-    position: absolute;
-    left: 500px;
-    top: 105px;
-    font-size: 20px; 
+    float: left;
+    position: relative;
+    left: 66%;
+    top: 0%;
+    font-size: 20px;
     color: grey;
 }
 
 #likedList {
+    float: left;
     position: absolute;
-    left: 800px;
-    top: 80px;
-    width: 320px;
-    height: 580px;
-    background: #FBBC46;
+    margin-left: 48%;
+    margin-top: 30px;
+    width: 20%;
+    height: 56%;
+    background: #FFBB80;
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    border-radius: 70px;
+    border-radius: 15px;
 }
 
 #likedItem {
     position: relative;
+    margin-top: 3%;
+    margin-left: 6%;
+    width: 86%;
+    /*
     top: 60px;
     left: 15px;
     width: 220px;
     height: 100px;
-    background: #FBBC46;
+    */
+    background: #FFBB80;
     border-style: dotted;
     border-color: black;
     border-width: 1px;
-    border-radius: 60px;
+    border-radius: 15px;
 }
 
 #likedItemImage {
