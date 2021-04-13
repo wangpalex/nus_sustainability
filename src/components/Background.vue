@@ -11,7 +11,7 @@
     </nav-->
 
     <Menu active-name="home" v-on:on-select="routePages"
-          style="position: relative; top:200px; left:5px; border-radius: 5px">
+          style="position: relative; top:200px; left:5px;">
         <!--suppress HtmlDeprecatedTag -->
         <router-link class="router" to="/" exact/>
         <MenuItem name="home">
@@ -68,7 +68,7 @@ export default {
     position: absolute;
     width: 296px;
     height: 57px;
-    left: 40px;
+    left: 30px;
     top: 77px;
     font-size: 30px;
     color: #FFA14F;
@@ -115,7 +115,7 @@ a:link {
 
     background: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 60px;
+    border-radius: 25px;
 }
 
 .router {

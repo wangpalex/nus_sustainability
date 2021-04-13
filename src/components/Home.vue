@@ -26,7 +26,7 @@
                 :center="{lat:1.2985489, lng:103.77496}"
                 :zoom="16"
                 map-type-id="terrain"
-                style="width: 800px; height: 500px; border-radius:20px; margin:0px auto"
+                style="width: 800px; height: 500px; border-radius:20px; margin:0px auto;"
                 >
                 <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
             </GmapMap>
@@ -159,7 +159,7 @@ export default {
     position: relative;
     top:30px;
     float: left;
-    width: 60%;
+    width: 50%;
     height: 80%;
 
 
@@ -193,7 +193,7 @@ export default {
 #stats1 {
     float: left;
     position: relative;
-    width: 25%;
+    width: 30%;
     height: 15%;
     top:3%;
     left: 10%;
@@ -207,7 +207,7 @@ export default {
 #stats2 {
     float: left;
     position: relative;
-    width: 25%;
+    width: 30%;
     height: 15%;
     top:3%;
     left: 30%;
