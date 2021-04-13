@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import database from '../firebase.js' 
+import db from '../firebase.js' 
 import VueLikeDislikeButtons from 'vue-like-dislike-buttons'
 
 
@@ -50,6 +50,7 @@ export default {
         }
   },
   methods:{
+
     like(ID) {
         for (var i = 0; i < this.itemsList.length; i++){
             if(this.itemsList[i]["id"] == ID) {
@@ -57,6 +58,9 @@ export default {
                 this.likeChecked = true; 
                 this.itemsLiked.add(this.itemsList[i]);
                 console.log(this.itemsLiked)
+                db.collection("items").doc(ID).update({
+                    likeCount: this.itemsList[i]["likeCount"]
+                })
             }
         }
     },
@@ -65,9 +69,12 @@ export default {
             if(this.itemsList[i]["id"] == ID) {
                 this.itemsList[i]["dislikeCount"] += 1;
                 this.dislikeChecked = true; 
+                console.log(this.itemsList[i]["dislikeCount"])
+                db.collection("items").doc(ID).update({
+                    dislikeCount: this.itemsList[i]["dislikeCount"]
+                })
             }
         }
-
     },
     route: function() {
             this.$router.push({ path: "/newItem", name: "newItem"})
@@ -77,7 +84,7 @@ export default {
             this.$router.push({path: '/detailsPage', name: 'detailsPage', params: {detail_id: new_id}})
     },
     fetchItems:function(){
-      database.collection('items').get().then((querySnapShot)=>{
+      db.collection('items').get().then((querySnapShot)=>{
             let item={}
             querySnapShot.forEach(doc=>{
                 item=doc.data()
@@ -146,6 +153,7 @@ button {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
+    overflow: scroll;
 }
 
 #items {
@@ -210,6 +218,7 @@ button {
     border-color: black;
     border-width: 1px;
     border-radius: 15px;
+    overflow: scroll;
 }
 
 #likedItem {
