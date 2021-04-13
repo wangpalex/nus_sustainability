@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="title">Items for exchange</h1>
+        <h1 class="title">Items For Exchange</h1>
         <div id="itemsList">
             <Button type="primary" v-on:click="route()">Post a new item</Button>
 

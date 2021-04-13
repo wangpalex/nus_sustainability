@@ -16,9 +16,9 @@
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
                 <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
 
-                <Button type="primary" @click="routeLogin()"> Sign in </Button>
+                <Button type="primary" @click="routeLogin()" id="loginButton"> Sign in </Button>
                 <br><br>
-                <Button type="error" @click="signOut"> Sign out </Button>
+                <Button type="error" @click="signOut" id="signoutButton"> Sign out </Button>
             </div>
 
             <div id="right-column">
@@ -215,4 +215,17 @@ export default {
     display: block;
 }
 
+#loginButton {
+    position: relative;
+    margin-left: 30px;
+    width:100px;
+    height: 35px;
+}
+
+#signoutButton {
+    position: relative;
+    margin-left: 30px;
+    width:100px;
+    height: 35px;
+}
 </style>

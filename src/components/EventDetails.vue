@@ -1,28 +1,34 @@
 <template>
-    <div id='main-body'>
-        <h1 id='event-bulletin'>Event Bulletin</h1>
+    <div>
+        <h1 class="title">Event Bulletin</h1>
+
         <div id='content'>
-        <h1 id='title'> {{this.event.title}} </h1> <br>
-            <h2 id='element'>Date: {{this.event.date}} </h2> 
-            <h2 id='element'> Time: {{this.event.time}} <br> </h2>
-            <h3 id='element'> Location: {{this.event.location}} <br> <br></h3>
+            <div class="leftColumn">
+                <Button type="dashed" id="goBackButton" @click="$router.go(-1)">Back to Events</Button>
+                <h1 id='eventTitle'> {{this.event.title}} </h1> <br>
+                <h2 class='element'>Date: {{this.event.date}} </h2>
+                <h2 class='element'> Time: {{this.event.time}} <br> </h2>
+                <h3 class='element'> Location: {{this.event.location}} <br> <br></h3>
 
-            <GmapMap id="GmapMap"
-                :center="{lat:event.lat, lng:event.long}"
-                :zoom="17"
-                map-type-id="terrain"
-                style="width: 1200px; height: 400px; border-radius:20px; margin:0px auto"
+                <GmapMap id="GmapMap"
+                         :center="{lat:event.lat, lng:event.long}"
+                         :zoom="17"
+                         map-type-id="terrain"
                 >
-                <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
-                <GmapMarker ref="myMarker"
-                    :position="google && new google.maps.LatLng(event.lat, event.long)" />
-            </GmapMap> <br>
-            
-            <h2 id='element'> Description: </h2><br>
-            <p id='description-body'>{{this.event.description}}</p><br><br>
+                    <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
+                    <GmapMarker ref="myMarker"
+                                :position="google && new google.maps.LatLng(event.lat, event.long)" />
+                </GmapMap> <br>
 
-            <button id="attend-button"> Attend </button>
-            <button id="go-back-button" @click="$router.go(-1)">Back to Events</button>
+                <Button type="success" long id="attend-button"> RSVP </Button>
+            </div>
+
+            <div class="rightColumn">
+                <h2 id='description-title'> Description: </h2><br>
+                <div id='description-body'>
+                    <div id="description-text">{{this.event.description}}</div>
+                </div><br><br>
+            </div>
         </div>
     </div>
 </template>
@@ -66,8 +72,39 @@ export default {
 }
 </script>
 
-<style> 
+<style>
+.title {
+    position: relative;
 
+    left: 50px;
+    top: 20px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 58px;
+
+    color: #42427D;
+}
+
+#goBackButton {
+    position: relative;
+    left:30px;
+    top:10px;
+}
+
+.leftColumn {
+    float:left;
+    position: relative;
+    width: 45%;
+    height: 100%;
+}
+.rightColumn {
+    float:left;
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
 #event-bulletin {
     position: relative;
     top: 20px;
@@ -77,22 +114,25 @@ export default {
 }
 
 
-#title {
+#eventTitle {
     position: relative;
-    left: 50px;
-    font-size: 40px;
+    margin-top: 10px;
+    margin-left: 30px;
+    font-size: 30px;
     text-decoration: underline;
 }
 
 #content {
     position: relative;
-    top: 30px;
+    margin-top: 30px;
+    left: 50px;
+    width: 72%;
+    height: 56%;
+    background-color: white;
     border-color: black;
     border-width: 1px;
-    border-radius: 60px;
+    border-radius: 20px;
     border-style: solid;
-    margin-right: 40px;
-    margin-left: 40px;
 }
 
 #events {
@@ -109,30 +149,43 @@ export default {
     margin:5px;
 }
 
-#element {
+.element {
     position: relative;
-    left: 50px;
-    font-size: 22px;
+    left: 40px;
+    font-size: 20px;
+}
+#description-title {
+    position: relative;
+    left: 40px;
+    font-size: 20px;
+    top: 10%;
 }
 
 #description-body {
     position: relative;
-    left: 50px;
+    top: 10%;
+    width: 70%;
+    height: 70%;
+    left: 30px;
     margin-right: 60px;
-    font-size: 22px;
+
+    border-style: dashed;
+    border-width: 1px;
+    border-radius: 15px;
+    background: #FFBB80;
 }
 
-
-#go-back-button {
-    position: absolute;
-    left: 90%;
-    top: 5%;
+#description-text {
+    position: relative;
+    margin: 15px;
+    font-size: 20px;
 }
 
 #attend-button {
-    position: absolute;
-    left: 90%;
-    top: 10%;
+    position: relative;
+    width:30%;
+    margin-top: 5%;
+    margin-left: 30%;
 }
 
 
@@ -151,4 +204,12 @@ export default {
     font-size: 16px;
 }
 
+#GmapMap {
+    width: 80%;
+    height: 40%;
+    margin:0px auto;
+
+    border-width: 1px;
+    border-style: groove;
+}
 </style>

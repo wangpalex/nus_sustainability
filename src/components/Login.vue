@@ -1,6 +1,7 @@
 <template>
 <div>
     <h1 class="title"> Login </h1>
+    <Button type="dashed" id="goBackButton" @click="$router.go(-1)">Back to Profile</Button>
     <form id="login-form">
         <label> Email </label><br>
         <Input type="email" for="email"
@@ -164,10 +165,16 @@ export default {
     color: #42427D;
 }
 
+#goBackButton {
+    position: relative;
+    left: 50px;
+    margin-top: 10px;
+}
+
 #login-form {
     position: relative;
     left:50px;
-    margin-top: 30px;
+    margin-top: 10px;
     width: 1000px;
 }
 
