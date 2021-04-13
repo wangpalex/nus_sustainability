@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1 class="title"> Sign Up </h1>
+        <Button type="dashed" id="goBackButton" @click="$router.go(-1)">Back to Login</Button>
         <form id="signup-form">
             <label> User Name </label><br>
             <Input for="username"
@@ -426,9 +427,15 @@ export default {
     color: #42427D;
 }
 
+#goBackButton {
+    position: relative;
+    left: 50px;
+    margin-top: 10px;
+}
+
 #signup-form {
     position: relative;
-    margin-top: 30px;
+    margin-top: 10px;
     left:50px;
     width: 1000px;
 }
