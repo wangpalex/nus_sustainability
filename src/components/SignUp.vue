@@ -363,7 +363,8 @@ export default {
             const regex1 = /^[eE]\d\d\d\d\d\d\d@u\.nus\.edu$/g;  // e.g. e0376916@u.nus.edu
             const regex2 = /^[a-zA-Z\d]*@nus\.edu\.sg$/g;  // e.g. disrt@nus.edu.sg
             const regex3 = /^[a-zA-Z\d]*@e\.ntu\.edu\.sg$/g;  // e.g. zhen0123@e.ntu.edu.sg
-            return email.match(regex1) || email.match(regex2) || email.match(regex3);
+            const regex4 = /^demo@nusustainability\.web\.app$/g;
+            return email.match(regex1) || email.match(regex2) || email.match(regex3) || email.match(regex4);
         },
 
         promptFillIn() {
