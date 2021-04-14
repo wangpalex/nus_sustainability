@@ -33,6 +33,11 @@
             <Icon type="heart-broken"></Icon>
                 Settings
         </MenuItem>
+
+        <MenuItem name="about">
+            <Icon type="information"></Icon>
+                About Us
+        </MenuItem>
     </Menu>
 
 
@@ -54,8 +59,10 @@ export default {
                 this.$router.push({path:'/exchange'})
             } else if(name==='events') {
                 this.$router.push({path: '/events'})
-            } else {
+            } else if(name==='settings') {
                 this.$router.push({path: '/settings'})
+            } else {
+                this.$router.push({path:'/about'})
             }
         },
     }
