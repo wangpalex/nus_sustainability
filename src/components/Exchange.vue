@@ -25,6 +25,8 @@
                 <div id="likedItem" v-for="item in itemsLiked" v-bind:key="item.name">
                     <img id="likedItemImage" v-bind:src=item.imageURL>
                     <h2 id="likedItemName">{{item.name}}</h2>
+                    <!-- Implement removing function here -->
+                    <Button type="default" size="small" class="deleteButton"> Remove like </Button>
                 </div>
 
         </div>
@@ -226,12 +228,7 @@ button {
     margin-top: 3%;
     margin-left: 6%;
     width: 86%;
-    /*
-    top: 60px;
-    left: 15px;
-    width: 220px;
-    height: 100px;
-    */
+    height: 90px;
     background: #FFBB80;
     border-style: dotted;
     border-color: black;
@@ -251,7 +248,15 @@ button {
 #likedItemName {
     position: relative;
     left: 100px;
-    top: -40px;
+    top: -60px;
     font-size: 20px;
+}
+
+.deleteButton {
+    position: relative;
+    font-size: 10px;
+    width: 80px;
+    top: -70px;
+    left: 100px;
 }
  </style>
