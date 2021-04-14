@@ -7,7 +7,7 @@
                 <div id = "eventName"><h3>{{i.title}}</h3></div>
                 <div id ="details">
                     Location: {{i.location}} <br>
-                    Date: {{i.date}} <br>
+                    Date: {{formatDate(i.date)}} <br>
                     Time: {{i.time}} <br>
                 </div>
                 <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
@@ -26,11 +26,11 @@
                 <FormItem label="Date & Time">
                     <Row>
                         <Col span="11">
-                            <DatePicker type="date" placeholder="Select date" v-model.lazy="event.date"></DatePicker>
+                            <DatePicker type="date" format="yyyy-MM-dd" placeholder="Select date" v-model.lazy="event.date"></DatePicker>
                         </Col>
                         <Col span="2" style="text-align: center">-</Col>
                         <Col span="11">
-                            <TimePicker type="time" placeholder="Select time" v-model.lazy="event.time"></TimePicker>
+                            <TimePicker type="time" format="HH:mm" placeholder="Select time" v-model.lazy="event.time"></TimePicker>
                         </Col>
                     </Row>
                 </FormItem>
@@ -127,6 +127,7 @@
 <script>
 import database from '../firebase.js' 
 import axios from 'axios'
+import moment from 'moment'
 import {gmapApi} from 'vue2-google-maps'
 import firebase from "firebase";
 import db from "@/firebase";
@@ -245,6 +246,7 @@ export default {
         },
         
         sendEvent: function() {
+            console.log(this.event)
             database.collection('events').add(this.event);
             this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
             this.event.title="";
@@ -252,6 +254,10 @@ export default {
             this.event.time="";
             this.event.location="";
             this.event.description="";
+        },
+
+        formatDate(value) {
+            return moment.unix(value.seconds).format("MM/DD/YYYY")
         },
 
         promptFillIn() {
