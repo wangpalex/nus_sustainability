@@ -451,7 +451,7 @@ textarea {
 #GmapMap {
     position:relative;
     top:20px;
-    left:20px;
+    left:0px;
 
     border-width: 1px;
     border-style: groove;

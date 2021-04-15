@@ -7,6 +7,7 @@ import newItem from './components/newItem.vue'
 import DetailsPage from './components/DetailsPage.vue'
 import EventDetails from './components/EventDetails.vue'
 import SignUp from "./components/SignUp";
+import About from "@/components/About";
 
 export default[
     {path: '/', component: Home},
@@ -17,5 +18,6 @@ export default[
     {path: '/settings/login', component: Login},
     {path: '/settings/signup', component: SignUp, name:"signup"},
     {path: '/newItem', name: 'newItem', component: newItem},
-    {path: '/detailsPage', name: 'detailsPage', component: DetailsPage, props: true}
+    {path: '/detailsPage', name: 'detailsPage', component: DetailsPage, props: true},
+    {path: '/about', name: 'about', component: About, props: true}
 ]   

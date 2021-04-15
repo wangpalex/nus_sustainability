@@ -4,15 +4,15 @@
 
         <div id = "main">
             <div v-for ="i in eventsList" :key="i.id" id="events">
-                <div id = "eventName"><h3>{{i.title}}</h3></div>
+                <div id = "eventName"><p>{{i.title}}</p></div>
                 <div id ="details">
                     Location: {{i.location}} <br>
                     Date: {{formatDate(i.date)}} <br>
                     Time: {{i.time}} <br>
                 </div>
-                <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
+                <p v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
                     More Details >
-                </h1>
+                </p>
             </div>
         </div>
 
@@ -354,7 +354,11 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#main::-webkit-scrollbar {
+    background: transparent;
 }
 
 .ol {
@@ -408,9 +412,12 @@ ul {
 
 .moreDetails{
     position: relative;
-    left: 75%;
-    top:-55%;
-    font-Size: 18px;
+    left: 70%;
+    top:-50%;
+    font-Size: 20px;
+}
+.moreDetails:hover {
+    cursor: pointer;
 }
 
 #form {
@@ -430,14 +437,13 @@ ul {
     border-width: 1px;
     border-radius: 15px;
     padding: 20px;
-
 }
 
 
 #GmapMap {
     position:relative;
     top:10px;
-    left:8px;
+    left:4px;
 
     border-width: 1px;
     border-style: groove;
