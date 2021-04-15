@@ -3,59 +3,56 @@
         <h1 class="title"> Hello, {{userData.name}} </h1>
         <div id="left-column">
             <!-- Website stats here -->
-            <div id="stats1">
-                <p style="font-size: 36px; margin-left: 10%; margin-top: 8%">
-                    {{itemsExchanged}}
-                </p>
-                <p style="font-size: 20px; margin-left: 10%;">
-                    Items Exchanged
-                </p>
-            </div>
-            <div id="stats2">
-                <p style="font-size: 36px; margin-left: 10%; margin-top: 8%">
-                    {{eventsHosted}}
-                </p>
-                <p style="font-size: 20px; margin-left: 10%;">
-                    Events Hosted
-                </p>
-            </div>
-        </div>
+            <section id='stats'>
+                <div id="stats-left">
+                    <p style="font-size: 30px; margin-left: 10%; margin-top: 2%">
+                        {{itemsExchanged}}
+                    </p>
+                    <p style="font-size: 20px; margin-left: 10%;">
+                        Items Exchanged
+                    </p>
+                </div>
+                <div id="stats-right">
+                    <p style="font-size: 30px; margin-left: 10%; margin-top: 2%">
+                        {{eventsHosted}}
+                    </p>
+                    <p style="font-size: 20px; margin-left: 10%;">
+                        Events Hosted
+                    </p>
+                </div>
+            </section>
 
-        <div id="middleBottom">
+
             <GmapMap id="GmapMap"
-                :center="{lat:1.2985489, lng:103.77496}"
-                :zoom="16"
-                map-type-id="terrain"
-                style="width: 800px; height: 500px; border-radius:20px; margin:0px auto;"
-                >
+                     :center="{lat:1.2985489, lng:103.77496}"
+                     :zoom="16"
+                     map-type-id="terrain"
+            >
                 <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
             </GmapMap>
         </div>
 
         <div id="right-column">
-            <!-- Newly listed items -->
-            <h1> Newly Listed Items </h1> 
-            <p id="seeAll1" v-on:click="routeExchange()">See all ></p>
-            <div id="itemsList">
-                <ol>
-                    <li id="item" v-for="item in itemsList" v-bind:key="item.name">
-                        <img id="itemImage" v-bind:src=item.imageURL>
-                        <h2 id="itemName">{{item.name}}</h2>                                                     
-                    </li>
-                </ol>
-            </div>
-            <h1 id="eventHeading"> Upcoming Events </h1> 
-            <p id="seeAll2" v-on:click="routeEvent()">See all ></p>
-            <div id="eventsList">
-                <ol>
-                    <li id="event" v-for="event in eventsList" v-bind:key="event.name">
-                        <h2 id="eventDate">{{event.date}}</h2>  
-                        <h2 id="eventName">{{event.title}}</h2>                                                     
-                    </li>
-                </ol>
-            </div>
-            <!-- Upcoming events -->
+            <span id="newlyListedItems" > Newly Listed Items </span>
+            <span  id="seeAll1" v-on:click="routeExchange()"> See all > </span>
 
+            <div id="itemsList">
+                <div class="item" v-for="item in itemsList" v-bind:key="item.name">
+                    <img class="itemImage" v-bind:src=item.imageURL>
+                    <p class="itemName">{{formatItemName(item.name)}}</p>
+                </div>
+            </div>
+            <br>
+
+            <span id="eventHeading"> Upcoming Events </span>
+            <span id="seeAll2" v-on:click="routeEvent()">See all ></span>
+
+            <div id="eventsList">
+                <div class="event" v-for="event in eventsList" v-bind:key="event.name">
+                    <p id="eventDate">{{formatDate(event.date)}} {{event.time}} </p>
+                    <p id="eventName">{{formatEventName(event.title)}}</p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -63,6 +60,7 @@
 <script>
 import firebase from "firebase";
 import db from "@/firebase";
+import moment from "moment";
 
 export default {
     data() {
@@ -110,6 +108,7 @@ export default {
                     })      
                 })    
         },
+
         fetchEvents: function() {
             db.collection('events').get().then(
                 (querySnapshot) => { 
@@ -123,12 +122,34 @@ export default {
                 }
             )
         },
+
         routeExchange: function() {
             this.$router.push({ path: "/exchange"})
         },
+
         routeEvent: function() {
             this.$router.push({ path: "/events"})
         },
+
+        formatItemName(name) {
+            if(name.length > 10) {
+                return name.slice(0, 11).trim() + "..."
+            } else {
+                return name;
+            }
+        },
+
+        formatEventName(name) {
+            if(name.length > 15) {
+                return name.slice(0, 16).trim() + "..."
+            } else {
+                return name;
+            }
+        },
+
+        formatDate(timestamp) {
+          return moment.unix(timestamp.seconds).format("MM/DD/YYYY")
+        }
     },
     
     created() {
@@ -155,20 +176,22 @@ export default {
     color: #42427D;
 }
 
-#left-column  {
-    position: relative;
-    top:30px;
+#left-column {
     float: left;
-    width: 50%;
-    height: 80%;
+    position: relative;
+    margin-top: 30px;
+    left: 50px;
+    width: 42%;
+    height: 56%;
+    background: white;
 
-
-    border-color: aqua;
-    border-style: dotted;
-    border-width: 3px;
-
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 20px;
 }
 
+<<<<<<< Updated upstream
 #middleBottom{
     position:fixed;
     top: 350px;
@@ -176,27 +199,37 @@ export default {
     float:left;
 }
 #right-column  {
-    position: relative;
-    top:30px;
+=======
+#right-column {
     float: left;
-    width: 30%;
-    height: 80%;
+    position: absolute;
+    margin-left: 48%;
+    margin-top: 30px;
+    width: 20%;
+    height: 56%;
 
-
-    border-color: aquamarine;
-    border-style: dotted;
-    border-width: 3px;
-
+    background: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 15px;
+    padding: 20px;
 }
 
+#stats {
+>>>>>>> Stashed changes
+    position: relative;
+    height: 18%;
+    top: 5%;
+}
 
-#stats1 {
+#stats-left {
     float: left;
     position: relative;
-    width: 30%;
-    height: 15%;
+    width: 35%;
+    height: 100%;
     top:3%;
-    left: 10%;
+    left: 7.5%;
 
     color: #42427D;
     background-color: #FFBB80;
@@ -204,13 +237,13 @@ export default {
     border-radius: 50px 10px;
 }
 
-#stats2 {
+#stats-right {
     float: left;
     position: relative;
-    width: 30%;
-    height: 15%;
+    width: 35%;
+    height: 100%;
     top:3%;
-    left: 30%;
+    left: 22.5%;
 
     color: #42427D;
     background-color: #FFBB80;
@@ -220,100 +253,147 @@ export default {
 
 #itemsList {
     position: relative;
-    top: 0px; 
-    width: 450px;
-    height: 400px;
-    border-style: dotted;
+    width: 100%;
+    height: 45%;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
+<<<<<<< Updated upstream
     border-radius: 60px;
 }
+=======
+    border-radius: 10px;
+>>>>>>> Stashed changes
 
-#item {
-    position: relative;
-    top: 60px;
-    left: 15px;
-    width: 400px;
-    height: 150px;
-    background: #FBBC46;
-    border-style: dotted;
-    border-color: black;
-    border-width: 1px;
-    border-radius: 60px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#itemsList::-webkit-scrollbar {
+    background: transparent;
 }
 
-#itemImage {
+.item {
     position: relative;
-    top: 20px;
-    left: 20px;
-    border-radius: 20px;
-    width: 110px;
-    height: 110px;
+    margin-top: 2.5%;
+    left: 2.5%;
+    width: 97%;
+    height: 30%;
+    background: #FFBB80;
+
+    border-width: 0px;
+    border-radius: 15px;
 }
 
-#itemName {
+.itemImage {
     position: relative;
-    left: 200px;
-    top: -40px;
+    top: 5px;
+    left: 5px;
+    border-radius: 12px;
+    width: 65px;
+    height: 62px;
+}
+
+.itemName {
+    position: relative;
+    left: 80px;
+    top: -50px;
     font-size: 20px;
-}
-
-#eventHeading {
-    position: relative;
-    top: 40px;
-    left: 10px;
 }
 
 #eventsList {
     position: relative;
-    top: 20px; 
-    width: 450px;
-    height: 250px;
-    border-style: dotted;
+    width: 100%;
+    height: 45%;
+    border-style: solid;
     border-color: black;
     border-width: 1px;
+<<<<<<< Updated upstream
     border-radius: 60px;
+=======
+    border-radius: 10px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#eventsList::-webkit-scrollbar {
+    background: transparent;
+>>>>>>> Stashed changes
 }
 
-#event {
+.event {
     position: relative;
-    top: 20px;
-    left: 20px;
-    width: 400px;
-    height: 100px;
-    background: #FBBC46;
-    border-style: dotted;
-    border-color: black;
-    border-width: 1px;
-    border-radius: 60px;
+    margin-top: 2.5%;
+    left: 2.5%;
+    width: 97%;
+    height: 30%;
+    background: #FFBB80;
+
+    border-width: 0px;
+    border-radius: 15px;
 }
 
 #eventDate {
     position: relative;
-    left: 20px;
-    top: 20px;
-    font-size: 15px;
+    left: 10px;
+    top: 5px;
+    font-size: 14px;
 }
 
 #eventName {
     position: relative;
-    left: 20px;
-    top: 22px;
-    font-size: 23px;
+    left: 10px;
+    top: 0px;
+    font-size: 24px;
 }
 
+#newlyListedItems {
+    position: relative;
+    top:-10px;
+    font-size: 16px;
+    font-weight: bold;
+}
 #seeAll1 {
     position: relative;
-    top: -30px;
-    left: 320px;
-    font-size: 20px;
+    top: -10px;
+    left: 55px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#seeAll1:hover {
+    cursor:pointer;
 }
 
-
+#eventHeading {
+    position: relative;
+    top:-10px;
+    font-size: 16px;
+    font-weight: bold;
+}
 #seeAll2 {
     position: relative;
-    top: 10px;
-    left: 320px;
-    font-size: 20px;
+    top:-10px;
+    left: 67px;
+    font-size: 16px;
+    font-weight: bold;
 }
+#seeAll2:hover {
+    cursor:pointer;
+}
+
+#GmapMap {
+    width: 85%;
+    height: 65%;
+    top: 10%;
+    margin:0px auto;
+
+    border-width: 1px;
+    border-style: groove;
+}
+
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 </style>

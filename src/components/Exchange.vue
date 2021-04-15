@@ -6,14 +6,17 @@
 
             <div id="items" v-for="item in itemsList" v-bind:key="item.name">
                 <img class="itemImage" v-bind:src=item.imageURL>
-                <div class="itemName">{{item.name}}</div>
-                <p class="detailPage" v-on:click="routeDetails($event)" v-bind:id=item.id>More Details ></p>
-                <vue-like-dislike-buttons id="likeButton"   :likes=item.likeCount
-                                                            :dislikes=item.dislikeCount
-                                                            :likeChecked="likeChecked"
-                                                            :dislikeChecked="dislikeChecked"
-                                                            @like="like(item.id)"
-                                                            @dislike="dislike(item.id)" />
+                <div class="itemName">{{formatItemName(item.name)}}</div>
+                <div id="detail-and-button">
+                    <div class="detailPage" v-on:click="routeDetails($event)" v-bind:id=item.id>More Details ></div>
+                    <vue-like-dislike-buttons id="likeButton"   :likes=item.likeCount
+                                              :dislikes=item.dislikeCount
+                                              :likeChecked="likeChecked"
+                                              :dislikeChecked="dislikeChecked"
+                                              @like="like(item.id)"
+                                              @dislike="dislike(item.id)" />
+                </div>
+
 
             </div>
 
@@ -24,7 +27,7 @@
 
                 <div id="likedItem" v-for="item in itemsLiked" v-bind:key="item.name">
                     <img id="likedItemImage" v-bind:src=item.imageURL>
-                    <h2 id="likedItemName">{{item.name}}</h2>
+                    <h2 id="likedItemName">{{formatLikedItemName(item.name)}}</h2>
                     <!-- Implement removing function here -->
                     <Button type="default" size="small" class="deleteButton"> Remove like </Button>
                 </div>
@@ -51,13 +54,12 @@ export default {
         itemsLiked: new Set(),
         }
   },
-  methods:{
-
+methods:{
     like(ID) {
         for (var i = 0; i < this.itemsList.length; i++){
             if(this.itemsList[i]["id"] == ID) {
                 this.itemsList[i]["likeCount"] += 1;
-                this.likeChecked = true; 
+                this.likeChecked = true;
                 this.itemsLiked.add(this.itemsList[i]);
                 console.log(this.itemsLiked)
                 db.collection("items").doc(ID).update({
@@ -70,30 +72,69 @@ export default {
         for (var i = 0; i < this.itemsList.length; i++){
             if(this.itemsList[i]["id"] == ID) {
                 this.itemsList[i]["dislikeCount"] += 1;
+<<<<<<< Updated upstream
                 this.dislikeChecked = true; 
                 console.log(this.itemsList[i]["dislikeCount"])
+=======
+                this.dislikeChecked = true;
+>>>>>>> Stashed changes
                 db.collection("items").doc(ID).update({
                     dislikeCount: this.itemsList[i]["dislikeCount"]
                 })
             }
         }
     },
+<<<<<<< Updated upstream
+=======
+    cancelLike(ID) {
+        for (var i = 0; i < this.itemsList.length; i++){
+            if(this.itemsList[i]["id"] == ID) {
+                this.itemsList[i]["likeCount"] -= 1;
+                this.dislikeChecked = true;
+                db.collection("items").doc(ID).update({
+                    dislikeCount: this.itemsList[i]["dislikeCount"]
+                })
+                this.itemsLiked.forEach(x => x.id == ID ? this.itemsLiked.delete(x) : x)
+                //this.itemsLiked.delete(this.itemsList[i])
+            }
+        }
+    },
+
+>>>>>>> Stashed changes
     route: function() {
             this.$router.push({ path: "/newItem", name: "newItem"})
     },
+
     routeDetails: function(event) {
             let new_id = event.target.getAttribute("id");
             this.$router.push({path: '/detailsPage', name: 'detailsPage', params: {detail_id: new_id}})
     },
+
     fetchItems:function(){
       db.collection('items').get().then((querySnapShot)=>{
             let item={}
             querySnapShot.forEach(doc=>{
                 item=doc.data()
                 item.id=doc.id
-                this.itemsList.push(item) 
-            })      
-        })    
+                this.itemsList.push(item)
+            })
+        })
+    },
+
+    formatItemName(name) {
+        if(name.length > 15) {
+            return name.slice(0, 16).trim() + "..."
+        } else {
+            return name;
+        }
+    },
+
+    formatLikedItemName(name) {
+        if(name.length > 10) {
+            return name.slice(0, 11).trim() + "..."
+        } else {
+            return name;
+        }
     },
          
   },
@@ -155,8 +196,17 @@ button {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
+#itemsList::-webkit-scrollbar {
+    background: transparent;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera
+#itemsList::-webkit-scrollbar {
+    display: none;
+}*/
 
 #items {
     position: relative;
@@ -183,27 +233,33 @@ button {
 }
 
 .itemName {
-    float: left;
-    position: relative;
-    margin-top: 6%;
-    margin-left: 6%;
-    font-size: 30px;
-    
-}
-
-.detailPage {
     float:left;
     position: relative;
-    margin-left: 50%;
-    margin-top:-7%;
+    margin-top: 7%;
+    left: 3%;
+    font-size: 24px;
+}
+
+#detail-and-button {
+    float:right;
+    position: relative;
+    right:7%;
+    top:38%;
+    height: 65%;
+
     font-size: 20px;
 }
 
+
+.detailPage:hover {
+    cursor:pointer;
+}
+
+
 #likeButton {
-    float: left;
     position: relative;
-    left: 66%;
-    top: 0%;
+    left: 25%;
+    top: 15%;
     font-size: 20px;
     color: grey;
 }
@@ -220,7 +276,11 @@ button {
     border-color: black;
     border-width: 1px;
     border-radius: 15px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#likedList::-webkit-scrollbar {
+    background: transparent;
 }
 
 #likedItem {
@@ -239,7 +299,7 @@ button {
 #likedItemImage {
     position: relative;
     top: 10px;
-    left: 20px;
+    left: 15px;
     border-radius: 20px;
     width: 70px;
     height: 70px;
@@ -256,7 +316,7 @@ button {
     position: relative;
     font-size: 10px;
     width: 80px;
-    top: -70px;
-    left: 100px;
+    top: -75px;
+    left: 25px;
 }
  </style>

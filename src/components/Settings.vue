@@ -16,9 +16,8 @@
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
                 <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
 
-                <Button type="primary" @click="routeLogin()" id="loginButton"> Sign in </Button>
-                <br><br>
-                <Button type="error" @click="signOut" id="signoutButton"> Sign out </Button>
+                <Button v-if="!loggedIn" type="primary" @click="routeLogin()" id="loginButton"> Sign in </Button>
+                <Button v-else type="error" @click="signOut" id="signoutButton"> Sign out </Button>
             </div>
 
             <div id="right-column">
@@ -113,6 +112,12 @@ export default {
         }
 
          */
+    },
+
+    computed: {
+        loggedIn() {
+            return firebase.auth().currentUser != null;
+        }
     },
 
 }
