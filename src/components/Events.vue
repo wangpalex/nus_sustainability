@@ -36,7 +36,7 @@
                 </FormItem>
 
                 <FormItem label="Description">
-                    <Input v-model="event.description" type="textarea" :autosize="{minRows: 2,maxRows: 10}" placeholder="Enter something..."></Input>
+                    <Input v-model="event.description" type="textarea" rows="3" placeholder="Enter something..."></Input> 
                 </FormItem>
 
                 <FormItem label="Location">
