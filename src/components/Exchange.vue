@@ -94,20 +94,6 @@ methods:{
         }
     },
 
-    cancelLike(ID) {
-        for (var i = 0; i < this.itemsList.length; i++){
-            if(this.itemsList[i]["id"] == ID) {
-                this.itemsList[i]["likeCount"] -= 1;
-                this.dislikeChecked = true; 
-                db.collection("items").doc(ID).update({
-                    dislikeCount: this.itemsList[i]["dislikeCount"]
-                })
-                this.itemsLiked.forEach(x => x.id == ID ? this.itemsLiked.delete(x) : x)
-                //this.itemsLiked.delete(this.itemsList[i])
-            }
-        }
-    },
-
     route: function() {
             this.$router.push({ path: "/newItem", name: "newItem"})
     },
