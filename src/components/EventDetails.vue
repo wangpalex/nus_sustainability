@@ -20,9 +20,6 @@
                                 :position="google && new google.maps.LatLng(event.lat, event.long)" />
                 </GmapMap> <br>
 
-<<<<<<< Updated upstream
-                <Button type="success" long id="attend-button"> RSVP </Button>
-=======
                 <Button type="success" long id="attend-button" @click="rsvp"> RSVP </Button>
 
                 <Button v-if="owner" type="error" class="deleteButton" @click="deleteEvent">
@@ -31,7 +28,7 @@
                 <Button v-else type="error" disabled class="deleteButton" >
                     Delete This Posting
                 </Button>
->>>>>>> Stashed changes
+
             </div>
 
             <div class="rightColumn">
@@ -40,6 +37,7 @@
                     <div id="description-text">{{this.event.description}}</div>
                 </div><br><br>
             </div>
+
         </div>
     </div>
 </template>
@@ -47,11 +45,9 @@
 <script>
 import database from '../firebase.js'
 import {gmapApi} from 'vue2-google-maps'
-<<<<<<< Updated upstream
-=======
 import firebase from 'firebase'
 import moment from "moment";
->>>>>>> Stashed changes
+
 
 export default {
     props: ['event_id'],
@@ -75,8 +71,7 @@ export default {
                 console.log(this.event)
             })
         }, 
-<<<<<<< Updated upstream
-=======
+
         deleteEvent:function() {
                 database.collection("events").doc(this.event_id).delete().then(() => {
                     console.log("Document successfully deleted!");
@@ -99,7 +94,6 @@ export default {
             return moment.unix(value.seconds).format("MM/DD/YYYY")
         },
 
->>>>>>> Stashed changes
         backToEvents: function() {
             this.$router.go(-1)
         }
@@ -254,8 +248,7 @@ export default {
     border-width: 1px;
     border-style: groove;
 }
-<<<<<<< Updated upstream
-=======
+
 
 .deleteButton {
     position: relative;
@@ -264,6 +257,4 @@ export default {
     margin-top: 2%;
     margin-left: 30%;
 }
-
->>>>>>> Stashed changes
 </style>

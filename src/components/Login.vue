@@ -37,7 +37,7 @@ export default {
     name: "Login",
     data() {
         return {
-            emailValue:"E0376916@u.nus.edu",
+            emailValue:"demo@nusustainability.web.app",
             passwordValue:"123456",
             //percent: 0,
         }
@@ -68,7 +68,7 @@ export default {
                     var user = userCredential.user;
                     console.log("Signed in user:")
                     console.log(user)
-                    if(user.emailVerified) {
+                    if(user.emailVerified || email.match(/^demo@nusustainability.web.app$/g)) {
                         this.$Message.success("Signed in")
                         this.$router.push({path:"/settings"})
                     } else {

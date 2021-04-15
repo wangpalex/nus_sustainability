@@ -90,7 +90,7 @@ export default {
         },
 
         fetchWebsiteStats() {
-            let docRef = db.collection('stats').doc('1');
+            let docRef = db.collection('stats').doc('Apr');
             docRef.get().then(doc => {
                 let data = doc.data()
                 this.itemsExchanged = data.itemsExchanged
@@ -191,15 +191,6 @@ export default {
     border-radius: 20px;
 }
 
-<<<<<<< Updated upstream
-#middleBottom{
-    position:fixed;
-    top: 350px;
-    left: 300px;
-    float:left;
-}
-#right-column  {
-=======
 #right-column {
     float: left;
     position: absolute;
@@ -217,7 +208,6 @@ export default {
 }
 
 #stats {
->>>>>>> Stashed changes
     position: relative;
     height: 18%;
     top: 5%;
@@ -258,12 +248,7 @@ export default {
     border-style: solid;
     border-color: black;
     border-width: 1px;
-<<<<<<< Updated upstream
-    border-radius: 60px;
-}
-=======
     border-radius: 10px;
->>>>>>> Stashed changes
 
     overflow-y: scroll;
     overflow-x: hidden;
@@ -307,9 +292,6 @@ export default {
     border-style: solid;
     border-color: black;
     border-width: 1px;
-<<<<<<< Updated upstream
-    border-radius: 60px;
-=======
     border-radius: 10px;
 
     overflow-y: scroll;
@@ -317,7 +299,6 @@ export default {
 }
 #eventsList::-webkit-scrollbar {
     background: transparent;
->>>>>>> Stashed changes
 }
 
 .event {

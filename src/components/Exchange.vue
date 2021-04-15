@@ -29,7 +29,7 @@
                     <img id="likedItemImage" v-bind:src=item.imageURL>
                     <h2 id="likedItemName">{{formatLikedItemName(item.name)}}</h2>
                     <!-- Implement removing function here -->
-                    <Button type="default" size="small" class="deleteButton"> Remove like </Button>
+                    <Button type="default" size="small" class="deleteButton" @click="cancelLike(item.id)"> Remove like </Button>
                 </div>
 
         </div>
@@ -61,7 +61,6 @@ methods:{
                 this.itemsList[i]["likeCount"] += 1;
                 this.likeChecked = true;
                 this.itemsLiked.add(this.itemsList[i]);
-                console.log(this.itemsLiked)
                 db.collection("items").doc(ID).update({
                     likeCount: this.itemsList[i]["likeCount"]
                 })
@@ -72,25 +71,20 @@ methods:{
         for (var i = 0; i < this.itemsList.length; i++){
             if(this.itemsList[i]["id"] == ID) {
                 this.itemsList[i]["dislikeCount"] += 1;
-<<<<<<< Updated upstream
                 this.dislikeChecked = true; 
-                console.log(this.itemsList[i]["dislikeCount"])
-=======
-                this.dislikeChecked = true;
->>>>>>> Stashed changes
                 db.collection("items").doc(ID).update({
                     dislikeCount: this.itemsList[i]["dislikeCount"]
                 })
             }
         }
     },
-<<<<<<< Updated upstream
-=======
+
     cancelLike(ID) {
         for (var i = 0; i < this.itemsList.length; i++){
             if(this.itemsList[i]["id"] == ID) {
                 this.itemsList[i]["likeCount"] -= 1;
                 this.dislikeChecked = true;
+                
                 db.collection("items").doc(ID).update({
                     dislikeCount: this.itemsList[i]["dislikeCount"]
                 })
@@ -100,7 +94,20 @@ methods:{
         }
     },
 
->>>>>>> Stashed changes
+    cancelLike(ID) {
+        for (var i = 0; i < this.itemsList.length; i++){
+            if(this.itemsList[i]["id"] == ID) {
+                this.itemsList[i]["likeCount"] -= 1;
+                this.dislikeChecked = true; 
+                db.collection("items").doc(ID).update({
+                    dislikeCount: this.itemsList[i]["dislikeCount"]
+                })
+                this.itemsLiked.forEach(x => x.id == ID ? this.itemsLiked.delete(x) : x)
+                //this.itemsLiked.delete(this.itemsList[i])
+            }
+        }
+    },
+
     route: function() {
             this.$router.push({ path: "/newItem", name: "newItem"})
     },
