@@ -92,7 +92,7 @@ export default {
         },
 
         fetchWebsiteStats() {
-            let docRef = db.collection('stats').doc('1');
+            let docRef = db.collection('stats').doc('Apr');
             docRef.get().then(doc => {
                 let data = doc.data()
                 this.itemsExchanged = data.itemsExchanged
@@ -170,11 +170,14 @@ export default {
 }
 
 #middleBottom{
-    position:fixed;
+    position: relative;
     top: 350px;
-    left: 300px;
+    left: -750px;
     float:left;
+    width: 0%;
+    height: 60%;
 }
+
 #right-column  {
     position: relative;
     top:30px;
@@ -227,6 +230,7 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 60px;
+    overflow: scroll;
 }
 
 #item {
@@ -273,6 +277,7 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 60px;
+    overflow: scroll;
 }
 
 #event {

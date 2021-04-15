@@ -21,6 +21,7 @@
                 </GmapMap> <br>
 
                 <Button type="success" long id="attend-button"> RSVP </Button>
+                <button id="deleteButton" v-show="owner" @click="deleteEvent">Delete Item</button>
             </div>
 
             <div class="rightColumn">
@@ -29,6 +30,7 @@
                     <div id="description-text">{{this.event.description}}</div>
                 </div><br><br>
             </div>
+
         </div>
     </div>
 </template>
@@ -36,6 +38,7 @@
 <script>
 import database from '../firebase.js'
 import {gmapApi} from 'vue2-google-maps'
+import firebase from 'firebase'
 
 export default {
     props: ['event_id'],
@@ -59,6 +62,18 @@ export default {
                 console.log(this.event)
             })
         }, 
+        deleteEvent:function() {
+                database.collection("events").doc(this.event_id).delete().then(() => {
+                    console.log("Document successfully deleted!");
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+                this.$Message.success(this.event.name + "is deleted!");
+        },
+        owner() {
+                this.currentUserID = firebase.auth().currentUser.uid;
+                return (this.currentUserID == this.itemSelected.userID)
+        },
         backToEvents: function() {
             this.$router.go(-1)
         }
@@ -212,4 +227,12 @@ export default {
     border-width: 1px;
     border-style: groove;
 }
+
+#deleteButton {
+    position: relative;
+    width:30%;
+    margin-top: 5%;
+    margin-left: 30%;
+}
+
 </style>

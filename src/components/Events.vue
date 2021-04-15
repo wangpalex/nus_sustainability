@@ -143,7 +143,9 @@ export default {
                 location:"",
                 description:"",
                 lat:1.296643,
-                long:103.776394
+                long:103.776394,
+                userData: {},
+                webData: {}
             },
             nusHalls: [
                     {
@@ -254,6 +256,22 @@ export default {
             this.event.time="";
             this.event.location="";
             this.event.description="";
+
+            // Increase number of events hosted for the user
+            database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
+                this.userData = doc.data()
+            })
+            database.collection('users').doc(firebase.auth().currentUser.uid).update({
+                eventsAttended: this.userData["eventsAttended"] + 1
+            })
+
+            // Increase number of events hosted for the website
+            database.collection('stats').doc("Apr").get().then(doc => {
+                this.webData = doc.data()
+            })
+            database.collection('stats').doc('Apr').update({
+                itemsExchanged: this.webData["itemsExchanged"] + 1
+            })
         },
 
         formatDate(value) {
@@ -336,6 +354,7 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
+    overflow: scroll;
 }
 
 .ol {

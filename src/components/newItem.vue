@@ -111,6 +111,7 @@ import {gmapApi} from 'vue2-google-maps'
 
         data(){
             return{
+               itemsExchanged: 0,
                item:{
                     name:"",
                     description:"",
@@ -121,6 +122,7 @@ import {gmapApi} from 'vue2-google-maps'
                     lat: 1.296643,
                     long: 103.776394,
                     userID: "",
+                    userData: {},
                 },
                 nusHalls: [
                     {
@@ -244,6 +246,25 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.dislikeCount=0;
                 this.item.location="";
                 this.item.userID="";
+                
+                // Increase number of items exchanged for users
+                database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
+                    this.userData = doc.data()
+                })
+                database.collection('users').doc(firebase.auth().currentUser.uid).update({
+                    itemsExchanged: this.userData["itemsExchanged"] + 1
+                })
+
+                // Increase number of items exchanged for the website
+                let docRef = database.collection('stats').doc('Apr');
+                    docRef.get().then(doc => {
+                    let data = doc.data()
+                    this.itemsExchanged = data.itemsExchanged
+                })
+                database.collection('stats').doc("Apr").update({
+                    itemsExchanged: this.itemsExchanged + 1
+                })
+
             },
 
             route() {
