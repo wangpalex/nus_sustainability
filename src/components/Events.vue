@@ -268,9 +268,10 @@ export default {
             // Increase number of events hosted for the website
             database.collection('stats').doc("Apr").get().then(doc => {
                 this.webData = doc.data()
+                console.log(doc.data())
             })
             database.collection('stats').doc('Apr').update({
-                itemsExchanged: this.webData["itemsExchanged"] + 1
+                eventsHosted: firebase.firestore.FieldValue.increment(1)
             })
         },
 
