@@ -1,12 +1,12 @@
 <template>
     <div class="chart">
-        <!-- <h1>Line Chart</h1> -->
+        <!-- <h1>Bar Chart</h1> -->
         <chart></chart>
     </div>
 </template>
 
 <script>
-import Chart from "./EventsExchangesGraph.js";
+import Chart from "./TotalGraph.js";
 
 export default {
     components: {
@@ -17,4 +17,3 @@ export default {
 
 <style>
 </style>
-

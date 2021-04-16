@@ -15,6 +15,7 @@
         </p>
         <NewUsersChart></NewUsersChart>
         <EventsExchangesGraph></EventsExchangesGraph>
+        <TotalGraph></TotalGraph>
     </div>
 </div>
 </template>
@@ -22,6 +23,7 @@
 <script>
 import NewUsersChart from "@/components/About-charts/NewUsersChart";
 import EventsExchangesGraph from "@/components/About-charts/EventsExchangesGraph";
+import TotalGraph from "@/components/About-charts/TotalGraph";
 
 export default {
     
@@ -39,6 +41,7 @@ export default {
     components: {
         NewUsersChart: NewUsersChart,
         EventsExchangesGraph: EventsExchangesGraph,
+        TotalGraph: TotalGraph
     },
 
     computed: {
