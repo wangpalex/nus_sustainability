@@ -1,22 +1,31 @@
-import { Bar } from 'vue-chartjs';
+import { Line } from 'vue-chartjs';
+import database from '../../firebase.js' 
 
 export default {
-    extends: Bar,
+    extends: Line,
     data: function () {
         return {
             datacollection: {
-                labels: ["Events", "Exchanges"],
+                labels: ["Jan","Feb","Mar","Apr","May","Jun"],
                 datasets: [{
-                    label: "No. Completed",
-                    backgroundColor: ["#3e95cd", "#8e5ea2"],
-                    data: [548,832]
-                }]
+                    data: [],
+                    label: "Events Attended",
+                    borderColor: "#3e95cd",
+                    fill: false,
+                }, {
+                    data: [],
+                    label: "Items Exchanged",
+                    borderColor: "#3cba9f",
+                    fill: false,
+                },
+                ]
             },
             options: {
-                legend: { display: false },
+                legend: { display: true },
                 title: {
                     display: true,
-                    text: 'Number of Events and Exchanges Completed'
+                    text: 'Number of Events and Exchanges Completed',
+                    fontSize: 30
                 },
                 responsive: true,
                 maintainAspectRatio: false,
@@ -29,7 +38,23 @@ export default {
         }
     },
 
-    mounted () {
-        this.renderChart(this.datacollection, this.options)
+    methods: {
+        fetchItems: function () {
+            database.collection('stats').get().then(querySnapShot => {
+                querySnapShot.forEach(doc => {
+                    // console.log(doc.data().eventsHosted)
+                    if (doc.data() !== undefined){
+                        this.datacollection.datasets[0].data.push(doc.data().eventsHosted);
+                        this.datacollection.datasets[1].data.push(doc.data().itemsExchanged); 
+                        // console.log(doc.data());
+                        // console.log(doc.id);
+                    }
+                })
+                this.renderChart(this.datacollection, this.options);
+            })
+        }
+    },
+    created () {
+        this.fetchItems();
     }
 }

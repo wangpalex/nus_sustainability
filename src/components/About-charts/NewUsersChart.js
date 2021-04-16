@@ -5,7 +5,7 @@ export default {
     data: function () {
         return {
             datacollection: {
-                labels: ["Dec", "Jan","Feb","Mar","Apr"],
+                labels: ["Dec,", "Jan","Feb","Mar","Apr"],
                 datasets: [{
                     data: [20, 50,74,220, 550],
                     label: "Number of Users",

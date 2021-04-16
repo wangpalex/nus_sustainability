@@ -1,6 +1,6 @@
 <template>
     <div class="chart">
-        <h1>Bar Chart</h1>
+        <h1>Line Chart</h1>
         <chart></chart>
     </div>
 </template>
@@ -17,3 +17,4 @@ export default {
 
 <style>
 </style>
+
