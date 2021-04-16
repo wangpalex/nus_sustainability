@@ -4,15 +4,15 @@
 
         <div id = "main">
             <div v-for ="i in eventsList" :key="i.id" id="events">
-                <div id = "eventName"><h3>{{i.title}}</h3></div>
+                <div id = "eventName"><p>{{i.title}}</p></div>
                 <div id ="details">
                     Location: {{i.location}} <br>
-                    Date: {{i.date}} <br>
+                    Date: {{formatDate(i.date)}} <br>
                     Time: {{i.time}} <br>
                 </div>
-                <h1 v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
+                <p v-on:click="moreDetails($event)" v-bind:id=i.id class = "moreDetails">
                     More Details >
-                </h1>
+                </p>
             </div>
         </div>
 
@@ -26,17 +26,17 @@
                 <FormItem label="Date & Time">
                     <Row>
                         <Col span="11">
-                            <DatePicker type="date" placeholder="Select date" v-model.lazy="event.date"></DatePicker>
+                            <DatePicker type="date" format="yyyy-MM-dd" placeholder="Select date" v-model.lazy="event.date"></DatePicker>
                         </Col>
                         <Col span="2" style="text-align: center">-</Col>
                         <Col span="11">
-                            <TimePicker type="time" placeholder="Select time" v-model.lazy="event.time"></TimePicker>
+                            <TimePicker type="time" format="HH:mm" placeholder="Select time" v-model.lazy="event.time"></TimePicker>
                         </Col>
                     </Row>
                 </FormItem>
 
                 <FormItem label="Description">
-                    <Input v-model="event.description" type="textarea" :autosize="{minRows: 2,maxRows: 10}" placeholder="Enter something..."></Input>
+                    <Input v-model="event.description" type="textarea" rows="3" placeholder="Enter something..."></Input> 
                 </FormItem>
 
                 <FormItem label="Location">
@@ -127,6 +127,7 @@
 <script>
 import database from '../firebase.js' 
 import axios from 'axios'
+import moment from 'moment'
 import {gmapApi} from 'vue2-google-maps'
 import firebase from "firebase";
 import db from "@/firebase";
@@ -142,7 +143,9 @@ export default {
                 location:"",
                 description:"",
                 lat:1.296643,
-                long:103.776394
+                long:103.776394,
+                userData: {},
+                webData: {}
             },
             nusHalls: [
                     {
@@ -245,6 +248,7 @@ export default {
         },
         
         sendEvent: function() {
+            console.log(this.event)
             database.collection('events').add(this.event);
             this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
             this.event.title="";
@@ -252,6 +256,26 @@ export default {
             this.event.time="";
             this.event.location="";
             this.event.description="";
+
+            // Increase number of events hosted for the user
+            database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
+                this.userData = doc.data()
+            })
+            database.collection('users').doc(firebase.auth().currentUser.uid).update({
+                eventsAttended: this.userData["eventsAttended"] + 1
+            })
+
+            // Increase number of events hosted for the website
+            database.collection('stats').doc("Apr").get().then(doc => {
+                this.webData = doc.data()
+            })
+            database.collection('stats').doc('Apr').update({
+                itemsExchanged: this.webData["itemsExchanged"] + 1
+            })
+        },
+
+        formatDate(value) {
+            return moment.unix(value.seconds).format("MM/DD/YYYY")
         },
 
         promptFillIn() {
@@ -330,6 +354,11 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#main::-webkit-scrollbar {
+    background: transparent;
 }
 
 .ol {
@@ -383,9 +412,12 @@ ul {
 
 .moreDetails{
     position: relative;
-    left: 75%;
-    top:-55%;
-    font-Size: 18px;
+    left: 70%;
+    top:-50%;
+    font-Size: 20px;
+}
+.moreDetails:hover {
+    cursor: pointer;
 }
 
 #form {
@@ -405,14 +437,13 @@ ul {
     border-width: 1px;
     border-radius: 15px;
     padding: 20px;
-
 }
 
 
 #GmapMap {
     position:relative;
     top:10px;
-    left:8px;
+    left:4px;
 
     border-width: 1px;
     border-style: groove;

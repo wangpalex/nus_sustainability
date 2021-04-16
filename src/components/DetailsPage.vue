@@ -25,22 +25,9 @@
                 <div id="description">
                     <p id="SelectedDes"> {{itemSelected.description}} </p>
                 </div>
+                <button id="deleteButton" v-show="owner" @click="deleteItem">Delete Item</button>       
             </div>
-
         </div>
-
-        <GmapMap id="GmapMap"
-            :center="{lat:itemSelected.lat, lng:itemSelected.long}"
-            :zoom="16"
-            map-type-id="terrain"
-            style="width: 350px; height: 250px; border-radius:15px"
-            >
-            <GmapMarker ref="myMarker"
-                :position="google && new google.maps.LatLng(itemSelected.lat, itemSelected.long)" />
-        </GmapMap>
-    <button id="goBackButton" @click="$router.go(-1)">Go Back</button>
-    <p id="deleteLine" v-show="owner">"As you are the owner of this item, you can delete the item here if you decide to delete it"</p>
-    <button id="deleteButton" v-show="owner" @click="deleteItem">Delete Item</button>
 
    </div>
 </template>
@@ -180,7 +167,7 @@ input {
     margin-top: 10px;
     margin-left: 5px;
     width: 95%;
-    height: 80%;
+    height: 70%;
     border-style: dotted;
     border-color: black;
     border-width: 1px;
@@ -216,7 +203,6 @@ input {
     font-size: 25px;
 }
 #SelectedDes {
-
     position: relative; 
     top: 10px; 
     left: 30px;
@@ -237,17 +223,12 @@ input {
     border-style: groove;
 }
 
-#deleteLine {
-    position: relative; 
-    left: 550px;
-    top: -350px;
-    color: black;
-}
 
 #deleteButton {
-    position: relative; 
-    left: 750px;
-    top: -350px;
+    position: relative;
+    width:30%;
+    margin-top: 5%;
+    margin-left: 30%;
 }
  
  
