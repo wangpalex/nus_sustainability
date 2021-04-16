@@ -21,7 +21,8 @@
                     </p>
                 </div>
             </section>
-
+            <br>
+        <h1 id="eventsTitle"> Events Around You </h1>
 
             <GmapMap id="GmapMap"
                      :center="{lat:1.2985489, lng:103.77496}"
@@ -253,6 +254,15 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 20px;
+}
+
+#eventsTitle{
+    float: left;
+    position: relative;
+    margin-top: 30px;
+    left: 50px;
+    width: 42%;
+    height: 56%;
 }
 
 #right-column {
