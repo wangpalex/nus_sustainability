@@ -26,7 +26,7 @@
                 :center="{lat:1.2985489, lng:103.77496}"
                 :zoom="16"
                 map-type-id="terrain"
-                style="width: 800px; height: 500px; border-radius:20px; margin:0px auto;"
+                style="width: 650px; height: 400px; border-radius:20px; margin:0px auto;"
                 >
                 <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
             </GmapMap>
@@ -227,6 +227,7 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 60px;
+    overflow: scroll;
 }
 
 #item {
@@ -273,6 +274,7 @@ export default {
     border-color: black;
     border-width: 1px;
     border-radius: 60px;
+    overflow: scroll;
 }
 
 #event {
