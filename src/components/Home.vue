@@ -29,6 +29,23 @@
                      map-type-id="terrain"
             >
                 <!-- style="width: 800px; height: 500px; border-radius:20px margin-left:auto margin-right:auto" -->
+                <GmapMarker
+                    :key="index"
+                    v-for="(m, index) in this.markers"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :title="m.title"
+                    @click="toggleInfoWindow(m,index)"
+                />
+                <gmap-info-window
+                    :options="infoOptions"
+                    :position="infoWindowPos"
+                    :opened="infoWinOpen"
+                    @closeclick="infoWinOpen=false"
+                >
+                    <div v-html="infoContent"></div>
+                </gmap-info-window>
             </GmapMap>
         </div>
 
@@ -70,6 +87,21 @@ export default {
             userData:null,
             itemsExchanged: 0,
             eventsHosted: 0,
+            markers : [],
+            infoContent: '',
+            infoWindowPos: {
+                lat: 0,
+                lng: 0
+            },
+            infoWinOpen: false,
+            currentMidx: null,
+            //optional: offset infowindow so it visually sits nicely on top of our marker
+            infoOptions: {
+                pixelOffset: {
+                    width: 0,
+                    height: -35
+                }
+            },
         }
     },
 
@@ -77,8 +109,6 @@ export default {
       fetchUserData() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    console.log("State change user log")
-                    console.log(user)
                     let docRef = db.collection('users').doc(user.uid)
                     docRef.get().then(doc => {
                         this.userData = doc.data();
@@ -117,12 +147,22 @@ export default {
                         temp = x.data()
                         temp.id = x.id
                         this.eventsList.push(temp)
+                        this.markers.push({
+                            position: {
+                                lat: temp.lat,
+                                lng: temp.long 
+                            },
+                            title: temp.title,
+                            date: temp.date,
+                            time: temp.time
                         }
                     )
-                }
-            )
+                })
+            })
+            console.log(this.eventsList)
+            console.log("markers coords are...")
+            console.log(this.markers)
         },
-
         routeExchange: function() {
             this.$router.push({ path: "/exchange"})
         },
@@ -149,9 +189,34 @@ export default {
 
         formatDate(timestamp) {
           return moment.unix(timestamp.seconds).format("MM/DD/YYYY")
-        }
+        },
+        toggleInfoWindow: function (marker, idx) {
+            console.log("toggling infowindow...")
+            this.infoWindowPos = marker.position;
+            this.infoContent = this.getInfoWindowContent(marker);
+            //check if its the same marker that was selected if yes toggle
+            if (this.currentMidx == idx) {
+                this.infoWinOpen = !this.infoWinOpen;
+            }   
+            //if different marker set infowindow to open and reset current marker index
+            else {
+            this.infoWinOpen = true;
+            this.currentMidx = idx;
+            }
+        },
+        getInfoWindowContent: function (marker) {
+            return (
+                `<div class="card">
+                    <div class="card-content">
+                        <h3>
+                        ${marker.title}
+                        </h3>
+                        ${this.formatDate(marker.date)} <br>
+                        ${marker.time}
+                    </div>
+                </div>`);
+        },
     },
-    
     created() {
         this.fetchUserData();
         this.fetchWebsiteStats();
@@ -184,7 +249,6 @@ export default {
     width: 42%;
     height: 56%;
     background: white;
-
     border-style: solid;
     border-color: black;
     border-width: 1px;
