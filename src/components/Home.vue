@@ -21,7 +21,7 @@
                     </p>
                 </div>
             </section>
-
+            <h1 style="position: relative;left: 45px; top:50px">Events around you</h1>
             <GmapMap id="GmapMap"
                      :center="{lat:1.2985489, lng:103.77496}"
                      :zoom="16"
