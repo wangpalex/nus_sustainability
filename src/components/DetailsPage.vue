@@ -19,13 +19,14 @@
             </div>
 
             <div class="rightColumn">
-                <div id="name">
-                    <p id="SelectedName"> {{itemSelected.name}} </p>
-                </div>
+                <h1 id="name">
+                     {{itemSelected.name}}
+                </h1>
                 <div id="description">
                     <p id="SelectedDes"> {{itemSelected.description}} </p>
                 </div>
-                <button id="deleteButton" v-show="owner" @click="deleteItem">Delete Item</button>       
+                <Button type="error" class="deleteButton" v-if="owner" @click="deleteItem">Delete Item</Button>
+                <Button type="error" class="deleteButton" v-else disabled>Delete Item</Button>
             </div>
         </div>
 
@@ -40,6 +41,14 @@ import {gmapApi} from 'vue2-google-maps'
     export default {
         computed: {
             google: gmapApi,
+
+            owner() {
+                if(firebase.auth().currentUser) {
+                    return (firebase.auth().currentUser.uid == this.itemSelected.userID)
+                } else {
+                    return false
+                }
+            },
         },
         props: ["detail_id"],
         data(){
@@ -55,11 +64,8 @@ import {gmapApi} from 'vue2-google-maps'
                 itemSelected: {}
             }
         },
+
         methods:{
-            owner() {
-                this.currentUserID = firebase.auth().currentUser.uid;
-                return (this.currentUserID == this.itemSelected.userID)
-            },
             deleteItem:function() {
                 db.collection("items").doc(this.detail_id).delete().then(() => {
                     console.log("Document successfully deleted!");
@@ -100,6 +106,18 @@ import {gmapApi} from 'vue2-google-maps'
     color: #42427D;
 }
 
+#newItem {
+    position: relative;
+    margin-top: 30px;
+    left: 50px;
+    width: 1100px;
+    height: 577px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 15px;
+}
+
 .leftColumn {
     float:left;
     position: relative;
@@ -129,45 +147,23 @@ input {
 .uploading-image{
     display:flex;
 }
-#newItem {
-    position: relative;
-    margin-top: 30px;
-    left: 50px;
-    width: 1000px;
-    height: 56%;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    border-radius: 15px;
-}
 
 #name {
     position: relative;
+    top: 30px;
+    left: 120px;
+    margin: auto;
+    width: 95%;
+    height: 10%;
+}
+
+#description {
+    position: relative;
     margin-top: 30px;
     margin-left: 5px;
     width: 95%;
-    height: 10%;
-    /*
-    border-style: dotted;
-    border-color: black;
-    border-width: 1px;
-    border-radius: 15px;
-     */
+    height: 75%;
 
-}
-
-#SelectedName {
-    position: relative;
-    top: 0px;
-    left: 150px;
-    font-size: 36px;
-}
-#description {
-    position: relative;
-    margin-top: 10px;
-    margin-left: 5px;
-    width: 95%;
-    height: 70%;
     border-style: dotted;
     border-color: black;
     border-width: 1px;
@@ -202,12 +198,7 @@ input {
     left: 30px;
     font-size: 25px;
 }
-#SelectedDes {
-    position: relative; 
-    top: 10px; 
-    left: 30px;
-    font-size: 12px;
-}
+
 #goBackButton {
     position: relative;
     left:10px;
@@ -217,18 +208,17 @@ input {
     position: relative;
     width: 420px;
     height:250px;
-    left: 8%;
     top:3%;
     border-width: 1px;
     border-style: groove;
 }
 
 
-#deleteButton {
+.deleteButton {
     position: relative;
-    width:30%;
-    margin-top: 5%;
-    margin-left: 30%;
+    width:50%;
+    margin-top: 2%;
+    margin-left: 24%;
 }
  
  

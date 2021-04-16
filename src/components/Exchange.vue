@@ -182,8 +182,8 @@ button {
     position: relative;
     margin-top: 30px;
     left: 50px;
-    width: 42%;
-    height: 56%;
+    width: 640px;
+    height: 575px;
     background: white;
     border-style: solid;
     border-color: black;
@@ -260,10 +260,10 @@ button {
 #likedList {
     float: left;
     position: absolute;
-    margin-left: 48%;
+    margin-left: 62%;
     margin-top: 30px;
-    width: 20%;
-    height: 56%;
+    width: 305px;
+    height: 577px;
     background: white;
     border-style: solid;
     border-color: black;

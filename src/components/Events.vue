@@ -322,7 +322,8 @@ export default {
               (this.event.time !== '') &&
               (this.event.description !== '') &&
               (this.event.location !== ''))
-      }
+      },
+
   }
 }
 </script>
@@ -348,8 +349,8 @@ export default {
     position: relative;
     margin-top: 30px;
     left: 50px;
-    width: 42%;
-    height: 56%;
+    width: 640px;
+    height: 575px;
     background: white;
     border-style: solid;
     border-color: black;
@@ -424,10 +425,10 @@ ul {
 #form {
     float: left;
     position: absolute;
-    margin-left: 48%;
+    margin-left: 62%;
     margin-top: 30px;
-    width: 25%;
-    height: 56%;
+    width: 355px;
+    height: 577px;
     /*
     top: 5.5%;
     left: 65%;
@@ -449,7 +450,7 @@ ul {
     border-width: 1px;
     border-style: groove;
 
-    width: 330px;
+    width: 305px;
     height: 200px;
 }
 
@@ -457,7 +458,7 @@ ul {
     position: relative;
     margin-top: 20px;
     margin-left: 8px;
-    width: 330px;
+    width: 305px;
 }
 
 

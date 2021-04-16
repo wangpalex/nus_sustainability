@@ -21,8 +21,8 @@
                     </p>
                 </div>
             </section>
-            <br>
-        <h1 id="eventsTitle"> Events Around You </h1>
+
+            <h1 style="position: relative;left: 45px; top:50px">Events around you</h1>
 
             <GmapMap id="GmapMap"
                      :center="{lat:1.2985489, lng:103.77496}"
@@ -247,8 +247,8 @@ export default {
     position: relative;
     margin-top: 30px;
     left: 50px;
-    width: 42%;
-    height: 56%;
+    width: 640px;
+    height: 575px;
     background: white;
     border-style: solid;
     border-color: black;
@@ -268,10 +268,10 @@ export default {
 #right-column {
     float: left;
     position: absolute;
-    margin-left: 48%;
+    margin-left: 62%;
     margin-top: 30px;
-    width: 20%;
-    height: 56%;
+    width: 305px;
+    height: 577px;
 
     background: white;
     border-style: solid;
@@ -285,6 +285,12 @@ export default {
     position: relative;
     height: 18%;
     top: 5%;
+}
+
+#stats:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 #stats-left {
@@ -443,12 +449,6 @@ export default {
 
     border-width: 1px;
     border-style: groove;
-}
-
-section:after {
-    content: "";
-    display: table;
-    clear: both;
 }
 
 </style>

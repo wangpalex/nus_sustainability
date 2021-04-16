@@ -1,47 +1,53 @@
 <template>
     <div>
         <h1 class="title"> Post a new item </h1>
+
         <form id="form">
-            <label> Item Name </label><br>
-            <Input for="itemName"
-                   type="text"
-                   v-model="item.name" placeholder="Please enter item name"
-                   clearable style="width: 500px"></Input><br>
+            <Button type="dashed" small id="goBackButton" @click="$router.go(-1)"> Go Back </Button><br>
 
-            <label> Item Description </label><br>
-            <Input for="itemDescription"
-                   v-model="item.description" placeholder="Please enter item description"
-                   type="textarea"
-                   :autosize="{minRows: 3,maxRows: 8}"></Input><br>
+            <div style="position: relative; top: -50px;">
+                <label> Item Name </label><br>
+                <Input for="itemName"
+                       type="text"
+                       v-model="item.name" placeholder="Please enter item name"
+                       clearable style="width: 500px"></Input><br>
 
-            <label> Location </label><br>
-            <Select v-model="item.location" placeholder="Please select location" @on-change="fetchData">
-                <OptionGroup label="NUS Halls">
-                    <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </OptionGroup>
-                <OptionGroup label="Residential Colleges">
-                    <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </OptionGroup>
-                <OptionGroup label="Faculty">
-                    <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </OptionGroup>
-            </Select><br>
+                <label> Item Description </label><br>
+                <Input for="itemDescription"
+                       v-model="item.description" placeholder="Please enter item description"
+                       type="textarea"
+                       :autosize="{minRows: 3,maxRows: 8}"></Input><br>
 
-            <GmapMap id="GmapMap"
-                     :center="{lat:item.lat, lng:item.long}"
-                     :zoom="16"
-                     map-type-id="terrain"
-            >
-                <GmapMarker ref="myMarker"
-                            :position="google && new google.maps.LatLng(item.lat, item.long)" />
-            </GmapMap><br>
+                <label> Location </label><br>
+                <Select v-model="item.location" placeholder="Please select location" @on-change="fetchData">
+                    <OptionGroup label="NUS Halls">
+                        <Option v-for="item in nusHalls" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                    <OptionGroup label="Residential Colleges">
+                        <Option v-for="item in rcs" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                    <OptionGroup label="Faculty">
+                        <Option v-for="item in faculty" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </OptionGroup>
+                </Select><br>
 
-            <Button v-if="itemInfoReady" type="success"
-                    long
-                    @click="addItem"> Post new item </Button>
-            <Button v-else type='error'
-                    long
-                    @click="promptFillIn"> Post new item </Button>
+                <GmapMap id="GmapMap"
+                         :center="{lat:item.lat, lng:item.long}"
+                         :zoom="16"
+                         map-type-id="terrain"
+                >
+                    <GmapMarker ref="myMarker"
+                                :position="google && new google.maps.LatLng(item.lat, item.long)" />
+                </GmapMap><br>
+
+                <Button v-if="itemInfoReady" type="success"
+                        long
+                        @click="addItem"> Post new item </Button>
+                <Button v-else type='error'
+                        long
+                        @click="promptFillIn"> Post new item </Button>
+            </div>
+
         </form>
 
         <div id="chooseImage">
@@ -301,6 +307,13 @@ import {gmapApi} from 'vue2-google-maps'
     color: #42427D;
 }
 
+#goBackButton {
+    position: relative;
+    left:0px;
+    top:-50px;
+    width:80px;
+}
+
 label {
     font-family: Anaheim;
     font-style: normal;
@@ -338,7 +351,7 @@ input {
     margin-top: 30px;
     left: 50px;
     width: 500px;
-    height: 880px;
+    height: 600px;
     background: white;
     /*
     border-style: solid;
@@ -427,12 +440,6 @@ textarea {
     font-size: 15px;
     border-style: solid;
     border-color: black;
-}
-
-#goBackButton {
-    position: relative;
-    left:-100px;
-    top:-630px;
 }
 
 #SelectList {
