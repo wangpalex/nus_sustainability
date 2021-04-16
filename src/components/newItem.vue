@@ -111,7 +111,6 @@ import {gmapApi} from 'vue2-google-maps'
 
         data(){
             return{
-               itemsExchanged: 0,
                item:{
                     name:"",
                     description:"",
@@ -123,6 +122,7 @@ import {gmapApi} from 'vue2-google-maps'
                     long: 103.776394,
                     userID: "",
                     userData: {},
+                    webData: {},
                 },
                 nusHalls: [
                     {
@@ -252,19 +252,17 @@ import {gmapApi} from 'vue2-google-maps'
                     this.userData = doc.data()
                 })
                 database.collection('users').doc(firebase.auth().currentUser.uid).update({
-                    itemsExchanged: this.userData["itemsExchanged"] + 1
+                    itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
 
-                // Increase number of items exchanged for the website
-                let docRef = database.collection('stats').doc('Apr');
-                    docRef.get().then(doc => {
-                    let data = doc.data()
-                    this.itemsExchanged = data.itemsExchanged
+                 // Increase number of events hosted for the website
+                database.collection('stats').doc("Apr").get().then(doc => {
+                    this.webData = doc.data()
+                    console.log(doc.data())
                 })
-                database.collection('stats').doc("Apr").update({
-                    itemsExchanged: this.itemsExchanged + 1
+                database.collection('stats').doc('Apr').update({
+                    itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
-
             },
 
             route() {
