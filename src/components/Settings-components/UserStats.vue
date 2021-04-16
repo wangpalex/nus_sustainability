@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p style="font-size: 30px">{{stats_name}}</p>
-        <p style="font-size: 30px">{{stats_number}}</p>
+        <p style="font-size: 24px">{{stats_name}}</p>
+        <p style="font-size: 24px">{{stats_number}}</p>
     </div>
 </template>
 

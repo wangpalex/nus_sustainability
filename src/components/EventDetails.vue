@@ -32,7 +32,7 @@
             </div>
 
             <div class="rightColumn">
-                <h2 id='description-title'> Description: </h2><br>
+                <h1 id='description-title'> Description: </h1><br>
                 <div id='description-body'>
                     <div id="description-text">{{this.event.description}}</div>
                 </div><br><br>
@@ -81,11 +81,6 @@ export default {
                 this.$Message.success(this.event.name + "is deleted!");
         },
 
-        owner() {
-                this.currentUserID = firebase.auth().currentUser.uid;
-                return (this.currentUserID == this.itemSelected.userID)
-        },
-
         rsvp() {
             this.$Message.success("You have RSVPed this event")
         },
@@ -102,7 +97,15 @@ export default {
         this.fetchItems()
     },
     computed: {
-        google: gmapApi
+        google: gmapApi,
+
+        owner() {
+            if(firebase.auth().currentUser) {
+                return (firebase.auth().currentUser.uid == this.event.userID)
+            } else {
+                return false
+            }
+        },
     }
 }
 </script>
@@ -161,8 +164,8 @@ export default {
     position: relative;
     margin-top: 30px;
     left: 50px;
-    width: 72%;
-    height: 56%;
+    width: 1100px;
+    height: 577px;
     background-color: white;
     border-color: black;
     border-width: 1px;
@@ -191,17 +194,34 @@ export default {
 }
 #description-title {
     position: relative;
+    /*
     left: 40px;
     font-size: 20px;
     top: 10%;
+    */
+
+    top: 50px;
+    left: 10px;
+    margin: auto;
+    width: 95%;
+    height: 10%;
 }
 
 #description-body {
     position: relative;
+    /*
     top: 10%;
     width: 70%;
     height: 70%;
     left: 30px;
+
+     */
+
+    margin-top: 30px;
+    margin-left: 5px;
+    width: 95%;
+    height: 75%;
+
     margin-right: 60px;
 
     border-style: dashed;

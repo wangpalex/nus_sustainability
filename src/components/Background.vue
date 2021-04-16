@@ -1,16 +1,8 @@
 <template>
 <div id="background">
     <h1 id="app-heading"> NUSustainable </h1>
-    <!--nav class="navigation">
-        <ul>
-            <li><router-link class="router" to="/" exact>Home</router-link> </li>
-            <li><router-link class="router" to="/exchange" exact>Items For Exchange</router-link> </li>
-            <li><router-link class="router" to="/events" exact>Events</router-link> </li>
-            <li><router-link class="router" to="/settings" exact>Settings</router-link> </li>
-        </ul>
-    </nav-->
 
-    <Menu active-name="home" v-on:on-select="routePages"
+    <Menu id="navigation" active-name="home" v-on:on-select="routePages"
           style="position: relative; top:200px; left:5px;">
         <!--suppress HtmlDeprecatedTag -->
         <router-link class="router" to="/" exact/>
@@ -39,7 +31,6 @@
                 About Us
         </MenuItem>
     </Menu>
-
 
     <router-view class="page-view"></router-view>
 </div>
@@ -90,7 +81,7 @@ export default {
     Arial,sans-serif;
 
     position: relative;
-    width: 1920px;
+    width: 100%;
     height: 1080px;
 
     background-color: #0D47A1;
@@ -99,24 +90,20 @@ export default {
      */
 }
 
-.navigation {
-    position: absolute;
-    width: 320px;
-    height: 463px;
-    left: 20px;
-    top: 120px;
-    color: white;
-    font-size: 24px;
-}
-
 a:link {
     text-decoration: none;
 }
 
+.navigation {
+    float: left;
+}
+
 .page-view {
+    float: left;
     position: absolute;
-    width: 1528px;
-    height: 1031px;
+    width: 1200px;
+    height: 70%;
+
     left: 250px;
     top: 25px;
 

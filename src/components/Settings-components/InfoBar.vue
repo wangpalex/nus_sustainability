@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>{{title}}</p>
+        <p class="title">{{title}}</p>
         <div class="content-bar">
             <p class="content">{{content}}</p>
         </div>
@@ -22,6 +22,11 @@ export default {
 </script>
 
 <style scoped>
+
+.title {
+    font-size: 22px;
+}
+
 p{
     position:relative;
     left:20px;
@@ -37,7 +42,7 @@ p{
 .content-bar {
     position: relative;
     width: 650px;
-    height: 36px;
+    height: 32px;
     top:-15px;
     left:10px;
 
@@ -48,11 +53,11 @@ p{
 
 .content {
     position:relative;
-    top: -3px;
+    top: -5px;
 
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 41px;
 
     color: #000000;

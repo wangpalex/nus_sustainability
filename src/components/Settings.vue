@@ -12,7 +12,7 @@
             <div id="left-column">
                 <img v-if="userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
                 <img v-else class="user-image" src="../assets/logo.png" alt="User Image">
-
+                <br><br>
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
                 <user-stats stats_name="Events Attended" :stats_number="userData.eventsAttended"></user-stats>
 
@@ -142,7 +142,7 @@ export default {
 #profile {
     position: relative;
     width: 92%;
-    height: 850px;
+    height: 650px;
     left: 50px;
     top: 20px;
 
@@ -175,6 +175,7 @@ export default {
 
 #right-column  {
     position: relative;
+    left:30px;
     top:30px;
     float: left;
     width: 50%;
@@ -213,24 +214,19 @@ export default {
 
 .user-image {
     top:50px;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     margin-left: auto;
     margin-right: auto;
     display: block;
 }
 
-#loginButton {
+Button {
     position: relative;
-    margin-left: 30px;
+    margin-top: 10px;
+    margin-left: -20px;
     width:100px;
-    height: 35px;
+    height: 30px;
 }
 
-#signoutButton {
-    position: relative;
-    margin-left: 30px;
-    width:100px;
-    height: 35px;
-}
 </style>

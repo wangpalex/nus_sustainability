@@ -94,20 +94,6 @@ methods:{
         }
     },
 
-    cancelLike(ID) {
-        for (var i = 0; i < this.itemsList.length; i++){
-            if(this.itemsList[i]["id"] == ID) {
-                this.itemsList[i]["likeCount"] -= 1;
-                this.dislikeChecked = true; 
-                db.collection("items").doc(ID).update({
-                    dislikeCount: this.itemsList[i]["dislikeCount"]
-                })
-                this.itemsLiked.forEach(x => x.id == ID ? this.itemsLiked.delete(x) : x)
-                //this.itemsLiked.delete(this.itemsList[i])
-            }
-        }
-    },
-
     route: function() {
             this.$router.push({ path: "/newItem", name: "newItem"})
     },
@@ -196,8 +182,8 @@ button {
     position: relative;
     margin-top: 30px;
     left: 50px;
-    width: 42%;
-    height: 56%;
+    width: 640px;
+    height: 575px;
     background: white;
     border-style: solid;
     border-color: black;
@@ -274,10 +260,10 @@ button {
 #likedList {
     float: left;
     position: absolute;
-    margin-left: 48%;
+    margin-left: 62%;
     margin-top: 30px;
-    width: 20%;
-    height: 56%;
+    width: 305px;
+    height: 577px;
     background: white;
     border-style: solid;
     border-color: black;
