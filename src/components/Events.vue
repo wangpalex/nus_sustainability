@@ -265,11 +265,6 @@ export default {
             this.event.description="";
             this.event.userID="";
 
-            // Increase number of events hosted for the user
-            database.collection('users').doc(firebase.auth().currentUser.uid).update({
-                eventsAttended: firebase.firestore.FieldValue.increment(1)
-            })
-
             // Increase number of events hosted for the website
             database.collection('stats').doc('Apr').update({
                 eventsHosted: firebase.firestore.FieldValue.increment(1)
