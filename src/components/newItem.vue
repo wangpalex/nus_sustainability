@@ -214,7 +214,7 @@ import {gmapApi} from 'vue2-google-maps'
                 console.log(this.item.userID)
             },
             promptFillIn() {
-                this.$Message.error("Please fill in event information")
+                this.$Message.error("Please fill in all the item information")
             },
             fetchData:function(e) {
                 const linkName = e.replace(/\s/g, '+');
