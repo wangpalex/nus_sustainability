@@ -404,7 +404,7 @@ export default {
     position: relative;
     left: 10px;
     top: 0px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 #newlyListedItems {

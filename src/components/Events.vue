@@ -144,8 +144,11 @@ export default {
                 description:"",
                 lat:1.296643,
                 long:103.776394,
+                userID:"",
+                /*
                 userData: {},
                 webData: {}
+                 */
             },
             nusHalls: [
                     {
@@ -248,6 +251,7 @@ export default {
         },
         
         sendEvent: function() {
+            this.event.userID = firebase.auth().currentUser.uid
             console.log(this.event)
             database.collection('events').add(this.event);
             this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
@@ -273,6 +277,8 @@ export default {
             database.collection('stats').doc('Apr').update({
                 eventsHosted: firebase.firestore.FieldValue.increment(1)
             })
+
+            location.reload()
         },
 
         formatDate(value) {

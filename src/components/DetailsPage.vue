@@ -73,6 +73,7 @@ import {gmapApi} from 'vue2-google-maps'
                     console.error("Error removing document: ", error);
                 });
                 this.$Message.success(this.itemSelected.name + "is deleted!");
+                this.$router.go(-1)
             },
             fetchItems:function(){
                 db.collection('items').doc(this.detail_id).get().then(snapshot=>{

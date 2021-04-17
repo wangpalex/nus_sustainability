@@ -1,8 +1,9 @@
 <template>
     <div>
         <h1 class="title"> Sign Up </h1>
-        <Button type="dashed" id="goBackButton" @click="$router.go(-1)">Back to Login</Button>
-        <form id="signup-form">
+
+        <div id="userInfo">
+            <Button type="dashed" id="goBackButton" @click="$router.go(-1)">Back to Login</Button><br>
             <label> User Name </label><br>
             <Input for="username"
                    v-model="username" placeholder="Please enter your user name"
@@ -63,9 +64,9 @@
             <Button v-else type="error" @click="promptFillIn"
                     icon="social-google" class="google-signin-button">
                     Sign up with Google </Button>
+        </div>
 
-            <br>
-
+        <div id="accountInfo">
             <label> Email </label><br>
             <Input type="email" for="email"
                    v-model="emailValue" placeholder="Please enter your NUSNET email"
@@ -76,14 +77,18 @@
                    v-model="passwordValue" placeholder="Please enter your password"
                    clearable style="width: 500px"></Input><br>
 
-            <Button v-if="userInfoReady && accountInfoReady" type="success"
+            <label> Retype Password </label><br>
+            <Input type="password" for="password2"
+                   v-model="passwordValue2" placeholder="Please re-enter your password"
+                   clearable style="width: 500px"></Input><br>
+
+            <Button v-if="userInfoReady && accountInfoReady && passwordsMatched" type="success"
                     long class="signup-button"
                     @click="signup"> Sign up with email </Button>
             <Button v-else type='error'
                     long class="signup-button"
                     @click="promptFillIn"> Sign up with email </Button>
-
-        </form>
+        </div>
     </div>
 </template>
 
@@ -98,6 +103,7 @@ export default {
         return {
             emailValue:"",
             passwordValue:"",
+            passwordValue2:"",
             username:"",
             course:"",
             residence:"",
@@ -241,6 +247,10 @@ export default {
                 return true;
             }
         },
+
+        passwordsMatched() {
+            return this.passwordValue === this.passwordValue2
+        }
     },
 
     methods: {
@@ -368,7 +378,14 @@ export default {
         },
 
         promptFillIn() {
-            this.$Message.error("Please fill in account information")
+            if(!this.userInfoReady) {
+                this.$Message.error("Please fill in user information")
+            } else if(!this.accountInfoReady) {
+                this.$Message.error("Please fill in account information")
+            } else if (!this.passwordsMatched) {
+                this.$Message.error("Retyped password is incorrect")
+            }
+
         },
 
         handleFile(file) {
@@ -430,15 +447,23 @@ export default {
 
 #goBackButton {
     position: relative;
-    left: 50px;
+    left: 0px;
     margin-top: 10px;
 }
 
-#signup-form {
+#userInfo {
+    float: left;
     position: relative;
     margin-top: 10px;
     left:50px;
-    width: 1000px;
+    width: 500px;
+}
+
+#accountInfo {
+    float: left;
+    position: relative;
+    margin-top: 50px;
+    left: 100px;
 }
 
 label {
@@ -455,7 +480,7 @@ label {
     position: relative;
     left: 0px;
     width: 500px;
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 .google-signin-button {
