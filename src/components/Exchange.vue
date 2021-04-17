@@ -39,6 +39,7 @@
 <script>
 import db from '../firebase.js' 
 import VueLikeDislikeButtons from 'vue-like-dislike-buttons'
+import firebase from "firebase";
 
 
 export default {
@@ -52,6 +53,7 @@ export default {
         likeChecked: false,
         dislikeChecked: false,
         itemsLiked: new Set(),
+        userData: null,
         }
   },
 methods:{
@@ -132,6 +134,19 @@ methods:{
          
   },
   created(){
+      firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+              console.log("State change user log")
+              console.log(user)
+              let docRef = db.collection('users').doc(user.uid)
+              docRef.get().then(doc => {
+                  this.userData = doc.data();
+              })
+          } else {
+              this.$router.push({path: "/settings/login"});
+          }
+      });
+
       this.fetchItems()    
   }
 }

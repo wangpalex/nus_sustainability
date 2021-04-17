@@ -228,6 +228,7 @@ export default {
                         label: 'NUS Medicine'
                     }
                 ],
+            userID: null,
         }
     },
 
@@ -301,8 +302,6 @@ export default {
     },
 
     created(){
-        this.fetchItems();
-        this.updateUserID();
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 console.log("State change user log")
@@ -315,6 +314,9 @@ export default {
                 this.$router.push({path: "/settings/login"});
             }
         });
+
+        this.fetchItems();
+        this.updateUserID();
     },
 
   computed: {
