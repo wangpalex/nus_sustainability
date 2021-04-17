@@ -6,7 +6,7 @@ export default {
     data: function () {
         return {
             datacollection: {
-                labels: ["Jan","Feb","Mar","Apr","May","Jun"],
+                labels: ["Jan","Feb","Mar","Apr"],
                 datasets: [{
                     data: [],
                     label: "Events Attended",
