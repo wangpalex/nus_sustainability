@@ -3,7 +3,7 @@
     <h1 class="title"> About Us </h1>
 
     <div id="backing">
-        <h1 id="heading"> Our Motivation! </h1>
+        <h1 id="heading"> Our Motivation </h1>
         <p id="vision">
             Currently, there are many Environment Sustainability initiatives for NUS students. 
             In fact, many of the NUS residences even have their own environmental committees.
@@ -13,6 +13,7 @@
             or handing down of common room accessories in efforts to minimise the wastage 
             and encourage reusing items. 
         </p>
+        <h1 id="statsHeading"> NUSustainable Statistics </h1>
         <NewUsersChart id="chart1"></NewUsersChart>
         <EventsExchangesGraph id="chart2"></EventsExchangesGraph>
         <!--TotalGraph></TotalGraph-->
@@ -105,26 +106,32 @@ export default {
     top:20px;
 }
 
+#statsHeading {
+    position: relative;
+    left: 20px;
+    top: -50px;
+}
+
 #vision {
     position: relative;
     font-size: 20px;
     left: 20px;
-    top: 20px;
+    top: -20px;
     width: 90%;
 }
 
 #chart1 {
     position: relative;
-    height: 380px;
-    left:30px;
-    top: 30px;
+    height: 280px;
+    left:-200px;
+    top: 10px;
 }
 
 #chart2 {
     position: relative;
-    height: 380px;
-    left:80px;
-    top: 30px;
+    height: 280px;
+    left:-100px;
+    top: 10px;
 }
 
 </style>

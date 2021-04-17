@@ -5,10 +5,10 @@ export default {
     data: function () {
         return {
             datacollection: {
-                labels: ["Dec,", "Jan","Feb","Mar","Apr"],
+                labels: ["Jan","Feb","Mar","Apr"],
                 datasets: [{
-                    data: [20, 50,74,220, 550],
-                    label: "Number of Users",
+                    data: [74,121,225, 550],
+                    label: "Total Number of Users",
                     borderColor: "#3e95cd",
                     fill: false,
                 },
@@ -17,7 +17,7 @@ export default {
             options: {
                 title: {
                     display: true,
-                    text: 'New Users',
+                    text: 'NUSustainability Users',
                     fontSize: 20,
                 },
                 responsive: true,

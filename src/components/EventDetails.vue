@@ -84,6 +84,11 @@ export default {
 
         rsvp() {
             this.$Message.success("You have RSVPed this event")
+
+            // Increase number of events attended for the user
+            database.collection('users').doc(firebase.auth().currentUser.uid).update({
+                eventsAttended: firebase.firestore.FieldValue.increment(1)
+            })
         },
 
         formatDate(value) {
