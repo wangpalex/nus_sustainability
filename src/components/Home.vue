@@ -8,16 +8,16 @@
                     <p style="font-size: 30px; margin-left: 10%; margin-top: 2%">
                         {{itemsExchanged}}
                     </p>
-                    <p style="font-size: 20px; margin-left: 10%;">
-                        Items Exchanged
+                    <p style="font-size: 18px; margin-left: 10%;">
+                        Monthly Items Exchanged 
                     </p>
                 </div>
                 <div id="stats-right">
                     <p style="font-size: 30px; margin-left: 10%; margin-top: 2%">
                         {{eventsHosted}}
                     </p>
-                    <p style="font-size: 20px; margin-left: 10%;">
-                        Events Hosted
+                    <p style="font-size: 18px; margin-left: 10%;">
+                        Monthly Events Hosted 
                     </p>
                 </div>
             </section>
@@ -55,7 +55,7 @@
             <span  id="seeAll1" v-on:click="routeExchange()"> See all > </span>
 
             <div id="itemsList">
-                <div class="item" v-for="item in itemsList" v-bind:key="item.name">
+                <div class="item" v-for="item in itemsList.slice(0,3)" v-bind:key="item.name">
                     <img class="itemImage" v-bind:src=item.imageURL>
                     <p class="itemName">{{formatItemName(item.name)}}</p>
                 </div>
@@ -66,7 +66,7 @@
             <span id="seeAll2" v-on:click="routeEvent()">See all ></span>
 
             <div id="eventsList">
-                <div class="event" v-for="event in eventsList" v-bind:key="event.name">
+                <div class="event" v-for="event in eventsList.slice(0,3)" v-bind:key="event.name">
                     <p id="eventDate">{{formatDate(event.date)}} {{event.time}} </p>
                     <p id="eventName">{{formatEventName(event.title)}}</p>
                 </div>
@@ -296,7 +296,7 @@ export default {
 #stats-left {
     float: left;
     position: relative;
-    width: 35%;
+    width: 40%;
     height: 100%;
     top:3%;
     left: 7.5%;
@@ -310,10 +310,10 @@ export default {
 #stats-right {
     float: left;
     position: relative;
-    width: 35%;
+    width: 40%;
     height: 100%;
     top:3%;
-    left: 22.5%;
+    left: 13.5%;
 
     color: #42427D;
     background-color: #FFBB80;
@@ -346,7 +346,7 @@ export default {
     background: #FFBB80;
 
     border-width: 0px;
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 .itemImage {
@@ -360,9 +360,9 @@ export default {
 
 .itemName {
     position: relative;
-    left: 80px;
-    top: -50px;
-    font-size: 20px;
+    left: 90px;
+    top: -43px;
+    font-size: 16px;
 }
 
 #eventsList {
@@ -396,15 +396,16 @@ export default {
 #eventDate {
     position: relative;
     left: 10px;
-    top: 5px;
+    top: 10px;
     font-size: 14px;
 }
 
 #eventName {
     position: relative;
     left: 10px;
-    top: 0px;
-    font-size: 20px;
+    top: 15px;
+    font-size: 16px;
+
 }
 
 #newlyListedItems {

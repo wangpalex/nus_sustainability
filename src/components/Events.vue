@@ -232,6 +232,10 @@ export default {
     },
 
     methods: {
+        updateUserID() {
+                this.event.userID = firebase.auth().currentUser.uid
+                console.log(this.event.userID)
+        },
         fetchItems: function() {
             database.collection('events').get().then(
                 (querySnapshot) => { 
@@ -248,8 +252,7 @@ export default {
         moreDetails: function(event) {
             var id = event.target.getAttribute("id");
             this.$router.push({path: '/eventDetails',name: 'eventDetails', params:{event_id : id}})
-        },
-        
+        },   
         sendEvent: function() {
             this.event.userID = firebase.auth().currentUser.uid
             console.log(this.event)
@@ -260,20 +263,14 @@ export default {
             this.event.time="";
             this.event.location="";
             this.event.description="";
+            this.event.userID="";
 
             // Increase number of events hosted for the user
-            database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
-                this.userData = doc.data()
-            })
             database.collection('users').doc(firebase.auth().currentUser.uid).update({
-                eventsAttended: this.userData["eventsAttended"] + 1
+                eventsAttended: firebase.firestore.FieldValue.increment(1)
             })
 
             // Increase number of events hosted for the website
-            database.collection('stats').doc("Apr").get().then(doc => {
-                this.webData = doc.data()
-                console.log(doc.data())
-            })
             database.collection('stats').doc('Apr').update({
                 eventsHosted: firebase.firestore.FieldValue.increment(1)
             })
@@ -305,6 +302,7 @@ export default {
 
     created(){
         this.fetchItems();
+        this.updateUserID();
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 console.log("State change user log")
