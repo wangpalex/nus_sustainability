@@ -126,9 +126,7 @@ import {gmapApi} from 'vue2-google-maps'
                     location:"",
                     lat: 1.296643,
                     long: 103.776394,
-                    userID: "",
-                    userData: {},
-                    webData: {},
+                    userID: ""
                 },
                 nusHalls: [
                     {
@@ -216,7 +214,7 @@ import {gmapApi} from 'vue2-google-maps'
                 console.log(this.item.userID)
             },
             promptFillIn() {
-                this.$Message.error("Please fill in event information")
+                this.$Message.error("Please fill in all the item information")
             },
             fetchData:function(e) {
                 const linkName = e.replace(/\s/g, '+');
@@ -254,18 +252,11 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.userID="";
                 
                 // Increase number of items exchanged for users
-                database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
-                    this.userData = doc.data()
-                })
                 database.collection('users').doc(firebase.auth().currentUser.uid).update({
                     itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
 
                  // Increase number of events hosted for the website
-                database.collection('stats').doc("Apr").get().then(doc => {
-                    this.webData = doc.data()
-                    console.log(doc.data())
-                })
                 database.collection('stats').doc('Apr').update({
                     itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
