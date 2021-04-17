@@ -3,8 +3,8 @@
     <h1 class="title"> About Us </h1>
 
     <div id="backing">
-        <h1> Our Motivation! </h1>
-        <p> 
+        <h1 id="heading"> Our Motivation! </h1>
+        <p id="vision">
             Currently, there are many Environment Sustainability initiatives for NUS students. 
             In fact, many of the NUS residences even have their own environmental committees.
             However, because they are many and sparse, their effects are marginal. 
@@ -13,9 +13,9 @@
             or handing down of common room accessories in efforts to minimise the wastage 
             and encourage reusing items. 
         </p>
-        <NewUsersChart></NewUsersChart>
-        <EventsExchangesGraph></EventsExchangesGraph>
-        <TotalGraph></TotalGraph>
+        <NewUsersChart id="chart1"></NewUsersChart>
+        <EventsExchangesGraph id="chart2"></EventsExchangesGraph>
+        <!--TotalGraph></TotalGraph-->
     </div>
 </div>
 </template>
@@ -23,7 +23,7 @@
 <script>
 import NewUsersChart from "@/components/About-charts/NewUsersChart";
 import EventsExchangesGraph from "@/components/About-charts/EventsExchangesGraph";
-import TotalGraph from "@/components/About-charts/TotalGraph";
+//import TotalGraph from "@/components/About-charts/TotalGraph";
 
 export default {
     
@@ -41,7 +41,7 @@ export default {
     components: {
         NewUsersChart: NewUsersChart,
         EventsExchangesGraph: EventsExchangesGraph,
-        TotalGraph: TotalGraph
+        //TotalGraph: TotalGraph
     },
 
     computed: {
@@ -82,6 +82,49 @@ export default {
 
     background: #FFBB80;
     border-radius: 23px;
+}
+
+#backing {
+    position: relative;
+    width: 92%;
+    height: 650px;
+    left: 50px;
+    top: 20px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    background: #FFBB80;
+    border-radius: 23px;
+}
+
+#heading {
+    position: relative;
+    left: 20px;
+    top:20px;
+}
+
+#vision {
+    position: relative;
+    font-size: 20px;
+    left: 20px;
+    top: 20px;
+    width: 90%;
+}
+
+#chart1 {
+    position: relative;
+    height: 380px;
+    left:30px;
+    top: 30px;
+}
+
+#chart2 {
+    position: relative;
+    height: 380px;
+    left:80px;
+    top: 30px;
 }
 
 </style>

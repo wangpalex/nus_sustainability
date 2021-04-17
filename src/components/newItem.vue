@@ -213,9 +213,11 @@ import {gmapApi} from 'vue2-google-maps'
                 this.item.userID = firebase.auth().currentUser.uid
                 console.log(this.item.userID)
             },
+
             promptFillIn() {
                 this.$Message.error("Please fill in all the item information")
             },
+
             fetchData:function(e) {
                 const linkName = e.replace(/\s/g, '+');
                 const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
@@ -260,6 +262,8 @@ import {gmapApi} from 'vue2-google-maps'
                 database.collection('stats').doc('Apr').update({
                     itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
+
+                this.$router.go(-1)
             },
 
             route() {

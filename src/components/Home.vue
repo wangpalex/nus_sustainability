@@ -405,6 +405,7 @@ export default {
     left: 10px;
     top: 15px;
     font-size: 16px;
+
 }
 
 #newlyListedItems {

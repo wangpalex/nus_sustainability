@@ -25,7 +25,7 @@ export default {
                 title: {
                     display: true,
                     text: 'Number of Events and Exchanges Completed',
-                    fontSize: 30
+                    fontSize: 20
                 },
                 responsive: true,
                 maintainAspectRatio: false,

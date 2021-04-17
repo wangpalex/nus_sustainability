@@ -79,6 +79,7 @@ export default {
                     console.error("Error removing document: ", error);
                 });
                 this.$Message.success(this.event.name + "is deleted!");
+                this.$router.go(-1)
         },
 
         rsvp() {

@@ -18,7 +18,7 @@ export default {
                 title: {
                     display: true,
                     text: 'New Users',
-                    fontSize: 30,
+                    fontSize: 20,
                 },
                 responsive: true,
                 maintainAspectRatio: false,
