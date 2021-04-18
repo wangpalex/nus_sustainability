@@ -68,9 +68,9 @@ import {gmapApi} from 'vue2-google-maps'
         methods:{
             deleteItem:function() {
                 db.collection("items").doc(this.detail_id).delete().then(() => {
-                    console.log("Document successfully deleted!");
+                    //console.log("Document successfully deleted!");
                 }).catch((error) => {
-                    console.error("Error removing document: ", error);
+                    //console.error("Error removing document: ", error);
                 });
                 this.$Message.success(this.itemSelected.name + "is deleted!");
                 this.$router.go(-1)

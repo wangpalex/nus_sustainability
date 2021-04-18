@@ -160,9 +160,9 @@ export default {
                     )
                 })
             })
-            console.log(this.eventsList)
-            console.log("markers coords are...")
-            console.log(this.markers)
+            //console.log(this.eventsList)
+            //console.log("markers coords are...")
+            //console.log(this.markers)
         },
         routeExchange: function() {
             this.$router.push({ path: "/exchange"})
@@ -192,7 +192,7 @@ export default {
           return moment.unix(timestamp.seconds).format("MM/DD/YYYY")
         },
         toggleInfoWindow: function (marker, idx) {
-            console.log("toggling infowindow...")
+            //console.log("toggling infowindow...")
             this.infoWindowPos = marker.position;
             this.infoContent = this.getInfoWindowContent(marker);
             //check if its the same marker that was selected if yes toggle

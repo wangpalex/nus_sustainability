@@ -211,7 +211,7 @@ import {gmapApi} from 'vue2-google-maps'
         methods:{
             updateUserID() {
                 this.item.userID = firebase.auth().currentUser.uid
-                console.log(this.item.userID)
+                //console.log(this.item.userID)
             },
 
             promptFillIn() {

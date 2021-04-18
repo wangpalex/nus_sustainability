@@ -42,7 +42,7 @@ export default {
 
     methods: {
         routePages(name) {
-            console.log(name)
+            //console.log(name)
             //let name = event.target.getAttribute()
             if(name==="home") {
                 this.$router.push({path:'/'})

@@ -66,8 +66,8 @@ export default {
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     var user = userCredential.user;
-                    console.log("Signed in user:")
-                    console.log(user)
+                    //console.log("Signed in user:")
+                    //console.log(user)
                     if(user.emailVerified || email.match(/^demo@nusustainability.web.app$/g)) {
                         this.$Message.success("Signed in")
                         this.$router.push({path:"/settings"})
@@ -85,10 +85,10 @@ export default {
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    console.log("errorCode")
-                    console.log(errorCode)
-                    console.log("errorMessage")
-                    console.log(errorMessage)
+                    //console.log("errorCode")
+                    //console.log(errorCode)
+                    //console.log("errorMessage")
+                    //console.log(errorMessage)
                     if(errorCode=="auth/user-not-found") {
                         this.$Message.error("The email is not registered, please sign up")
                         this.$router.push({name:"signup", params:{filledEmail:this.emailValue}})
@@ -115,12 +115,12 @@ export default {
                     // The signed-in user info.
                     var user = result.user;
 
-                    console.log("credential")
-                    console.log(credential)
-                    console.log("token")
-                    console.log(token)
-                    console.log("user")
-                    console.log(user)
+                    //console.log("credential")
+                    //console.log(credential)
+                    //console.log("token")
+                    //console.log(token)
+                    //console.log("user")
+                   // console.log(user)
                 })
                 /*
                 .catch((error) => {

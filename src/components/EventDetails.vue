@@ -59,16 +59,16 @@ export default {
     methods : {
         fetchItems: function(){
             database.collection('events').doc(this.event_id).get().then(snapshot =>{
-                console.log("more details page EVENTS")
+                //console.log("more details page EVENTS")
                 var temp = {}
-                console.log(this.event_id)
+                //console.log(this.event_id)
                 temp = snapshot.data()
-                console.log("temp = ")
-                console.log(temp)
+                //console.log("temp = ")
+                //console.log(temp)
                 temp.id = snapshot.id
                 this.event = temp
-                console.log("this.event = ")
-                console.log(this.event)
+                //console.log("this.event = ")
+                //console.log(this.event)
             })
         }, 
 

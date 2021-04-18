@@ -83,8 +83,8 @@ export default {
     created() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                console.log("State change user log")
-                console.log(user)
+                //console.log("State change user log")
+                //console.log(user)
                 let docRef = db.collection('users').doc(user.uid)
                 docRef.get().then(doc => {
                     this.userData = doc.data();

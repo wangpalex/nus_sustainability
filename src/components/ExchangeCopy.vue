@@ -68,7 +68,7 @@ export default {
                 this.itemsList[i]["likeCount"] += 1;
                 this.likeChecked = true; 
                 this.itemsLiked.add(this.itemsList[i]);
-                console.log(this.itemsLiked)
+                //console.log(this.itemsLiked)
             }
         }
     },

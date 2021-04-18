@@ -235,7 +235,7 @@ export default {
     methods: {
         updateUserID() {
                 this.event.userID = firebase.auth().currentUser.uid
-                console.log(this.event.userID)
+                //console.log(this.event.userID)
         },
         fetchItems: function() {
             database.collection('events').get().then(
@@ -256,7 +256,7 @@ export default {
         },   
         sendEvent: function() {
             this.event.userID = firebase.auth().currentUser.uid
-            console.log(this.event)
+            //console.log(this.event)
             database.collection('events').add(this.event);
             this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
             this.event.title="";
@@ -284,9 +284,9 @@ export default {
 
         fetchData:function(e) {
             const linkName = e.replace(/\s/g, '+');
-            console.log(linkName);
+            //console.log(linkName);
             const link = "https://maps.googleapis.com/maps/api/geocode/json?address=" + linkName + "&key=AIzaSyD-enw5hB1RWEUF5cUDM908JknkpotEgVw";
-            console.log(link);
+            //console.log(link);
             axios.get(link).then(response=>{
                 var dataArray = response.data;
                 var dataList = dataArray["results"][0];
@@ -299,8 +299,8 @@ export default {
     created(){
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                console.log("State change user log")
-                console.log(user)
+                //console.log("State change user log")
+                //console.log(user)
                 let docRef = db.collection('users').doc(user.uid)
                 docRef.get().then(doc => {
                     this.userData = doc.data();

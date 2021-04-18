@@ -291,10 +291,10 @@ export default {
                         } else {
                             this.$Message.error(errorMessage)
                         }
-                        console.log("errorCode")
-                        console.log(errorCode)
-                        console.log("errorMessage")
-                        console.log(errorMessage)
+                        //console.log("errorCode")
+                        //console.log(errorCode)
+                        //console.log("errorMessage")
+                        //console.log(errorMessage)
                         // ..
                     });
             } else {
@@ -330,8 +330,8 @@ export default {
                         eventsAttended:0,
                         imagePath:imgPath,  // reference string for downloading from storage
                     })
-                    console.log("user")
-                    console.log(user)
+                    //console.log("user")
+                    //console.log(user)
 
                     this.$router.go(-1)
                 })
@@ -390,8 +390,8 @@ export default {
 
         handleFile(file) {
             this.imageFile = file
-            console.log("Handle input:")
-            console.log(this.imageFile)
+            //console.log("Handle input:")
+            //console.log(this.imageFile)
         },
 
         uploadImg() {
