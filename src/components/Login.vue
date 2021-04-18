@@ -109,9 +109,9 @@ export default {
                     this.$Message.success("Signed in")
                     this.$router.push({path:"/settings"})
 
-                    var credential = result.credential;
+                    //var credential = result.credential;
                     // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = credential.accessToken;
+                    //var token = credential.accessToken;
                     // The signed-in user info.
                     var user = result.user;
 
@@ -120,7 +120,7 @@ export default {
                     //console.log("token")
                     //console.log(token)
                     //console.log("user")
-                   // console.log(user)
+                    console.log(user.uid)
                 })
                 /*
                 .catch((error) => {
