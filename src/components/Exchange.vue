@@ -143,7 +143,7 @@ methods:{
                   this.userData = doc.data();
               })
           } else {
-              this.$router.push({path: "/settings/login"});
+              this.$router.push({path: "/profile/login"});
           }
       });
 

@@ -21,9 +21,9 @@
                 Events
         </MenuItem>
 
-        <MenuItem name="settings">
+        <MenuItem name="profile">
             <Icon type="heart-broken"></Icon>
-                Settings
+                Profile
         </MenuItem>
 
         <MenuItem name="about">
@@ -50,8 +50,8 @@ export default {
                 this.$router.push({path:'/exchange'})
             } else if(name==='events') {
                 this.$router.push({path: '/events'})
-            } else if(name==='settings') {
-                this.$router.push({path: '/settings'})
+            } else if(name==='profile') {
+                this.$router.push({path: '/profile'})
             } else {
                 this.$router.push({path:'/about'})
             }

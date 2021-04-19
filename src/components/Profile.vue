@@ -6,7 +6,7 @@
 
         <body>
 
-        <h1 class="title"> Profile Settings </h1>
+        <h1 class="title"> Profile </h1>
 
         <div id="profile">
             <div id="left-column">
@@ -48,14 +48,14 @@ export default {
 
     methods: {
         routeLogin() {
-          this.$router.push({path:"settings/login"});
+          this.$router.push({path:"profile/login"});
         },
 
         signOut() {
             if(firebase.auth().currentUser) {
                 firebase.auth().signOut().then(() => {
                     this.$Message.success("Signed out")
-                    this.$router.push({path:"settings/login"})
+                    this.$router.push({path:"profile/login"})
                 }).catch((error) => {
                     this.$Message.error(error.message)
                 });
@@ -93,7 +93,7 @@ export default {
                     }
                 })
             } else {
-                this.$router.push({path: "/settings/login"});
+                this.$router.push({path: "/profile/login"});
             }
         });
 

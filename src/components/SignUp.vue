@@ -351,7 +351,7 @@ export default {
         verifyEmail(user) {
 
             const actionCodeSettings = {
-                url: "https://nusustainability.web.app/settings/login",
+                url: "https://nusustainability.web.app/profile/login",
                 handleCodeInApp: true
             };
 

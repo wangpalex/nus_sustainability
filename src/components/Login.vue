@@ -70,7 +70,7 @@ export default {
                     //console.log(user)
                     if(user.emailVerified || email.match(/^demo@nusustainability.web.app$/g)) {
                         this.$Message.success("Signed in")
-                        this.$router.push({path:"/settings"})
+                        this.$router.push({path:"/profile"})
                     } else {
                         this.$Message.error("This email is not verified")
                         // Sign out
@@ -107,7 +107,7 @@ export default {
                 .then((result) => {
                     /** @type {firebase.auth.OAuthCredential} */
                     this.$Message.success("Signed in")
-                    this.$router.push({path:"/settings"})
+                    this.$router.push({path:"/profile"})
 
                     //var credential = result.credential;
                     // This gives you a Google Access Token. You can use it to access the Google API.
