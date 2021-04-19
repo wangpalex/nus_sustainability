@@ -114,6 +114,8 @@ export default {
                             itemsExchanged: 0,
                             imagePath:"",
                         }
+                        let userRef = db.collection('users').doc(user.uid)
+                        userRef.set(this.userData)
                     }
                     if(this.userData.imagePath) {
                         this.fetchUserImage()
