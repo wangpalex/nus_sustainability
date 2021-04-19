@@ -119,7 +119,6 @@ export default {
                     //console.log(credential)
                     //console.log("token")
                     //console.log(token)
-                    //console.log("user")
                     console.log(user.uid)
                 })
                 /*

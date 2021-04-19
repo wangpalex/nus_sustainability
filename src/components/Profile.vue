@@ -10,7 +10,7 @@
 
         <div id="profile">
             <div id="left-column">
-                <img v-if="userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
+                <img v-if="this.userData.imagePath" id="user-image" class="user-image" src="" alt="User Image">
                 <img v-else class="user-image" src="../assets/logo.png" alt="User Image">
                 <br><br>
                 <user-stats stats_name="Items Exchanged" :stats_number="userData.itemsExchanged"></user-stats>
@@ -66,11 +66,28 @@ export default {
         },
 
         fetchUserImage() {
-            const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
-            imgRef.getDownloadURL().then(url => {
-                var img = document.getElementById('user-image');
-                img.setAttribute('src', url);
-            })
+            /*
+            if(this.userData.imagePath) {
+                const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
+                imgRef.getDownloadURL().then(url => {
+                    const img = document.getElementById('user-image');
+                    img.setAttribute('src', url);
+                })
+            } else {
+                const img2 = document.getElementById('user-image');
+                console.log("Img2")
+                console.log(img2)
+                img2.setAttribute('src', this.userData.photoURL);
+            }
+            */
+            if(this.userData.imagePath) {
+                const imgRef = firebase.storage().ref(this.userData.imagePath);  // get the image by ref string
+                imgRef.getDownloadURL().then(url => {
+                    const img = document.getElementById('user-image');
+                    img.setAttribute('src', url);
+                })
+            }
+
         },
     },
 
@@ -88,9 +105,22 @@ export default {
                 let docRef = db.collection('users').doc(user.uid)
                 docRef.get().then(doc => {
                     this.userData = doc.data();
+                    if(!this.userData) { // For unregistered Google account
+                        this.userData = {
+                            name: user.displayName,
+                            course: "Others",
+                            residence: "Others",
+                            eventsAttended: 0,
+                            itemsExchanged: 0,
+                            imagePath:"",
+                        }
+                    }
                     if(this.userData.imagePath) {
                         this.fetchUserImage()
                     }
+                })
+                .catch(error => {
+                    console.log(error.message)
                 })
             } else {
                 this.$router.push({path: "/profile/login"});
@@ -117,7 +147,7 @@ export default {
     computed: {
         loggedIn() {
             return firebase.auth().currentUser != null;
-        }
+        },
     },
 
 }
