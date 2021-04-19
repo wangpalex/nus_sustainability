@@ -1,25 +1,25 @@
-# Reference links
-- Figma: https://www.figma.com/file/Nf2FsdSlNrZcOqAS3PZSSV/Sustainability-Project?node-id=2%3A5699
-- CodePen: https://codepen.io/xinyi420/pen/KKNdrBX
-- Firestore: https://console.firebase.google.com/project/nusustainability/firestore/data~2F
-- Github: https://github.com/wangpeialex/nus_sustainability
-
-### API references
-- NUS openID: https://openid.nus.edu.sg/
-- Google maps API: https://developers.google.com/maps/documentation
-
 # NUSustainability
-Team project of **BT3103 - Application Systems Development for Business Analytics, AY20/21 Semester 2** 
+This is a team project of **BT3103 - Application Systems Development for Business Analytics, AY20/21 Semester 2** 
 
-## Application Description
-NUSustainability, the centralized platform, is an all-in-one solution for NUS students to access the environmental initiatives that are organised around NUS. It aims to bridge the information gap between event organisers and NUS students who may be interested in attending these events, but are unaware of them. Regular updates to events and items available will be provided by the application and users will also be able to see events by location.
-## User Group
+### Application Description
+NUSustainable, the centralized platform, is an all-in-one solution for NUS students to access the environmental initiatives that are organized around NUS. It aims to bridge the information gap between event organizers and NUS students who may be interested in attending these events, but are unaware of them. Regular updates to events and items available will be provided by the application and users will also be able to see events by location.
+### User Group
 - NUS students
 - NUS Waste management & Recycling TaskForce (WART)
 - Potential environmental partners
 
+### Project resources
+- Deployed website: https://nusustainability.web.app/
+- Github repository: https://github.com/wangpeialex/nus_sustainability
+- Google maps API: https://developers.google.com/maps/documentation
 
-## Project setup
+### Our vision
+
+Currently, there are many Environment Sustainability initiatives for NUS students. In fact, many of the NUS residences even have their own environmental committees. However, because they are many and sparse, their effects are marginal. Thus, our team decided to create a centralized platform to not only increase the exposure and outreach of each of these environmental events, but to also facilitate the exchange, or handing down of common room accessories in efforts to minimize the wastage and encourage reusing items.
+
+
+# For developers
+### Project setup
 ```
 npm install
 ```
@@ -38,6 +38,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
