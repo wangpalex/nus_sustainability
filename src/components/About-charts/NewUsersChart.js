@@ -17,7 +17,7 @@ export default {
             options: {
                 title: {
                     display: true,
-                    text: 'NUSustainability Users',
+                    text: 'NUSustainable Users',
                     fontSize: 20,
                 },
                 responsive: true,
