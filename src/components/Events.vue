@@ -255,8 +255,8 @@ export default {
             this.$router.push({path: '/eventDetails',name: 'eventDetails', params:{event_id : id}})
         },   
         sendEvent: function() {
-            this.event.userID = firebase.auth().currentUser.uid
-            //console.log(this.event)
+            //this.event.userID = firebase.auth().currentUser.uid
+            console.log(this.event)
             database.collection('events').add(this.event);
             this.$Message.success(this.event.title + " updated! Looking forward to your event! :)");
             this.event.title="";
@@ -267,11 +267,11 @@ export default {
             this.event.userID="";
 
             // Increase number of events hosted for the website
-            database.collection('stats').doc('Apr').update({
-                eventsHosted: firebase.firestore.FieldValue.increment(1)
-            })
-
-            location.reload()
+            database.collection('stats').doc('Apr')
+                .update({
+                    eventsHosted: firebase.firestore.FieldValue.increment(1)
+                })
+                .then(() => {location.reload()})
         },
 
         formatDate(value) {
@@ -305,13 +305,14 @@ export default {
                 docRef.get().then(doc => {
                     this.userData = doc.data();
                 })
+                this.event.userID = user.uid;
             } else {
                 this.$router.push({path: "/profile/login"});
             }
         });
 
         this.fetchItems();
-        this.updateUserID();
+        //this.updateUserID();
     },
 
   computed: {
