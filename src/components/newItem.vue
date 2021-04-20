@@ -262,8 +262,9 @@ import {gmapApi} from 'vue2-google-maps'
                 database.collection('stats').doc('Apr').update({
                     itemsExchanged: firebase.firestore.FieldValue.increment(1)
                 })
+                .then(() => {this.$router.go(-1)})
 
-                this.$router.go(-1)
+
             },
 
             route() {

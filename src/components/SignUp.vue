@@ -278,9 +278,8 @@ export default {
                             itemsExchanged:0,
                             eventsAttended:0,
                             imagePath:imgPath,
-                        });
-
-                        this.$router.go(-1);
+                        })
+                        .then(() => {this.$router.go(-1);});
                     })
                     .catch((error) => {
 
@@ -309,7 +308,7 @@ export default {
                 .signInWithPopup(provider)
                 .then((result) => {
                     /** @type {firebase.auth.OAuthCredential} */
-                    this.$Message.success("Signed in")
+                    //this.$Message.success("Signed in")
                     //var credential = result.credential;
                     // This gives you a Google Access Token. You can use it to access the Google API.
 
@@ -330,10 +329,11 @@ export default {
                         eventsAttended:0,
                         imagePath:imgPath,  // reference string for downloading from storage
                     })
+                    .then(() => {this.$router.go(-1)})
                     //console.log("user")
                     //console.log(user)
 
-                    this.$router.go(-1)
+
                 })
             /*
             .catch((error) => {

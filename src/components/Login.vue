@@ -107,19 +107,19 @@ export default {
                 .then((result) => {
                     /** @type {firebase.auth.OAuthCredential} */
                     this.$Message.success("Signed in")
+                    console.log(result.user.uid)
                     this.$router.push({path:"/profile"})
 
                     //var credential = result.credential;
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     //var token = credential.accessToken;
                     // The signed-in user info.
-                    var user = result.user;
+
 
                     //console.log("credential")
                     //console.log(credential)
                     //console.log("token")
                     //console.log(token)
-                    console.log(user.uid)
                 })
                 /*
                 .catch((error) => {
