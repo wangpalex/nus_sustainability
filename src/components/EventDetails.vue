@@ -74,12 +74,12 @@ export default {
 
         deleteEvent:function() {
                 database.collection("events").doc(this.event_id).delete().then(() => {
-                    console.log("Document successfully deleted!");
+                    this.$Message.success(this.event.name + " is deleted!");
+                    this.$router.go(-1)
                 }).catch((error) => {
                     console.error("Error removing document: ", error);
                 });
-                this.$Message.success(this.event.name + "is deleted!");
-                this.$router.go(-1)
+
         },
 
         rsvp() {
