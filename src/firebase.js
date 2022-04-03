@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDARf9oIw18L2aTg3-CpYQrpcjBT1NghnE",
+    apiKey: "",
     authDomain: "nusustainability.firebaseapp.com",
     projectId: "nusustainability",
     storageBucket: "nusustainability.appspot.com",
